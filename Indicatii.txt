@@ -1,0 +1,11 @@
+Aplicatie bancara
+
+			Persoana
+	          Cont
+Extras de cont	Tranzactie
+
+
+Carduri
+
+
+Servicii (depozit de economii, credit, schimb valutar)
