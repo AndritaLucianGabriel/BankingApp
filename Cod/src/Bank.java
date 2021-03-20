@@ -87,6 +87,55 @@ public class Bank {
         this.clientBankAccountMap = clientBankAccountMap;
     }
 
+    //AddClient - TESTEAZA
+    public void addClient(Client client)
+    {
+        if(this.clientBankAccountMap.containsKey(client))
+        {
+            System.out.println("Clientul exista deja!");
+        }
+        else
+            this.clientBankAccountMap.put(client,null);
+    }
+
+    //RemoveClient - TESTEAZA
+    public void removeClient(Client client)
+    {
+        this.clientBankAccountMap.remove(client);
+    }
+
+    //AddAccount ?????????????????
+    public void addBankAccount(Client client, BankAccount bankAccount)
+    {
+        /*
+        int c=0;
+        for(Map.Entry<Client, List<BankAccount>> x: this.clientBankAccountMap.entrySet())
+        {
+            for(List<BankAccount> y : x.getValue())
+            {
+
+            }
+        }*/
+
+    }
+
+    //RemoveAccount testeaza cand bagi un account dupa ce ai scos unu
+    public void removeAccount(BankAccount bankAccount)
+    {
+        for(Map.Entry<Client, List<BankAccount>> x: this.clientBankAccountMap.entrySet())
+        {
+            if(x.getValue().remove(bankAccount))
+            {
+                BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID() - 1);
+                List<BankAccount> dummy = x.getValue();
+                for (BankAccount y : dummy)
+                {
+                    y.setBankAccountID(y.getBankAccountID()-1);
+                }
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(this!=obj)
@@ -112,7 +161,7 @@ public class Bank {
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("\t\tBanca " + this.name + " cu ID-ul " + this.BankID + " aflata la " + this.location);
+        c.append("\t\t"+"["+this.BankID+"]"+"Banca " + this.name + " cu ID-ul " + this.BankID + " aflata la " + this.location);
         if(this.clientBankAccountMap.size()==0)
             c.append(" nu are clienti\n");
         else
@@ -125,7 +174,7 @@ public class Bank {
                         c.append(x.getKey().toString() + " nu are conturi bancare");
                     else
                         if(x.getValue().size()==1)
-                            c.append(x.getKey().toString() + " are un singur cont bancar " + x.getValue().toString());
+                            c.append(x.getKey().toString() + " are un singur cont bancar \n" + x.getValue().toString());
                         else {
                             c.append(x.getKey().toString() + " are urmatoarele conturi bancare:\n");
                             for(BankAccount bankAccount : x.getValue())
@@ -142,7 +191,7 @@ public class Bank {
                         c.append(x.getKey().toString() + " nu are conturi bancare");
                     else
                     if(x.getValue().size()==1)
-                        c.append(x.getKey().toString() + " are un singur cont bancar " + x.getValue().toString());
+                        c.append(x.getKey().toString() + " are un singur cont bancar \n" + x.getValue().toString());
                     else {
                         c.append(x.getKey().toString() + " are urmatoarele conturi bancare:\n");
                         for(BankAccount bankAccount : x.getValue())
