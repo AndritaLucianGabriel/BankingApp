@@ -1,29 +1,42 @@
 import java.lang.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
         /*
-        //Chestii cu clasa User
-        User user=new User("Marian","Gusatu",60,"52414626");
-        User user1=new User("Marian","Gusatu",60,"52414626");
-        User user2=user;
-
-        User user3=new User();
-        System.out.println(user3.toString());
+        //Testare functionalitati BankAccount
+        List <BankAccount> bankAccountList = new ArrayList<BankAccount>();
+        BankAccount bankAccount =new BankAccount("RO42RZBR15215321","12-09-2021",null,1203.4,"Lei");
+        bankAccountList.add(bankAccount);
+        System.out.println(bankAccountList.toString());*/
 
         /*
-        //Testare equals vs ==
-        System.out.println(user1==user);
-        System.out.println(user2==user);
-        System.out.println();
-        System.out.println(user1.equals(user));
-        System.out.println(user2.equals(user));
+        //Testare functionalitati Client
+        List <BankAccount>bankAccountList = new ArrayList<BankAccount>();
+        BankAccount bankAccount =new BankAccount("RO42RZBR15215321","12-09-2021",null,1203.4,"Lei");
+        BankAccount bankAccount1 =new BankAccount("RO41ZBR52351552","25-07-2019","12-09-2021",52312,"Dolari");
+        bankAccountList.add(bankAccount);
+        bankAccountList.add(bankAccount1);
+        Client client=new Client("Marian","Gusatu",60,"52414626",bankAccountList);
+        System.out.println(client.toString());
+        */
 
-        System.out.println(user.toString());
-         */
+        //Testare functionalitati Bank
+        List <BankAccount> bankAccountList = new ArrayList<BankAccount>();
+        BankAccount bankAccount =new BankAccount("RO42RZBR15215321","12-09-2021",null,1203.4,"Lei");
+        BankAccount bankAccount1 =new BankAccount("RO41ZBR52351552","25-07-2019","12-09-2021",52312,"Dolari");
+        bankAccountList.add(bankAccount);
+        bankAccountList.add(bankAccount1);
+        Client client=new Client("Marian","Gusatu",60,"52414626");
 
-        //Chestii cu clasa Cont
-        Cont cont=new Cont("RO42RZBR15215321","12-09-2021",null,1203.4,"Lei");
-        System.out.println(cont.toString());
+        //Apelare constructor de tip 2
+        //Bank bank = new Bank("Raiffeisen Bank","Strada Sebastian, Nr 54, Sector 3, Bucuresti", client, bankAccountList);
+
+        Map <Client, List<BankAccount>> clientListMap = new HashMap<Client, List<BankAccount>>();
+        clientListMap.put(client,bankAccountList);
+        Bank bank = new Bank("Raiffeisen Bank","Strada Sebastian, Nr 54, Sector 3, Bucuresti", clientListMap);
+       
+        System.out.println(bank.toString());
+
     }
 }

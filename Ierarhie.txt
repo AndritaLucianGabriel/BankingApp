@@ -1,0 +1,18 @@
+Bank(bankID, name, location, addAccount/re, addClient/re)
+BankAccount(IBAN, openingDate, closingDate, balance, currency)
+Card(cardID, issueDate)
+AccountStatement(accountStatementID, issueDate)
+CreditAccount(id?????, limit,)
+SavingsAccount(id?????, annualInterestRate%)
+
+Client(FirstName, LastName, age, cnp, accounts)
+Loan(loanID,value,currency,detail,date)
+
+Service
+Transaction
+CurrencyExchange
+Transfer
+Payments
+Withdraw
+BalanceCheck
+Deposit
