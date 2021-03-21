@@ -110,9 +110,9 @@ public class BankAccount {
         //inlocuieste asta cu clasa cu verificarea
         if(!Objects.equals(this.closingDate,null))
             //nu are sens sa aibe suma daca contu e inchis????
-            c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + this.balance + " " + this.currency);
+            c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + this.balance + " " + this.currency + ".");
         else
-            c.append(", avand suma de " + this.balance + " " + this.currency);
+            c.append(", avand suma de " + this.balance + " " + this.currency + ".");
         return c.toString();
     }
 

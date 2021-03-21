@@ -1,4 +1,4 @@
-Bank(bankID, name, location, addAccount/re, addClient/re)
+Bank(bankID, name, location, addBankAccount/re, addClient/re)
 BankAccount(IBAN, openingDate, closingDate, balance, currency)
 Card(cardID, issueDate)
 AccountStatement(accountStatementID, issueDate)
