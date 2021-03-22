@@ -1,12 +1,12 @@
-Bank(bankID, name, location, addBankAccount/re, addClient/re)
+Bank(bankID, name, location, clientBankAccountMap, clientLoanMap)
 BankAccount(IBAN, openingDate, closingDate, balance, currency)
-Card(cardID, issueDate)
+Card(cardNumber, PIN, issueDate)
 AccountStatement(accountStatementID, issueDate)
-CreditAccount(id?????, limit,)
+CreditAccount(id?????, limit,) 
 SavingsAccount(id?????, annualInterestRate%)
 
-Client(FirstName, LastName, age, cnp, accounts)
-Loan(loanID,value,currency,detail,date)
+Client(FirstName, LastName, age, cnp)
+Loan(loanID, value, currency, detail,date, durationMonths)
 
 Service
 Transaction

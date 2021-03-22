@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Client {
@@ -16,7 +14,6 @@ public class Client {
         this.cnp="";
     }
 
-    //termina cu BankAccount si verifica chestii
     public Client(String first_name, String last_name, int age, String cnp) {
         this.first_name = first_name;
         this.last_name = last_name;

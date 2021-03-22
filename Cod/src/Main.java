@@ -3,24 +3,6 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        //Testare functionalitati BankAccount
-        List <BankAccount> bankAccountList = new ArrayList<BankAccount>();
-        BankAccount bankAccount =new BankAccount("RO42RZBR15215321","12-09-2021",null,1203.4,"Lei");
-        bankAccountList.add(bankAccount);
-        System.out.println(bankAccountList.toString());*/
-
-        /*
-        //Testare functionalitati Client
-        List <BankAccoun t>bankAccountList = new ArrayList<BankAccount>();
-        BankAccount bankAccount =new BankAccount("RO42RZBR15215321","12-09-2021",null,1203.4,"Lei");
-        BankAccount bankAccount1 =new BankAccount("RO41ZBR52351552","25-07-2019","12-09-2021",52312,"Dolari");
-        bankAccountList.add(bankAccount);
-        bankAccountList.add(bankAccount1);
-        Client client=new Client("Marian","Gusatu",60,"52414626",bankAccountList);
-        System.out.println(client.toString());
-        */
-
         //Testare functionalitati Bank
         List <BankAccount> bankAccountList = new ArrayList<>();
         BankAccount bankAccount =new BankAccount("RO42RZBR15215321","12-09-2021",null,1203.4,"Lei");
@@ -41,31 +23,84 @@ public class Main {
         Client client1=new Client("Vadim","Tudor",60,"52414626");
         Client client2=new Client("Dan", "Diaconescu", 58, "876864835");
 
-        //Apelare constructor de tip 2
-        //Bank bank = new Bank("Raiffeisen Bank","Strada Sebastian, Nr 54, Sector 3, Bucuresti", client, bankAccountList);
+        Map <Client, List<BankAccount>> clientBankAccountMap = new HashMap<Client, List<BankAccount>>();
+        clientBankAccountMap.put(client1,bankAccountList);
 
-        Map <Client, List<BankAccount>> clientListMap = new HashMap<Client, List<BankAccount>>();
         Map <Client, List<Loan>> clientLoanMap = new HashMap<Client, List<Loan>>();
-        clientListMap.put(client1,bankAccountList);
         clientLoanMap.put(client2,loansList);
-        Bank bank = new Bank("Raiffeisen Bank","Strada Sebastian, Nr 54, Sector 3, Bucuresti", clientListMap, clientLoanMap);
-        System.out.println(bank.toString());
 
-        System.out.println("==========================================================================================================================\n");
+        Bank bank = new Bank("Raiffeisen Bank","Strada Sebastian, Nr 54, Sector 3, Bucuresti", clientBankAccountMap, clientLoanMap);
+
+        System.out.println("==========================================================================================================================");
+        System.out.println("Initial\n");
+        System.out.println(bank.toString());
+        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+
+        System.out.println("==========================================================================================================================");
+        System.out.println("Am scos al doilea cont al lui Vadim si am refacut indexii + scadere variabila statica");
         bank.removeAccount(bankAccount1);
-            //System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
         System.out.println(bank.toString());
+        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
 
-        System.out.println("==========================================================================================================================\n");
-            //bank.removeClient(client1.getCnp()); //testare eliminare
+        System.out.println("==========================================================================================================================");
+        System.out.println("Eliminare lui Vadim din BankAccountMap, o sa ramana totusi daca are un imprumut\n");
+        bank.removeClientBankAccount(client1.getCnp());
+        System.out.println(bank);
+        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+
+        System.out.println("==========================================================================================================================");
+        System.out.println("Adaugam client nou\n");
         Client client3=new Client("Ionita","Dragos",20,"52414626");
-            //bank.addClient(client2); //testare adaugare Client
-        bank.addBankAccount(client3,bankAccount2); //testare adaugare client nou + cont
-        bank.addBankAccount(client2,bankAccount2);
-        bank.addBankAccount(client1,bankAccount2); //testare adaugare cont nou
+        bank.addBankAccountClient(client3);
         System.out.println(bank.toString());
-            //System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
 
+        System.out.println("==========================================================================================================================");
+        System.out.println("Adaugam un nou cont clientului de la pasul anterior\n");
+        bank.addBankAccount(client3,bankAccount1);
+        System.out.println(bank.toString());
+        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
 
+        System.out.println("==========================================================================================================================");
+        System.out.println("Vadim se intoarce\n");
+        bank.addBankAccountClient(client1);
+        bank.addBankAccount(client1,bankAccount);
+        bank.addBankAccount(client1,bankAccount2);
+        //bank.addBankAccount(client1,bankAccount1); //decomentat coincide cu cel al lui Ionita Dragos
+        System.out.println(bank.toString());
+        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+
+        System.out.println("==========================================================================================================================");
+        System.out.println("Diaconescu pleaca de la OTV, iar Ionita incearca sa-i paseze un imprumut, dar e prea tarziu\n");
+        bank.addLoanCLient(client1);
+        bank.addLoan(client1, loan2);
+        bank.removeClientLoan(client2);
+        System.out.println(bank.toString());
+        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+
+        System.out.println("==========================================================================================================================");
+        System.out.println("Ionita devine foarte sarac\n");
+        bank.addLoan(client3, loan);
+        bank.addLoan(client3, loan1);
+        bank.addLoan(client3, loan2);;
+        System.out.println(bank.toString());
+        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+
+        System.out.println("==========================================================================================================================");
+        System.out.println("Vadim se ofera sa-i plateasca lui Ionita un imprumut\n");
+        //bank.removeAccount(bankAccount);
+        bank.removeLoan(loan2);
+        bank.addLoan(client1, loan2);
+        System.out.println(bank.toString());
+        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
     }
 }

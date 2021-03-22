@@ -114,11 +114,10 @@ public class Loan {
         return true;
     }
 
-    //Fa asta???
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("["+this.LoanID+"] Suma = "+ this.value + " "+ this.currency+" in data de "+ this.date+" pe "+ this.durationMonths+" luni ("+this.detail+").\n");
+        c.append("["+this.LoanID+"] Suma = "+ this.value + " "+ this.currency+" in data de "+ this.date+" pe "+ this.durationMonths+" luni ("+this.detail+")");
         return c.toString();
     }
 
@@ -126,5 +125,4 @@ public class Loan {
     public int hashCode() {
         return Objects.hash(this.LoanID, this.value, this.currency, this.detail, this.date, this.durationMonths);
     }
-
 }
