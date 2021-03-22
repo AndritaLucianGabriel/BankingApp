@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +10,8 @@ public class BankAccount {
     protected String closingDate;
     protected double balance;
     protected String currency;
-    
+    List<Card> cardList;
+
     public BankAccount()
     {
         counterBankAccountID++;
@@ -19,9 +21,11 @@ public class BankAccount {
         this.closingDate = "";
         this.balance = 0;
         this.currency = "";
+        this.cardList= new ArrayList<>();
     }
 
-    public BankAccount(String IBAN, String openingDate, String closingDate, double balance, String currency) {
+    //Constructor pentru pentru conturi fara carduri
+    public BankAccount(String IBAN, String openingDate, String closingDate, double balance, String currency){
         counterBankAccountID++;
         this.BankAccountID=counterBankAccountID;
         this.IBAN = IBAN;
@@ -31,53 +35,85 @@ public class BankAccount {
         this.currency = currency;
     }
 
-    //Getteri
-    public static int getCounterBankAccountID() { return counterBankAccountID; }
+    //Constructor pentru pentru conturi cu carduri
+    public BankAccount(String IBAN, String openingDate, String closingDate, double balance, String currency, List<Card> cardList){
+        counterBankAccountID++;
+        this.BankAccountID=counterBankAccountID;
+        this.IBAN = IBAN;
+        this.openingDate = openingDate;
+        this.closingDate = closingDate;
+        this.balance = balance;
+        this.currency = currency;
+        this.cardList=cardList;
+    }
 
-    public int getBankAccountID() { return BankAccountID; }
+    //Getteri & Setteri
+    public static int getCounterBankAccountID() {
+        return counterBankAccountID;
+    }
+
+    public static void setCounterBankAccountID(int counterBankAccountID) {
+        BankAccount.counterBankAccountID = counterBankAccountID;
+    }
+
+    public int getBankAccountID() {
+        return BankAccountID;
+    }
+
+    public void setBankAccountID(int bankAccountID) {
+        BankAccountID = bankAccountID;
+    }
 
     public String getIBAN() {
         return IBAN;
+    }
+
+    public void setIBAN(String IBAN) {
+        this.IBAN = IBAN;
     }
 
     public String getOpeningDate() {
         return openingDate;
     }
 
-    public String getClosingDate() {
-        return closingDate;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public String getCurrency(){
-        return this.currency;
-    }
-
-    //Setteri
-    public static void setCounterBankAccountID(int counterBankAccountID) { BankAccount.counterBankAccountID = counterBankAccountID; }
-
-    public void setBankAccountID(int bankAccountID) { BankAccountID = bankAccountID; }
-
-    public void setIBAN(String IBAN) {
-        this.IBAN = IBAN;
-    }
-
     public void setOpeningDate(String openingDate) {
         this.openingDate = openingDate;
+    }
+
+    public String getClosingDate() {
+        return closingDate;
     }
 
     public void setClosingDate(String closingDate) {
         this.closingDate = closingDate;
     }
 
+    public double getBalance() {
+        return balance;
+    }
+
     public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    public void setCurrency(String currency){ this.currency = currency; }
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public List<Card> getCardList() {
+        return cardList;
+    }
+
+    public void setCardList(List<Card> cardList) {
+        this.cardList = cardList;
+    }
+
+    //adaugi card/uri
+    //stergi card/uri
 
     @Override
     public boolean equals(Object obj) {
@@ -100,7 +136,8 @@ public class BankAccount {
             return false;
         if(!Objects.equals(this.currency, bankAccount.currency))
             return false;
-
+        if(!Objects.equals(this.cardList,bankAccount.cardList))
+            return false;
         return true;
     }
 
@@ -109,16 +146,18 @@ public class BankAccount {
         StringBuilder c=new StringBuilder();
         c.append("["+this.BankAccountID+"]"+" Contul " + this.IBAN + " a fost deschis in data de " + this.openingDate);
         //inlocuieste asta cu clasa cu verificarea
-        if(!Objects.equals(this.closingDate,null))
+        if(!Objects.equals(this.closingDate,null))//conturile inchise teoretic nu au carduri
             //nu are sens sa aibe suma daca contu e inchis????
             c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + this.balance + " " + this.currency);
-        else
+        else {
             c.append(", avand suma de " + this.balance + " " + this.currency);
+            //CONTINUA DE AICI + vezi afisare la Card
+        }
         return c.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.IBAN,this.openingDate,this.closingDate,this.balance,this.currency);
+        return Objects.hash(this.IBAN,this.openingDate,this.closingDate,this.balance,this.currency, this.cardList);
     }
 }

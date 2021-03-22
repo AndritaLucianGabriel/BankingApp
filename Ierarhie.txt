@@ -9,7 +9,7 @@ Client(FirstName, LastName, age, cnp)
 Loan(loanID, value, currency, detail,date, durationMonths)
 
 Service
-Transaction
+Transaction(transactionID, date)
 CurrencyExchange
 Transfer
 Payments
