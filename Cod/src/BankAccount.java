@@ -33,6 +33,7 @@ public class BankAccount {
         this.closingDate = closingDate;
         this.balance = balance;
         this.currency = currency;
+        this.cardList= new ArrayList<>();
     }
 
     //Constructor pentru pentru conturi cu carduri
@@ -112,8 +113,22 @@ public class BankAccount {
         this.cardList = cardList;
     }
 
-    //adaugi card/uri
-    //stergi card/uri
+    //Functii manipulare carduri
+    public void addCard(Card card)
+    {
+        if(cardList.contains(card))
+            System.out.println("Cardul " + card.cardNumber + "exista deja.");
+        else
+            cardList.add(card);
+    }
+
+    public void removeCard(Card card)
+    {
+        if(!cardList.contains(card))
+            System.out.println("Cardul " + card.cardNumber + " nu exista.");
+        else
+            cardList.remove(card);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -151,7 +166,11 @@ public class BankAccount {
             c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + this.balance + " " + this.currency);
         else {
             c.append(", avand suma de " + this.balance + " " + this.currency);
-            //CONTINUA DE AICI + vezi afisare la Card
+            if(!cardList.isEmpty())
+                for( Card x: this.cardList)
+                {
+                    c.append("\n ~ "+x.toString());
+                }
         }
         return c.toString();
     }

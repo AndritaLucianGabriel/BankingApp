@@ -64,7 +64,7 @@ public class Card {
     @Override
     public String toString() {
         StringBuilder c= new StringBuilder();
-        c.append("");
+        c.append("Cardul " + this.cardNumber + " cu pinul " + this.PIN + " a fost emis la data de " + this.issueDate);
         return c.toString();
     }
 

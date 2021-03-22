@@ -1,5 +1,3 @@
-import com.sun.org.apache.bcel.internal.generic.ALOAD;
-
 import java.util.*;
 
 public class Bank {
@@ -7,8 +5,8 @@ public class Bank {
     protected int BankID;
     protected String name;
     protected String location;
-    protected Map <Client, List<BankAccount>> clientBankAccountMap;
-    protected Map <Client, List<Loan>> clientLoanMap;
+    protected Map<Client, List<BankAccount>> clientBankAccountMap;
+    protected Map<Client, List<Loan>> clientLoanMap;
 
     public Bank() {
         counterBankID++;
@@ -27,15 +25,13 @@ public class Bank {
         this.location = location;
 
         this.clientBankAccountMap = clientBankAccountMap;
-        for(Map.Entry<Client, List<BankAccount>> x: clientBankAccountMap.entrySet())
-        {
+        for (Map.Entry<Client, List<BankAccount>> x : clientBankAccountMap.entrySet()) {
 
             normalizeBankIndex(x.getKey());
         }
 
         this.clientLoanMap = clientListMap;
-        for(Map.Entry<Client, List<Loan>> x: clientLoanMap.entrySet())
-        {
+        for (Map.Entry<Client, List<Loan>> x : clientLoanMap.entrySet()) {
             normalizeLoanIndex(x.getKey());
         }
     }
@@ -65,13 +61,13 @@ public class Bank {
         this.location = location;
 
         clientBankAccountMap = new HashMap<>();
-        List <BankAccount> localBank = new ArrayList<BankAccount>();
+        List<BankAccount> localBank = new ArrayList<BankAccount>();
         localBank.add(bankAccounts);
         this.clientBankAccountMap.put(clientBankAccount, localBank);
         normalizeBankIndex(clientBankAccount);
 
         clientLoanMap = new HashMap<>();
-        List <Loan> localLoan = new ArrayList<Loan>();
+        List<Loan> localLoan = new ArrayList<Loan>();
         localLoan.add(loans);
         this.clientLoanMap.put(clientLoan, localLoan);
         normalizeLoanIndex(clientLoan);
@@ -127,11 +123,9 @@ public class Bank {
     }
 
     //Caz particular per Client pt conturi
-    public void normalizeBankIndex(Client client)
-    {
-        for(Map.Entry<Client,List<BankAccount>> x: this.clientBankAccountMap.entrySet())
-        {
-            if(x.getKey().equals(client)) {
+    public void normalizeBankIndex(Client client) {
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            if (x.getKey().equals(client)) {
                 List<BankAccount> dummy = x.getValue();
                 int poz = 1;
                 for (BankAccount y : dummy) {
@@ -143,14 +137,11 @@ public class Bank {
     }
 
     //Caz general pentru conturi
-    public void normalizeBankIndex()
-    {
-        for(Map.Entry<Client,List<BankAccount>> x: this.clientBankAccountMap.entrySet())
-        {
+    public void normalizeBankIndex() {
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             List<BankAccount> dummy = x.getValue();
-            int poz=1;
-            for(BankAccount y: dummy)
-            {
+            int poz = 1;
+            for (BankAccount y : dummy) {
                 y.setBankAccountID(poz);
                 poz++;
             }
@@ -158,11 +149,9 @@ public class Bank {
     }
 
     //Caz particular per Client pt imprumuturi
-    public void normalizeLoanIndex(Client client)
-    {
-        for(Map.Entry<Client,List<Loan>> x: this.clientLoanMap.entrySet())
-        {
-            if(x.getKey().equals(client)) {
+    public void normalizeLoanIndex(Client client) {
+        for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
+            if (x.getKey().equals(client)) {
                 List<Loan> dummy = x.getValue();
                 int poz = 1;
                 for (Loan y : dummy) {
@@ -174,14 +163,11 @@ public class Bank {
     }
 
     //Caz general pentru imprumuturi
-    public void normalizeLoanIndex()
-    {
-        for(Map.Entry<Client,List<Loan>> x: this.clientLoanMap.entrySet())
-        {
+    public void normalizeLoanIndex() {
+        for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
             List<Loan> dummy = x.getValue();
-            int poz=1;
-            for(Loan y: dummy)
-            {
+            int poz = 1;
+            for (Loan y : dummy) {
                 y.setLoanID(poz);
                 poz++;
             }
@@ -189,156 +175,161 @@ public class Bank {
     }
 
     //AddBankAccountClient pe baza de client - nu are sens altfel (avem nevoie de detalii)
-    public void addBankAccountClient(Client client)
-    {
-        if(this.clientBankAccountMap.containsKey(client))
-        {
-            System.out.println("Clientul "+client.getFirst_name()+" "+client.getLast_name()+" exista deja!\n");
-        }
-        else {
-                List<BankAccount> dummy = new ArrayList<>();
-                this.clientBankAccountMap.put(client, dummy);
+    public void addBankAccountClient(Client client) {
+        if (this.clientBankAccountMap.containsKey(client)) {
+            System.out.println("Clientul " + client.getFirst_name() + " " + client.getLast_name() + " exista deja!\n");
+        } else {
+            List<BankAccount> dummy = new ArrayList<>();
+            this.clientBankAccountMap.put(client, dummy);
         }
     }
 
     //AddBankAccount pe baza de client - pentru citire
-    public void addBankAccount(Client client, BankAccount bankAccount)
-    {
-        int avem = 0, c=0;
-        for(Map.Entry<Client, List<BankAccount>> x: this.clientBankAccountMap.entrySet())
-        {
-            for(BankAccount y:x.getValue())
-            {
-                if(y.equals(bankAccount)) {
+    public void addBankAccount(Client client, BankAccount bankAccount) {
+        int avem = 0, c = 0;
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            for (BankAccount y : x.getValue()) {
+                if (y.equals(bankAccount)) {
                     System.out.println("Contul " + bankAccount.getIBAN() + " exista deja pentru clientul " + x.getKey().getFirst_name() + " " + x.getKey().getLast_name() + "\n");
                     c++;
                 }
             }
-            if(x.getKey().equals(client))
-            {
+            if (x.getKey().equals(client)) {
                 avem++;
                 List<BankAccount> dummy = x.getValue();
-                if(c==0)
-                {
-                    if(dummy.isEmpty())
+                if (c == 0) {
+                    if (dummy.isEmpty())
                         bankAccount.setBankAccountID(1);
                     dummy.add(bankAccount);
                     normalizeBankIndex(client);
-                    BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID()+1);
-                    this.clientBankAccountMap.replace(x.getKey(),dummy);
+                    BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID() + 1);
+                    this.clientBankAccountMap.replace(x.getKey(), dummy);
                 }
             }
         }
         //se va apela mai intai addClient cand nu avem clientul deja
-        if(avem == 0 && c==0)
-        {
+        if (avem == 0 && c == 0) {
             addBankAccountClient(client);
             List<BankAccount> dummy = new ArrayList<>();
             bankAccount.setBankAccountID(1);
             dummy.add(bankAccount);
             normalizeBankIndex(client);
-            BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID()+1);
-            this.clientBankAccountMap.put(client,dummy);
+            BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID() + 1);
+            this.clientBankAccountMap.put(client, dummy);
         }
     }
 
     //AddLoanClient pe baza de client - nu are sens altfel (avem nevoie de detalii)
-    public void addLoanCLient(Client client)
-    {
-        if(this.clientLoanMap.containsKey(client))
-        {
-            System.out.println("Clientul "+client.getFirst_name()+" "+client.getLast_name()+" exista deja!\n");
-        }
-        else {
+    public void addLoanCLient(Client client) {
+        if (this.clientLoanMap.containsKey(client)) {
+            System.out.println("Clientul " + client.getFirst_name() + " " + client.getLast_name() + " exista deja!\n");
+        } else {
             List<Loan> dummy = new ArrayList<>();
             this.clientLoanMap.put(client, dummy);
         }
     }
 
     //AddLoan pe baza de client - pentru citire
-    public void addLoan(Client client, Loan loan)
-    {
-        int avem = 0, c=0;
-        for(Map.Entry<Client, List<Loan>> x: this.clientLoanMap.entrySet())
-        {
-            for(Loan y: x.getValue())
-            {
-                if(y.equals(loan)) {
+    public void addLoan(Client client, Loan loan) {
+        int avem = 0, c = 0;
+        for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
+            for (Loan y : x.getValue()) {
+                if (y.equals(loan)) {
                     System.out.println("Imprumutul exista deja pentru clientul " + x.getKey().getFirst_name() + " " + x.getKey().getLast_name() + "\n");
                     c++;
                 }
             }
-            if(x.getKey().equals(client))
-            {
+            if (x.getKey().equals(client)) {
                 avem++;
                 List<Loan> dummy = x.getValue();
-                if(c==0)
-                {
-                    if(dummy.isEmpty())
+                if (c == 0) {
+                    if (dummy.isEmpty())
                         loan.setLoanID(1);
                     dummy.add(loan);
                     normalizeLoanIndex(client);
-                    Loan.setCounterLoanID(Loan.getCounterLoanID()+1);
-                    this.clientLoanMap.replace(x.getKey(),dummy);
+                    Loan.setCounterLoanID(Loan.getCounterLoanID() + 1);
+                    this.clientLoanMap.replace(x.getKey(), dummy);
                 }
             }
         }
         //se va apela mai intai addClient cand nu avem clientul deja
-        if(avem == 0 && c==0)
-        {
+        if (avem == 0 && c == 0) {
             addLoanCLient(client);
             List<Loan> dummy = new ArrayList<>();
             loan.setLoanID(1);
             dummy.add(loan);
             normalizeLoanIndex(client);
-            Loan.setCounterLoanID(Loan.getCounterLoanID()+1);
-            this.clientLoanMap.put(client,dummy);
+            Loan.setCounterLoanID(Loan.getCounterLoanID() + 1);
+            this.clientLoanMap.put(client, dummy);
+        }
+    }
+
+    //AddCard pe baza de card
+    public void addCard(BankAccount bankAccount, Card card) {
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            if (x.getValue().contains(bankAccount)) {
+                for (BankAccount y : x.getValue()) {
+                    y.addCard(card);
+                }
+            } else {
+                System.out.println("Contul " + bankAccount.getIBAN() + " nu exista");
+            }
+        }
+    }
+
+    //RemoveCard pe baza de card
+    public void removeCard(Card card) {
+        int c = 0;
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            for (BankAccount y : x.getValue()) {
+                if (y.cardList.contains(card)) {
+                    c++;
+                    y.cardList.remove(card);
+                }
+            }
+        }
+        if (c == 0) {
+            System.out.println("Cardul " + card.cardNumber + " nu exista");
         }
     }
 
     //RemoveClientLoan pe baza de CNP - pentru citire
-    public void removeClientLoan(String cnp)
-    {
-        Client evitConcurrentModificationException= new Client();
-        int c=0;
-        int nrLoans=0;
-        for(Map.Entry<Client, List<Loan>> x: this.clientLoanMap.entrySet())
-        {
-            if(x.getKey().getCnp().equals(cnp))
-            {
-                evitConcurrentModificationException=x.getKey();
+    public void removeClientLoan(String cnp) {
+        Client evitConcurrentModificationException = new Client();
+        int c = 0;
+        int nrLoans = 0;
+        for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
+            if (x.getKey().getCnp().equals(cnp)) {
+                evitConcurrentModificationException = x.getKey();
                 c++;
-                nrLoans=x.getValue().size();
+                nrLoans = x.getValue().size();
             }
         }
-        if(c!=0) {
-            Loan.setCounterLoanID(Loan.getCounterLoanID()-nrLoans);
+        if (c != 0) {
+            Loan.setCounterLoanID(Loan.getCounterLoanID() - nrLoans);
             this.clientLoanMap.remove(evitConcurrentModificationException);
         }
     }
+
     //RemoveClientLoan pe baza de client - pentru apel
-    public void removeClientLoan(Client client)
-    {
-        int nrLoans=0;
-        if(this.clientLoanMap.containsKey(client)) {
-            nrLoans=this.clientLoanMap.values().size()+1;
-            Loan.setCounterLoanID(Loan.getCounterLoanID()-nrLoans);
+    public void removeClientLoan(Client client) {
+        int nrLoans = 0;
+        if (this.clientLoanMap.containsKey(client)) {
+            nrLoans = this.clientLoanMap.values().size() + 1;
+            Loan.setCounterLoanID(Loan.getCounterLoanID() - nrLoans);
             this.clientLoanMap.remove(client);
         }
     }
 
     //RemoveLoan pe baza de imprumut - nu am un camp unic sa zic ca pot sa l identific usor asa ca o sa o singura functie pt asta
-    public void removeLoan(Loan loan)
-    {
-        int c=0;
-        for(Map.Entry<Client, List<Loan>> x: this.clientLoanMap.entrySet())
-        {
-            if(x.getValue().remove(loan))
-            {
+    public void removeLoan(Loan loan) {
+        int c = 0;
+        for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
+            if (x.getValue().remove(loan)) {
                 c++;
                 //scad din counter si refac ID-urile in functie de contul eliminat
                 Loan.setCounterLoanID(Loan.getCounterLoanID() - 1);
-                List<Loan> dummy= x.getValue();
+                List<Loan> dummy = x.getValue();
                 for (Loan y : dummy) {
                     if (y.getLoanID() > loan.getLoanID()) {
                         y.setLoanID(y.getLoanID() - 1);
@@ -348,61 +339,51 @@ public class Bank {
                 this.clientLoanMap.replace(x.getKey(), dummy);
             }
         }
-        if(c==0)
-        {
+        if (c == 0) {
             System.out.println(loan.toString() + ", nu a fost gasit.\n");
         }
     }
 
     //RemoveClientBankAccount pe baza de CNP - pentru citire
-    public void removeClientBankAccount(String cnp)
-    {
-        Client evitConcurrentModificationException= new Client();
-        int c=0;
-        int nrConturi=0;
-        for(Map.Entry<Client, List<BankAccount>> x: this.clientBankAccountMap.entrySet())
-        {
-            if(x.getKey().getCnp().equals(cnp))
-            {
-                evitConcurrentModificationException=x.getKey();
+    public void removeClientBankAccount(String cnp) {
+        Client evitConcurrentModificationException = new Client();
+        int c = 0;
+        int nrConturi = 0;
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            if (x.getKey().getCnp().equals(cnp)) {
+                evitConcurrentModificationException = x.getKey();
                 c++;
-                nrConturi=x.getValue().size();
+                nrConturi = x.getValue().size();
             }
         }
-        if(c!=0) {
-            BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID()-nrConturi);
+        if (c != 0) {
+            BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID() - nrConturi);
             this.clientBankAccountMap.remove(evitConcurrentModificationException);
         }
     }
 
     //RemoveClientBankAccountt pe baza de client - pentru apel
-    public void removeClientBankAccount(Client client)
-    {
-        int nrConturi=0;
-        if(this.clientBankAccountMap.containsKey(client)) {
-            nrConturi=this.clientBankAccountMap.values().size()+1;
-            BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID()-nrConturi);
+    public void removeClientBankAccount(Client client) {
+        int nrConturi = 0;
+        if (this.clientBankAccountMap.containsKey(client)) {
+            nrConturi = this.clientBankAccountMap.values().size() + 1;
+            BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID() - nrConturi);
             this.clientBankAccountMap.remove(client);
         }
     }
 
     //RemoveAccount pe baza de IBAN - pentru citire
-    public void removeAccount(String IBAN)
-    {
-        int c=0;
-        for(Map.Entry<Client, List<BankAccount>> x: this.clientBankAccountMap.entrySet())
-        {
-            List<BankAccount> dummy= x.getValue();
+    public void removeAccount(String IBAN) {
+        int c = 0;
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            List<BankAccount> dummy = x.getValue();
             BankAccount local = new BankAccount();
-            for(BankAccount y : dummy)
-            {
-                if(y.getIBAN().equals(IBAN))
-                {
-                    local=y;
+            for (BankAccount y : dummy) {
+                if (y.getIBAN().equals(IBAN)) {
+                    local = y;
                 }
             }
-            if(dummy.contains(local))
-            {
+            if (dummy.contains(local)) {
                 c++;
                 x.getValue().remove(local);
                 BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID() - 2);//am mai declarat un BankAccount in cadrul functiei
@@ -416,24 +397,20 @@ public class Bank {
                 this.clientBankAccountMap.replace(x.getKey(), dummy);
             }
         }
-        if(c==0)
-        {
-            System.out.println("Contul "+ IBAN.toString() + ", nu a fost gasit.\n");
+        if (c == 0) {
+            System.out.println("Contul " + IBAN.toString() + ", nu a fost gasit.\n");
         }
     }
 
     //RemoveAccount pe baza de cont - pentru apel
-    public void removeAccount(BankAccount bankAccount)
-    {
-        int c=0;
-        for(Map.Entry<Client, List<BankAccount>> x: this.clientBankAccountMap.entrySet())
-        {
-            if(x.getValue().remove(bankAccount))
-            {
+    public void removeAccount(BankAccount bankAccount) {
+        int c = 0;
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            if (x.getValue().remove(bankAccount)) {
                 c++;
                 //scad din counter si refac ID-urile in functie de contul eliminat
                 BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID() - 1);
-                List<BankAccount> dummy= x.getValue();
+                List<BankAccount> dummy = x.getValue();
                 for (BankAccount y : dummy) {
                     if (y.getBankAccountID() > bankAccount.getBankAccountID()) {
                         y.setBankAccountID(y.getBankAccountID() - 1);
@@ -443,32 +420,31 @@ public class Bank {
                 this.clientBankAccountMap.replace(x.getKey(), dummy);
             }
         }
-        if(c==0)
-        {
+        if (c == 0) {
             System.out.println(bankAccount.toString() + ", nu a fost gasit.\n");
         }
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(this!=obj)
+        if (this != obj)
             return false;
-        if(obj==null)
+        if (obj == null)
             return false;
-        if(this.getClass()!=obj.getClass())
+        if (this.getClass() != obj.getClass())
             return false;
-        Bank bank= (Bank) obj;
-        if(!Objects.equals(this.BankID, bank.BankID))
+        Bank bank = (Bank) obj;
+        if (!Objects.equals(this.BankID, bank.BankID))
             return false;
-        if(!Objects.equals(this.name, bank.name))
+        if (!Objects.equals(this.name, bank.name))
             return false;
-        if(!Objects.equals(this.location, bank.location))
+        if (!Objects.equals(this.location, bank.location))
             return false;
-        if(!Objects.equals(this.location, bank.location))
+        if (!Objects.equals(this.location, bank.location))
             return false;
-        if(!Objects.equals(this.clientBankAccountMap, bank.clientBankAccountMap))
+        if (!Objects.equals(this.clientBankAccountMap, bank.clientBankAccountMap))
             return false;
-        if(!Objects.equals(this.clientLoanMap, bank.clientLoanMap))
+        if (!Objects.equals(this.clientLoanMap, bank.clientLoanMap))
             return false;
         return true;
     }
@@ -476,8 +452,8 @@ public class Bank {
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("\n\t\t"+"["+this.BankID+"]"+" Banca " + this.name + " cu ID-ul " + this.BankID + " aflata la " + this.location);
-        if(this.clientBankAccountMap.size()==0&&this.clientLoanMap.size()==0)
+        c.append("\n\t\t" + "[" + this.BankID + "]" + " Banca " + this.name + " cu ID-ul " + this.BankID + " aflata la " + this.location);
+        if (this.clientBankAccountMap.size() == 0 && this.clientLoanMap.size() == 0)
             c.append(" nu are clienti.\n");
         else {
             List<Client> dummy = new ArrayList<>(); //lista locala pentru toti clientii indiferent de produs
@@ -491,10 +467,10 @@ public class Bank {
             if (dummy.size() == 1) //daca ai un singur client
             {
                 c.append(" are un singur client.\n");
-                int contCont=0, contImpr=0;
+                int contCont = 0, contImpr = 0;
                 if (this.clientBankAccountMap.containsKey(dummy.get(0))) {
                     for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
-                        if (x.getKey().equals(dummy.get(0))&&(!x.getValue().isEmpty())) {
+                        if (x.getKey().equals(dummy.get(0)) && (!x.getValue().isEmpty())) {
                             c.append(dummy.get(0).toString() + "\n  ->CONTURI:\n");
                             for (BankAccount y : x.getValue())
                                 c.append(y.toString() + ".\n");
@@ -502,14 +478,12 @@ public class Bank {
                         }
                     }
                 }
-                if(this.clientLoanMap.containsKey(dummy.get(0)))
-                {
+                if (this.clientLoanMap.containsKey(dummy.get(0))) {
                     if (this.clientLoanMap.containsKey(dummy.get(0))) {
                         for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
-                            if(x.getKey().equals(dummy.get(0))&&(!x.getValue().isEmpty()))
-                            {
-                                if(contCont==0)
-                                    c.append(dummy.get(0).toString()+"\n");
+                            if (x.getKey().equals(dummy.get(0)) && (!x.getValue().isEmpty())) {
+                                if (contCont == 0)
+                                    c.append(dummy.get(0).toString() + "\n");
                                 c.append("  ->IMPRUMUTURI:\n");
                                 for (Loan y : x.getValue())
                                     c.append(y.toString() + ".\n");
@@ -518,19 +492,18 @@ public class Bank {
                         }
                     }
                 }
-                if(contCont==0)
+                if (contCont == 0)
                     c.append(" ->NU ARE CONTURI\n");
-                if(contImpr==0)
+                if (contImpr == 0)
                     c.append(" ->NU ARE IMPRUMUTURI\n");
                 c.append("\n");
             } else {
                 c.append(" are urmatorii clienti:\n"); //daca am mai multi clienti
-                for(Client local: dummy)
-                {
-                    int contCont=0, contImpr=0;
+                for (Client local : dummy) {
+                    int contCont = 0, contImpr = 0;
                     if (this.clientBankAccountMap.containsKey(local)) {
                         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
-                            if (x.getKey().equals(local)&&(!x.getValue().isEmpty())) // daca se foloseste addBankAccount sa nu considere ca are conturi
+                            if (x.getKey().equals(local) && (!x.getValue().isEmpty())) // daca se foloseste addBankAccount sa nu considere ca are conturi
                             {
                                 c.append(local.toString() + "\n  ->CONTURI:\n");
                                 for (BankAccount y : x.getValue())
@@ -539,14 +512,13 @@ public class Bank {
                             }
                         }
                     }
-                    if(this.clientLoanMap.containsKey(local))
-                    {
+                    if (this.clientLoanMap.containsKey(local)) {
                         if (this.clientLoanMap.containsKey(local)) {
                             for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
-                                if(x.getKey().equals(local)&&(!x.getValue().isEmpty())) // daca se foloseste addLoan sa nu considere ca are conturi
+                                if (x.getKey().equals(local) && (!x.getValue().isEmpty())) // daca se foloseste addLoan sa nu considere ca are conturi
                                 {
-                                    if(contCont==0)
-                                        c.append(local.toString()+"\n");
+                                    if (contCont == 0)
+                                        c.append(local.toString() + "\n");
                                     c.append("  ->IMPRUMUTURI:\n");
                                     for (Loan y : x.getValue())
                                         c.append(y.toString() + ".\n");
@@ -555,12 +527,12 @@ public class Bank {
                             }
                         }
                     }
-                    if(contCont==0&&contImpr!=0)
+                    if (contCont == 0 && contImpr != 0)
                         c.append(" ->NU ARE CONTURI\n");
-                    else if(contImpr==0&&contCont!=0)
+                    else if (contImpr == 0 && contCont != 0)
                         c.append("  ->NU ARE IMPRUMUTURI\n");
-                        else if(contImpr==0)
-                        c.append(local.toString()+" nu are nici conturi, nici imprumuturi.\n");
+                    else if (contImpr == 0)
+                        c.append(local.toString() + " nu are nici conturi, nici imprumuturi.\n");
                     c.append("\n");
                 }
             }
