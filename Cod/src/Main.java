@@ -131,5 +131,10 @@ public class Main {
         System.out.println(bank.toString());
         System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
         System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+
+        //Zona de Teste
+        //Part 6. Testare regex-uri
+
+
     }
 }
