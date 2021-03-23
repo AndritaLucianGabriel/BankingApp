@@ -266,15 +266,25 @@ public class Bank {
 
     //AddCard pe baza de card
     public void addCard(BankAccount bankAccount, Card card) {
-        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
-            if (x.getValue().contains(bankAccount)) {
+        int c=0;
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet())
+        {
+            if (x.getValue().contains(bankAccount))
+            {
+                c++;
                 for (BankAccount y : x.getValue()) {
-                    y.addCard(card);
+                    if(y.equals(bankAccount)) {
+                        if (!y.cardList.contains(card)&&y.getClosingDate()==null)
+                            y.addCard(card);
+                        else
+                            if(y.getClosingDate()!=null)
+                                System.out.println("Contul " + bankAccount.getIBAN() + " a fost inchis deja, va rugam nu adaugati carduri.");
+                    }
                 }
-            } else {
-                System.out.println("Contul " + bankAccount.getIBAN() + " nu exista");
             }
         }
+        if(c==0)
+            System.out.println("Contul " + bankAccount.getIBAN() + " nu exista.");
     }
 
     //RemoveCard pe baza de card
