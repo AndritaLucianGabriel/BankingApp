@@ -1,3 +1,4 @@
+import Operations.ToProviders;
 import Operations.Transaction;
 import Operations.Transfer;
 import Service.FormatDouble;
@@ -10,8 +11,8 @@ public class BankAccount {
     protected static int counterBankAccountID;
     protected int BankAccountID;
     protected String IBAN;
-    protected String openingDate;
-    protected String closingDate;
+    private String openingDate;
+    private String closingDate;
     protected double balance;
     protected String currency;
     List<Card> cardList;
@@ -142,6 +143,12 @@ public class BankAccount {
     public void deposit(double value) {
         Transaction transaction= new Transfer(this.balance);
         this.balance= transaction.deposit(value);
+    }
+
+    public void paymentUtilies(String IBAN, double value)
+    {
+        Transaction transaction= new ToProviders(this.balance);
+        this.balance= transaction.paymentUtilities(IBAN,value);
     }
 
     @Override

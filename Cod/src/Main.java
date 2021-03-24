@@ -13,23 +13,35 @@ import java.util.*;
 
         -BOTTOM TREE:
       SERVICE
+    -payments
+
     -schimb valutar
 
         TO DO:
+    -bank(addProviderDB)/remove
     -transaction automat in functie de curs valutar
     -implementeaza API pentru currency si valuta
     -extrasul de cont va fi legat de un fisier extern pentru log-uri de tranzactii???????
         -metode de filtrare (interfete?)
+    -de introdus ideea de factura (ToProviders) si stocarea ei
  */
 
 public class Main {
     public static void main(String[] args) {
-        //Declarari de SERVICII
+        /*      IBAN-uri utilitati (pentru testare):
+            RO28INGB0001000000003333 - S.C. ENEL Energie Muntenia S.A.
+            RO83INGB0001000000000888 - ENGIE Romania S.A.
+            RO51INGB0001000000018827 - RCS RDS S.A.
+            RO33BRDE450SV01059614500 - Apa Nova
+        */
+
+        //Declarari de servicii
         BankValidation bankValidation = new BankValidation();
         BankAccountValidation bankAccountValidation = new BankAccountValidation();
         CardValidation cardValidation = new CardValidation();
         ClientValidation clientValidation = new ClientValidation();
         LoanValidation loanValidation = new LoanValidation();
+        ToProvidersValidation toProvidersValidation = new ToProvidersValidation();
 
         AccountStatement accountStatement = new AccountStatement();
 

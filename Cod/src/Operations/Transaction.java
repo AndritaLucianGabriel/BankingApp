@@ -60,6 +60,8 @@ public abstract class Transaction {
 
     public abstract double withdraw(double value);
 
+    public abstract double paymentUtilities(String IBAN, double value);
+
     public abstract double deposit(double value);
 
 }

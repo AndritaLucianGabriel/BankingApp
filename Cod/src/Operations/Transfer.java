@@ -1,7 +1,5 @@
 package Operations;
 
-import java.util.Objects;
-
 public class Transfer extends Transaction{
 
     public Transfer()
@@ -13,8 +11,13 @@ public class Transfer extends Transaction{
         super(value);
     }
 
-    public double withdraw(double value1) {
-        return this.value-=value1;
+    public double withdraw(double value) {
+        return this.value-=value;
+    }
+
+    @Override
+    public double paymentUtilities(String IBAN, double value) {
+        return 0;
     }
 
     public double deposit(double value1) {
