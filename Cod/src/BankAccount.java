@@ -1,4 +1,6 @@
-import Service.AccountStatement;
+import Operations.Transaction;
+import Operations.Transfer;
+import Service.FormatDouble;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,6 +134,16 @@ public class BankAccount {
             cardList.remove(card);
     }
 
+    public void withdraw(double value) {
+        Transaction transaction= new Transfer(this.balance);
+        this.balance= transaction.withdraw(value);
+    }
+
+    public void deposit(double value) {
+        Transaction transaction= new Transfer(this.balance);
+        this.balance= transaction.deposit(value);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(this!=obj)
@@ -165,7 +177,7 @@ public class BankAccount {
         //inlocuieste asta cu clasa cu verificarea
         if(!Objects.equals(this.closingDate,null))//conturile inchise teoretic nu au carduri
             //nu are sens sa aibe suma daca contu e inchis????
-            c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + this.balance + " " + this.currency);
+            c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + FormatDouble.Format(this.balance)+ " " + this.currency);
         else {
             c.append(", avand suma de " + this.balance + " " + this.currency);
             if(!cardList.isEmpty())

@@ -1,5 +1,7 @@
-import Service.AccountStatement;
+import Operations.*;
+import Service.FormatDouble;
 import Service.Validations.*;
+import Service.AccountStatement;
 
 import java.lang.*;
 import java.util.*;
@@ -7,17 +9,15 @@ import java.util.*;
 /*
         TO DO (SOON):
     -fa manevra cu employee -> clerk & admin pentru mentodele de crud si separa-le dupa rank
+    -mosteniri pentru BankAccount (abstracta)
 
-    -mosteniri pentru BankAccount ???
         -BOTTOM TREE:
-      SERVICE?????
-    -transaction legata de cont??? (clasa abstracta)
-        -implementari de transfer
-        -deposit
-        -withdraw
+      SERVICE
     -schimb valutar
 
         TO DO:
+    -transaction automat in functie de curs valutar
+    -implementeaza API pentru currency si valuta
     -extrasul de cont va fi legat de un fisier extern pentru log-uri de tranzactii???????
         -metode de filtrare (interfete?)
  */
@@ -35,7 +35,7 @@ public class Main {
 
         //Introducere date BankAccount + validari
         List<BankAccount> bankAccountList = new ArrayList<>();
-        BankAccount bankAccount = new BankAccount("RO59RZBR0000065122344800", "12-09-2021", null, 1203.4, "Lei");
+        BankAccount bankAccount = new BankAccount("RO59RZBR0000065122344800", "12-09-2021", null, 1203.2000, "Lei");
         BankAccount bankAccount1 = new BankAccount("RO59INGB0000062522326801", "25-07-2019", "12-09-2021", 52312, "Dolari");
         BankAccount bankAccount2 = new BankAccount("RO59RZBR0000068222375802", "15-05-2012", null, 12312, "Dolari");
         bankAccountList.add(bankAccount);
@@ -68,11 +68,11 @@ public class Main {
 
         //Introducere date Card + validari
         List<Card> cardList = new ArrayList<>();
-        Card card = new Card("5213512152346781", 905, "25-09-2020");
-        Card card1 = new Card("5213512152346781", 509, "05-10-2020");
-        Card card2 = new Card("5213512152346781", 524, "10-05-2019");
-        Card card3 = new Card("5213512152346781", 501, "18-04-2018");
-        Card card4 = new Card("5213512152346781", 234, "08-03-2017");
+        Card card = new Card( "5213512152346781", 905, "25-09-2020");
+        Card card1 = new Card("5603512157346791", 509, "05-10-2020");
+        Card card2 = new Card("5113512652346763", 524, "10-05-2019");
+        Card card3 = new Card("5223512152346752", 501, "18-04-2018");
+        Card card4 = new Card("5151251415234674", 234, "08-03-2017");
         cardList.add(card);
         cardList.add(card1);
         cardList.add(card2);
@@ -204,8 +204,17 @@ public class Main {
         System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
         System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
 
-        //Zona de Teste
         System.out.println("==========================================================================================================================");
-
+        System.out.println("Ion doreste niste bani, Vadim ii da din dintr-un cont\n");
+        bank.balanceCheck(bankAccount);
+        bank.balanceCheck(bankAccount1);
+        System.out.println("----------");
+        bank.interBanking(bankAccount.getIBAN(), bankAccount1.getIBAN(), 500);
+        System.out.println();
+        bank.balanceCheck(bankAccount);
+        bank.balanceCheck(bankAccount1);
+        System.out.println(bank.toString());
+        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
     }
 }

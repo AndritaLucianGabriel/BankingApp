@@ -1,3 +1,5 @@
+import Service.AccountStatement;
+
 import java.util.*;
 
 public class Bank {
@@ -433,6 +435,63 @@ public class Bank {
         if (c == 0) {
             System.out.println(bankAccount.toString() + ", nu a fost gasit.\n");
         }
+    }
+
+    //Transfer de fonduri intre conturi (deposit+withdraw)
+    public void interBanking(String receiver, String sender, double value)
+    {
+        int c=0, c1=0, k=0;
+        if(value<=0) {
+            System.out.println("De ce incerci asta? Fa-o invers :)");
+        }
+        else {
+            BankAccount dupeReceiver = new BankAccount();
+            BankAccount dupeSender = new BankAccount();
+            BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID()-2);
+            for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+                for (BankAccount y : x.getValue()) {
+                    if (y.getIBAN().equals(receiver)) {
+                        dupeReceiver = y;
+                        c++;
+                    }
+                    if (y.getIBAN().equals(sender)) {
+                        dupeSender=y;
+                        c1++;
+                    }
+                }
+            }
+            if(c!=0&&c1!=0) {
+                System.out.println("Transfer realizat cu succes");
+                dupeReceiver.deposit(value);
+                dupeSender.withdraw(value);
+                k++;
+            }
+            if (c != 0&&c1==0)
+                System.out.println("Nu exista contul in care transferati");
+            else if (c1 != 0&&c==0)
+                System.out.println("Nu exista contul din care transferati");
+            else if(k==0)
+                System.out.println("Nu exista nici un cont");
+        }
+    }
+
+    //Balance check folosind clasa serviciu
+    public void balanceCheck(BankAccount bankAccount)
+    {
+        int c=0;
+        for(Map.Entry<Client,List<BankAccount>> x: this.clientBankAccountMap.entrySet())
+        {
+            if(x.getValue().contains(bankAccount)) {
+                c++;
+                for (BankAccount y : x.getValue()) {
+                    if(y.equals(bankAccount)) {
+                        new AccountStatement().balanceCheck(y.getBalance(),y.getCurrency());
+                    }
+                }
+            }
+        }
+        if(c==0)
+            System.out.println("Nu exista contul selectat, va rugam verificati informatiile");
     }
 
     @Override

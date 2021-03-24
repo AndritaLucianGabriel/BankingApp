@@ -1,3 +1,5 @@
+import Service.FormatDouble;
+
 import java.util.Objects;
 
 public class Loan {
@@ -117,7 +119,7 @@ public class Loan {
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("["+this.LoanID+"] Suma = "+ this.value + " "+ this.currency+" in data de "+ this.date+" pe "+ this.durationMonths+" luni ("+this.detail+")");
+        c.append("["+this.LoanID+"] Suma = "+ FormatDouble.Format(this.value) + " "+ this.currency+" in data de "+ this.date+" pe "+ this.durationMonths+" luni ("+this.detail+")");
         return c.toString();
     }
 
