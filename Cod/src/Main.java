@@ -1,5 +1,4 @@
-import Operations.*;
-import Service.FormatDouble;
+import Operations.ToProviders;
 import Service.Validations.*;
 import Service.AccountStatement;
 
@@ -13,8 +12,7 @@ import java.util.*;
 
         -BOTTOM TREE:
       SERVICE
-    -payments
-
+    -mai e un bug vezi cum rezolvi
     -schimb valutar
 
         TO DO:
@@ -41,6 +39,7 @@ public class Main {
         CardValidation cardValidation = new CardValidation();
         ClientValidation clientValidation = new ClientValidation();
         LoanValidation loanValidation = new LoanValidation();
+        ToProviders toProviders = new ToProviders();
         ToProvidersValidation toProvidersValidation = new ToProvidersValidation();
 
         AccountStatement accountStatement = new AccountStatement();
@@ -221,12 +220,27 @@ public class Main {
         bank.balanceCheck(bankAccount);
         bank.balanceCheck(bankAccount1);
         System.out.println("----------");
-        bank.interBanking(bankAccount.getIBAN(), bankAccount1.getIBAN(), 500);
+        bank.interBanking(bankAccount1.getIBAN(), bankAccount.getIBAN(), 500);
         System.out.println();
         bank.balanceCheck(bankAccount);
         bank.balanceCheck(bankAccount1);
         System.out.println(bank.toString());
         System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
         System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+
+        System.out.println("==========================================================================================================================");
+        System.out.println("Vadim si Ion isi platesc cablul\n");
+        System.out.println(bank.toString());
+        bankAccount.paymentUtilies("RO51INGB0001000000018827", 100);
+        bankAccount1.paymentUtilies("RO51INGB0001000000018827", 750);
+
+        //REZOLVA ASTA
+        System.out.println(bankAccount.getTransaction().getElemArray(2).toString());
+        System.out.println(bankAccount1.getTransaction().getElemArray(2).toString());
+
+        System.out.println("-----------------");
+        System.out.println(bank.toString());
+
+        //Zona de teste
     }
 }

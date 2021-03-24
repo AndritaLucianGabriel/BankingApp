@@ -16,6 +16,7 @@ public class BankAccount {
     protected double balance;
     protected String currency;
     List<Card> cardList;
+    protected Transaction transaction;
 
     public BankAccount()
     {
@@ -118,6 +119,14 @@ public class BankAccount {
         this.cardList = cardList;
     }
 
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
     //Functii manipulare carduri
     public void addCard(Card card)
     {
@@ -145,9 +154,10 @@ public class BankAccount {
         this.balance= transaction.deposit(value);
     }
 
-    public void paymentUtilies(String IBAN, double value)
+	public void paymentUtilies(String IBAN, double value)
     {
-        Transaction transaction= new ToProviders(this.balance);
+        System.out.print("\tAu fost virati " + value + " din contul "+ this.IBAN);
+    	this.transaction = new ToProviders(this.balance);
         this.balance= transaction.paymentUtilities(IBAN,value);
     }
 
@@ -186,7 +196,7 @@ public class BankAccount {
             //nu are sens sa aibe suma daca contu e inchis????
             c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + FormatDouble.Format(this.balance)+ " " + this.currency);
         else {
-            c.append(", avand suma de " + this.balance + " " + this.currency);
+            c.append(", avand suma de " + FormatDouble.Format(this.balance) + " " + this.currency);
             if(!cardList.isEmpty())
                 for( Card x: this.cardList)
                 {

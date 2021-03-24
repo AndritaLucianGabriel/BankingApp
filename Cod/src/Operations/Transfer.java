@@ -24,4 +24,9 @@ public class Transfer extends Transaction{
         return this.value+=value1;
     }
 
+	@Override
+	public Object getElemArray(int i) {
+		return null;
+	}
+
 }

@@ -64,4 +64,6 @@ public abstract class Transaction {
 
     public abstract double deposit(double value);
 
+	public abstract Object getElemArray(int i);
+
 }

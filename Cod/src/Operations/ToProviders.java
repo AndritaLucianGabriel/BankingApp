@@ -13,9 +13,20 @@ public class ToProviders extends Transaction {
     ProviderDB providerDB1=new ProviderDB("ENGIE Romania S.A.","RO83INGB0001000000000888");
     ProviderDB providerDB2=new ProviderDB("RCS RDS S.A.","RO51INGB0001000000018827");
     ProviderDB providerDB3=new ProviderDB("Apa Nova","RO33BRDE4500501059614500");
-    ProviderDB[] array= {providerDB,providerDB1,providerDB2,providerDB3};
+    protected ProviderDB[] array= {providerDB,providerDB1,providerDB2,providerDB3};
 
-    //o apelez in main pt moment in modul asta sa pot sa verific regex-ul
+    //Getteri & Setteri
+    public ProviderDB[] getArray() {
+        return array;
+    }
+
+    public void setArray(ProviderDB[] array) {
+        this.array = array;
+    }
+
+    public ProviderDB getElemArray(int i){return array[i];}
+
+    //O apelez in main pt moment in modul asta sa pot sa verific regex-ul
     public void toProvidersValidation()
     {
         for(ProviderDB x: array) {
@@ -35,12 +46,15 @@ public class ToProviders extends Transaction {
     @Override
     public double paymentUtilities(String IBAN, double value) {
         double val=0;
-        for(ProviderDB x: array)
+        for(int i=0;i<array.length;i++)
         {
-            if(Objects.equals(x.getIBAN(),IBAN))
+            if(Objects.equals(this.array[i].getIBAN(),IBAN))
             {
-                x.setBalance(x.getBalance()+value);
+                System.out.println(" in contul "+ IBAN+ " ("+this.array[i].getCompany()+")"+"\nSold anterior: "+this.array[i].getBalance());
+                this.array[i].setBalance(this.array[i].getBalance()+value);
+                System.out.println("Sold nou: "+this.array[i].getBalance());
                 val=this.value-=value;
+                break;
             }
         }
         return val;

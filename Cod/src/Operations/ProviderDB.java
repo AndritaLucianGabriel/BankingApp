@@ -25,6 +25,12 @@ public class ProviderDB {
         this.balance = balance;
     }
 
+    public ProviderDB(ProviderDB providerDB) {
+        this.company = providerDB.company;
+        this.IBAN = providerDB.IBAN;
+        this.balance = providerDB.balance;
+    }
+
     //Getteri & Setteri
     public String getCompany() {
         return company;
