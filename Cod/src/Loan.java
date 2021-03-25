@@ -88,8 +88,6 @@ public class Loan {
         this.durationMonths = durationMonths;
     }
 
-    //Metode de plata a datoriei - vezi valoare
-
     @Override
     public boolean equals(Object obj) {
         if (this != obj)

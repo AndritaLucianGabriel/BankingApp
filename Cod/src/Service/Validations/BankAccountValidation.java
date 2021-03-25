@@ -11,7 +11,6 @@ public class BankAccountValidation {
             System.out.println("Data de deschidere invalida");
     }
 
-    //nu am gasit cum sa introduc null in regex :(
     public void validateClosingDate(String closingDate) {
         if (!((closingDate == null) || closingDate.matches("^([0123]\\d)[- /.]([01]\\d)[- /.]([012]\\d\\d\\d)$")))
             System.out.println("Data de inchidere invalida");

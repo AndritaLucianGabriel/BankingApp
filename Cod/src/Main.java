@@ -11,6 +11,8 @@ import java.util.*;
     -mosteniri pentru BankAccount (abstracta)
 
         TO DO:
+    -metoda de plata a datoriei
+    -validarile intr-un final se vor face in cadrul constructorilor!!!!
     -agregare/compozitie? verifica
     -renunta la variabila statica pt id si fa o metoda separata (identifiable)
     -bank(addProviderDB)/remove

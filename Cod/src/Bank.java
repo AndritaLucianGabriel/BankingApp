@@ -125,7 +125,7 @@ public class Bank {
         this.clientLoanMap = clientLoanMap;
     }
 
-    //Caz particular per Client pt conturi
+    //Caz particular per client pt conturi
     public void normalizeBankIndex(Client client) {
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             if (x.getKey().equals(client)) {
@@ -300,6 +300,24 @@ public class Bank {
         }
         if (c == 0) {
             System.out.println("Cardul " + card.cardNumber + " nu exista");
+        }
+    }
+
+    //RemoveCard pe baza de numar de card
+    public void removeCard(String cardNumber) {
+        int c = 0;
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            for (BankAccount y : x.getValue()) {
+                for(Card z: y.getCardList()) {
+                    if (z.getCardNumber().equals(cardNumber)) {
+                        c++;
+                        y.cardList.remove(z);
+                    }
+                }
+            }
+        }
+        if (c == 0) {
+            System.out.println("Cardul " + cardNumber.toString() + " nu exista");
         }
     }
 

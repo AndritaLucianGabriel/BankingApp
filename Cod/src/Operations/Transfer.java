@@ -14,8 +14,8 @@ public class Transfer extends Transaction {
         return this.value -= value;
     }
 
-    public double deposit(double value1) {
-        return this.value += value1;
+    public double deposit(double value) {
+        return this.value += value;
     }
 
     @Override
