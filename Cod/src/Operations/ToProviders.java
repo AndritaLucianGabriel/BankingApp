@@ -9,11 +9,11 @@ import java.util.Objects;
 public class ToProviders extends Transaction {
     ToProvidersValidation toProvidersValidation = new ToProvidersValidation();
 
-    ProviderDB providerDB=new ProviderDB("S.C. ENEL Energie Muntenia S.A.","RO28INGB0001000000003333");
-    ProviderDB providerDB1=new ProviderDB("ENGIE Romania S.A.","RO83INGB0001000000000888");
-    ProviderDB providerDB2=new ProviderDB("RCS RDS S.A.","RO51INGB0001000000018827");
-    ProviderDB providerDB3=new ProviderDB("Apa Nova","RO33BRDE4500501059614500");
-    protected ProviderDB[] array= {providerDB,providerDB1,providerDB2,providerDB3};
+    static ProviderDB providerDB=new ProviderDB("S.C. ENEL Energie Muntenia S.A.","RO28INGB0001000000003333");
+    static ProviderDB providerDB1=new ProviderDB("ENGIE Romania S.A.","RO83INGB0001000000000888");
+    static ProviderDB providerDB2=new ProviderDB("RCS RDS S.A.","RO51INGB0001000000018827");
+    static ProviderDB providerDB3=new ProviderDB("Apa Nova","RO33BRDE4500501059614500");
+    private ProviderDB[] array= {providerDB,providerDB1,providerDB2,providerDB3};
 
     //Getteri & Setteri
     public ProviderDB[] getArray() {

@@ -12,12 +12,11 @@ import java.util.*;
 
         -BOTTOM TREE:
       SERVICE
-    -mai e un bug vezi cum rezolvi
     -schimb valutar
 
         TO DO:
     -bank(addProviderDB)/remove
-    -transaction automat in functie de curs valutar
+    -transaction automat in functie de curs valutar (Foloseste API)
     -implementeaza API pentru currency si valuta
     -extrasul de cont va fi legat de un fisier extern pentru log-uri de tranzactii???????
         -metode de filtrare (interfete?)
