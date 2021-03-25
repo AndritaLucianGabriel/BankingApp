@@ -1,7 +1,9 @@
+import Operations.CurrencyExchange;
 import Operations.ToProviders;
 import Operations.Transaction;
 import Operations.Transfer;
 import Service.FormatDouble;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,6 +161,13 @@ public class BankAccount {
         System.out.print("\tAu fost virati " + value + " din contul "+ this.IBAN);
     	this.transaction = new ToProviders(this.balance);
         this.balance= transaction.paymentUtilities(IBAN,value);
+    }
+
+    public void currencyExchange(String wantedCurrency)
+    {
+        Pair<Double, String> doubleStringPair = CurrencyExchange.exchangeBankAccount(this.balance,this.currency,wantedCurrency);
+        this.balance=doubleStringPair.getKey();
+        this.currency=doubleStringPair.getValue();
     }
 
     @Override

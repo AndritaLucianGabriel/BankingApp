@@ -15,6 +15,8 @@ import java.util.*;
     -schimb valutar
 
         TO DO:
+    -agregare/compozitie? verifica
+    -renunta la variabila statica pt id si fa o metoda separata (identifiable)
     -bank(addProviderDB)/remove
     -transaction automat in functie de curs valutar (Foloseste API)
     -implementeaza API pentru currency si valuta
@@ -46,7 +48,7 @@ public class Main {
         //Introducere date BankAccount + validari
         List<BankAccount> bankAccountList = new ArrayList<>();
         BankAccount bankAccount = new BankAccount("RO59RZBR0000065122344800", "12-09-2021", null, 1203.2000, "Lei");
-        BankAccount bankAccount1 = new BankAccount("RO59INGB0000062522326801", "25-07-2019", "12-09-2021", 52312, "Dolari");
+        BankAccount bankAccount1 = new BankAccount("RO59INGB0000062522326801", "25-07-2019", "12-09-2021", 1000, "Dolari");
         BankAccount bankAccount2 = new BankAccount("RO59RZBR0000068222375802", "15-05-2012", null, 12312, "Dolari");
         bankAccountList.add(bankAccount);
         bankAccountList.add(bankAccount1);
@@ -119,127 +121,125 @@ public class Main {
         Bank bank = new Bank("Raiffeisen Bank", "Strada Sebastian, Nr 54, Sector 3, Bucuresti", clientBankAccountMap, clientLoanMap);
         bankValidation.validateName(bank.getName());
 
-        System.out.println("==========================================================================================================================");
-        System.out.println("Initial\n");
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Am scos al doilea cont al lui Vadim si am refacut indexii + scadere variabila statica");
-        bank.removeAccount(bankAccount1);
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Eliminare lui Vadim din BankAccountMap, o sa ramana totusi daca are un imprumut\n");
-        bank.removeClientBankAccount(client1.getCnp());
-        System.out.println(bank);
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Adaugam client nou\n");
-        Client client3=new Client("Ionita","Dragos",20,"52414626");
-        bank.addBankAccountClient(client3);
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Adaugam un nou cont clientului de la pasul anterior\n");
-        bank.addBankAccount(client3,bankAccount1);
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Vadim se intoarce\n");
-        bank.addBankAccountClient(client1);
-        bank.addBankAccount(client1,bankAccount);
-        bank.addBankAccount(client1,bankAccount2);
-        //bank.addBankAccount(client1,bankAccount1); //decomentat coincide cu cel al lui Ionita Dragos
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Diaconescu pleaca de la OTV, iar Ionita incearca sa-i paseze un imprumut, dar e prea tarziu\n");
-        bank.addLoanCLient(client1);
-        bank.addLoan(client1, loan2);
-        bank.removeClientLoan(client2);
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Ionita devine foarte sarac\n");
-        bank.addLoan(client3, loan);
-        bank.addLoan(client3, loan1);
-        bank.addLoan(client3, loan2);;
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Vadim se ofera sa-i plateasca lui Ionita un imprumut\n");
-        //bank.removeAccount(bankAccount);
-        bank.removeLoan(loan2);
-        bank.addLoan(client1, loan2);
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Doar conturile deschise vor avea carduri\n");
-        bank.addCard(bankAccount1,card4);
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Adaugam carduri lui Vadim\n");
-        bank.addCard(bankAccount, card);
-        bank.addCard(bankAccount, card1);
-        bank.addCard(bankAccount, card2);
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Mai scoatem din cardurile lui Vadim\n");
-        bank.removeCard(card1);
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Ion doreste niste bani, Vadim ii da din dintr-un cont\n");
-        bank.balanceCheck(bankAccount);
-        bank.balanceCheck(bankAccount1);
-        System.out.println("----------");
-        bank.interBanking(bankAccount1.getIBAN(), bankAccount.getIBAN(), 500);
-        System.out.println();
-        bank.balanceCheck(bankAccount);
-        bank.balanceCheck(bankAccount1);
-        System.out.println(bank.toString());
-        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
-        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
-
-        System.out.println("==========================================================================================================================");
-        System.out.println("Vadim si Ion isi platesc cablul\n");
-        System.out.println(bank.toString());
-        bankAccount.paymentUtilies("RO51INGB0001000000018827", 100);
-        bankAccount1.paymentUtilies("RO51INGB0001000000018827", 750);
-
-        //REZOLVA ASTA
-        System.out.println(bankAccount.getTransaction().getElemArray(2).toString());
-        System.out.println(bankAccount1.getTransaction().getElemArray(2).toString());
-
-        System.out.println("-----------------");
-        System.out.println(bank.toString());
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Initial\n");
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Am scos al doilea cont al lui Vadim si am refacut indexii + scadere variabila statica");
+//        bank.removeAccount(bankAccount1);
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Eliminare lui Vadim din BankAccountMap, o sa ramana totusi daca are un imprumut\n");
+//        bank.removeClientBankAccount(client1.getCnp());
+//        System.out.println(bank);
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Adaugam client nou\n");
+//        Client client3=new Client("Ionita","Dragos",20,"52414626");
+//        bank.addBankAccountClient(client3);
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Adaugam un nou cont clientului de la pasul anterior\n");
+//        bank.addBankAccount(client3,bankAccount1);
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Vadim se intoarce\n");
+//        bank.addBankAccountClient(client1);
+//        bank.addBankAccount(client1,bankAccount);
+//        bank.addBankAccount(client1,bankAccount2);
+//        //bank.addBankAccount(client1,bankAccount1); //decomentat coincide cu cel al lui Ionita Dragos
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Diaconescu pleaca de la OTV, iar Ionita incearca sa-i paseze un imprumut, dar e prea tarziu\n");
+//        bank.addLoanCLient(client1);
+//        bank.addLoan(client1, loan2);
+//        bank.removeClientLoan(client2);
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Ionita devine foarte sarac\n");
+//        bank.addLoan(client3, loan);
+//        bank.addLoan(client3, loan1);
+//        bank.addLoan(client3, loan2);;
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Vadim se ofera sa-i plateasca lui Ionita un imprumut\n");
+//        //bank.removeAccount(bankAccount);
+//        bank.removeLoan(loan2);
+//        bank.addLoan(client1, loan2);
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Doar conturile deschise vor avea carduri\n");
+//        bank.addCard(bankAccount1,card4);
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Adaugam carduri lui Vadim\n");
+//        bank.addCard(bankAccount, card);
+//        bank.addCard(bankAccount, card1);
+//        bank.addCard(bankAccount, card2);
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Mai scoatem din cardurile lui Vadim\n");
+//        bank.removeCard(card1);
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Ion doreste niste bani, Vadim ii da din dintr-un cont\n");
+//        bank.balanceCheck(bankAccount);
+//        bank.balanceCheck(bankAccount1);
+//        System.out.println("----------");
+//        bank.interBanking(bankAccount1.getIBAN(), bankAccount.getIBAN(), 500);
+//        System.out.println();
+//        bank.balanceCheck(bankAccount);
+//        bank.balanceCheck(bankAccount1);
+//        System.out.println(bank.toString());
+//        System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());
+//        System.out.println("COUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
+//
+//        System.out.println("==========================================================================================================================");
+//        System.out.println("Vadim si Ion isi platesc cablul\n");
+//        System.out.println(bank.toString());
+//        bank.paymentUtilies(bankAccount.getIBAN(),"RO51INGB0001000000018827", 100);
+//        bank.paymentUtilies(bankAccount1.getIBAN(), "RO51INGB0001000000018827", 750);
+//        System.out.println("-----------------");
+//        System.out.println(bank.toString());
 
         //Zona de teste
+        System.out.println(bankAccount1.toString());
+        bank.currencyExchange(bankAccount1,"Euro");
+        System.out.println(bankAccount1.toString());
     }
 }

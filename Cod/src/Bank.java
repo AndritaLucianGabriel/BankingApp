@@ -494,6 +494,37 @@ public class Bank {
             System.out.println("Nu exista contul selectat, va rugam verificati informatiile");
     }
 
+    //Plata ca furnizorii deja existenti
+    public void paymentUtilies(String Sender, String Receiver, double value)
+    {
+        int c=0;
+        for(Map.Entry<Client, List<BankAccount>> x: this.clientBankAccountMap.entrySet())
+        {
+            for(BankAccount y: x.getValue())
+            {
+                if(y.getIBAN().equals(Sender))
+                {
+                    y.paymentUtilies(Receiver, value);
+                    c++;
+                }
+            }
+        }
+        if(c==0)
+            System.out.println("Nu exista contul "+Sender);
+    }
+
+    //CurrencyExchange pe cont
+    public void currencyExchange(BankAccount bankAccount, String wantedCurrency)
+    {
+        for(Map.Entry<Client, List<BankAccount>> x: this.clientBankAccountMap.entrySet())
+        {
+            if(x.getValue().contains(bankAccount))
+            {
+                bankAccount.currencyExchange(wantedCurrency);
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null)

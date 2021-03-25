@@ -2,8 +2,6 @@ package Operations;
 
 import Service.Validations.ToProvidersValidation;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class ToProviders extends Transaction {
@@ -45,11 +43,12 @@ public class ToProviders extends Transaction {
 
     @Override
     public double paymentUtilities(String IBAN, double value) {
-        double val=0;
+        double val=0,c=0;
         for(int i=0;i<array.length;i++)
         {
             if(Objects.equals(this.array[i].getIBAN(),IBAN))
             {
+                c++;
                 System.out.println(" in contul "+ IBAN+ " ("+this.array[i].getCompany()+")"+"\nSold anterior: "+this.array[i].getBalance());
                 this.array[i].setBalance(this.array[i].getBalance()+value);
                 System.out.println("Sold nou: "+this.array[i].getBalance());
@@ -57,6 +56,8 @@ public class ToProviders extends Transaction {
                 break;
             }
         }
+        if(c==0)
+            System.out.println("Nu exista providerul cu IBAN-ul: "+IBAN);
         return val;
     }
 
