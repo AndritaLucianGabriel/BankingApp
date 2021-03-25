@@ -13,17 +13,17 @@ public class Loan {
 
     public Loan() {
         counterLoanID++;
-        this.LoanID=counterLoanID;
+        this.LoanID = counterLoanID;
         this.value = 0;
         this.currency = "";
         this.detail = "";
         this.date = "";
-        this.durationMonths=0;
+        this.durationMonths = 0;
     }
 
     public Loan(double value, String currency, String detail, String date, int durationMonths) {
         counterLoanID++;
-        this.LoanID=counterLoanID;
+        this.LoanID = counterLoanID;
         this.value = value;
         this.currency = currency;
         this.detail = detail;
@@ -92,26 +92,26 @@ public class Loan {
 
     @Override
     public boolean equals(Object obj) {
-        if(this!=obj)
+        if (this != obj)
             return false;
-        if(obj==null)
+        if (obj == null)
             return false;
-        if(this.getClass()!=obj.getClass())
+        if (this.getClass() != obj.getClass())
             return false;
-        Loan loan= (Loan) obj;
-        if(this.LoanID!=loan.LoanID)
+        Loan loan = (Loan) obj;
+        if (this.LoanID != loan.LoanID)
             return false;
-        if(this.value!=loan.value)
+        if (this.value != loan.value)
             return false;
-        if(!Objects.equals(this.currency,loan.currency))
+        if (!Objects.equals(this.currency, loan.currency))
             return false;
-        if(this.detail!=loan.detail)
+        if (this.detail != loan.detail)
             return false;
-        if(!Objects.equals(this.date,loan.date))
+        if (!Objects.equals(this.date, loan.date))
             return false;
-        if(!Objects.equals(this.date,loan.date))
+        if (!Objects.equals(this.date, loan.date))
             return false;
-        if(this.durationMonths!=loan.durationMonths)
+        if (this.durationMonths != loan.durationMonths)
             return false;
         return true;
     }
@@ -119,7 +119,7 @@ public class Loan {
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("["+this.LoanID+"] Suma = "+ FormatDouble.Format(this.value) + " "+ this.currency+" in data de "+ this.date+" pe "+ this.durationMonths+" luni ("+this.detail+")");
+        c.append("[" + this.LoanID + "] Suma = " + FormatDouble.Format(this.value) + " " + this.currency + " in data de " + this.date + " pe " + this.durationMonths + " luni (" + this.detail + ")");
         return c.toString();
     }
 

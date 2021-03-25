@@ -9,20 +9,22 @@ public abstract class Transaction {
     //am nevoie de timestamp pentru filtrele ulterioare
     protected LocalDateTime timestamp;
     protected double value;
+    protected String currency;
 
-    public Transaction()
-    {
+    public Transaction() {
         counterTransactionID++;
-        this.transactionID=counterTransactionID;
-        this.timestamp=LocalDateTime.now();
+        this.transactionID = counterTransactionID;
+        this.timestamp = LocalDateTime.now();
         this.value = 0;
+        this.currency = "";
     }
 
-    public Transaction(double value) {
+    public Transaction(double value, String currency) {
         counterTransactionID++;
-        this.transactionID=counterTransactionID;
-        this.timestamp=LocalDateTime.now();
+        this.transactionID = counterTransactionID;
+        this.timestamp = LocalDateTime.now();
         this.value = value;
+        this.currency = currency;
     }
 
     //Getteri & Setteri
@@ -58,12 +60,21 @@ public abstract class Transaction {
         this.value = value;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    //Metode abstracte
     public abstract double withdraw(double value);
 
     public abstract double paymentUtilities(String IBAN, double value);
 
     public abstract double deposit(double value);
 
-	public abstract Object getElemArray(int i);
+    public abstract Object getElemArray(int i);
 
 }

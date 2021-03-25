@@ -1,3 +1,4 @@
+import Operations.CurrencyExchange;
 import Service.AccountStatement;
 
 import java.util.*;
@@ -268,24 +269,21 @@ public class Bank {
 
     //AddCard pe baza de card
     public void addCard(BankAccount bankAccount, Card card) {
-        int c=0;
-        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet())
-        {
-            if (x.getValue().contains(bankAccount))
-            {
+        int c = 0;
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            if (x.getValue().contains(bankAccount)) {
                 c++;
                 for (BankAccount y : x.getValue()) {
-                    if(y.equals(bankAccount)) {
-                        if (!y.cardList.contains(card)&&y.getClosingDate()==null)
+                    if (y.equals(bankAccount)) {
+                        if (!y.cardList.contains(card) && y.getClosingDate() == null)
                             y.addCard(card);
-                        else
-                            if(y.getClosingDate()!=null)
-                                System.out.println("Contul " + bankAccount.getIBAN() + " a fost inchis deja, va rugam nu adaugati carduri.");
+                        else if (y.getClosingDate() != null)
+                            System.out.println("Contul " + bankAccount.getIBAN() + " a fost inchis deja, va rugam nu adaugati carduri.");
                     }
                 }
             }
         }
-        if(c==0)
+        if (c == 0)
             System.out.println("Contul " + bankAccount.getIBAN() + " nu exista.");
     }
 
@@ -438,16 +436,14 @@ public class Bank {
     }
 
     //Transfer de fonduri intre conturi (deposit+withdraw)
-    public void interBanking(String receiver, String sender, double value)
-    {
-        int c=0, c1=0, k=0;
-        if(value<=0) {
+    public void interBanking(String receiver, String sender, double value) {
+        int c = 0, c1 = 0, k = 0;
+        if (value <= 0) {
             System.out.println("De ce incerci asta? Fa-o invers :)");
-        }
-        else {
+        } else {
             BankAccount dupeReceiver = new BankAccount();
             BankAccount dupeSender = new BankAccount();
-            BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID()-2);
+            BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID() - 2);
             for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
                 for (BankAccount y : x.getValue()) {
                     if (y.getIBAN().equals(receiver)) {
@@ -455,71 +451,64 @@ public class Bank {
                         c++;
                     }
                     if (y.getIBAN().equals(sender)) {
-                        dupeSender=y;
+                        dupeSender = y;
                         c1++;
                     }
                 }
             }
-            if(c!=0&&c1!=0) {
-                System.out.println("Transfer realizat cu succes");
-                dupeReceiver.deposit(value);
+            if (c != 0 && c1 != 0) {
+                System.out.println("Transferul din contul " + dupeSender.getIBAN() + " in contul " + dupeReceiver.getIBAN() + " in valoare de " + value + " " + dupeSender.getCurrency() + " a avut succes!");
                 dupeSender.withdraw(value);
+                value = CurrencyExchange.convertTransfer(value, dupeReceiver.getCurrency(), dupeSender.getCurrency());
+                dupeReceiver.deposit(value);
                 k++;
             }
-            if (c != 0&&c1==0)
+            if (c != 0 && c1 == 0)
                 System.out.println("Nu exista contul in care transferati");
-            else if (c1 != 0&&c==0)
+            else if (c1 != 0 && c == 0)
                 System.out.println("Nu exista contul din care transferati");
-            else if(k==0)
+            else if (k == 0)
                 System.out.println("Nu exista nici un cont");
         }
     }
 
     //Balance check folosind clasa serviciu
-    public void balanceCheck(BankAccount bankAccount)
-    {
-        int c=0;
-        for(Map.Entry<Client,List<BankAccount>> x: this.clientBankAccountMap.entrySet())
-        {
-            if(x.getValue().contains(bankAccount)) {
+    public void balanceCheck(BankAccount bankAccount) {
+        int c = 0;
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            if (x.getValue().contains(bankAccount)) {
                 c++;
                 for (BankAccount y : x.getValue()) {
-                    if(y.equals(bankAccount)) {
-                        new AccountStatement().balanceCheck(y.getBalance(),y.getCurrency());
+                    if (y.equals(bankAccount)) {
+                        new AccountStatement().balanceCheck(y.getBalance(), y.getCurrency());
                     }
                 }
             }
         }
-        if(c==0)
+        if (c == 0)
             System.out.println("Nu exista contul selectat, va rugam verificati informatiile");
     }
 
     //Plata ca furnizorii deja existenti
-    public void paymentUtilies(String Sender, String Receiver, double value)
-    {
-        int c=0;
-        for(Map.Entry<Client, List<BankAccount>> x: this.clientBankAccountMap.entrySet())
-        {
-            for(BankAccount y: x.getValue())
-            {
-                if(y.getIBAN().equals(Sender))
-                {
+    public void paymentUtilies(String Sender, String Receiver, double value) {
+        int c = 0;
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            for (BankAccount y : x.getValue()) {
+                if (y.getIBAN().equals(Sender)) {
+                    System.out.print("\tClientul " + x.getKey().getFirst_name() + " " + x.getKey().getLast_name());
                     y.paymentUtilies(Receiver, value);
                     c++;
                 }
             }
         }
-        if(c==0)
-            System.out.println("Nu exista contul "+Sender);
+        if (c == 0)
+            System.out.println("Nu exista contul " + Sender);
     }
 
     //CurrencyExchange pe cont
-    public void currencyExchange(BankAccount bankAccount, String wantedCurrency)
-    {
-        for(Map.Entry<Client, List<BankAccount>> x: this.clientBankAccountMap.entrySet())
-        {
-            if(x.getValue().contains(bankAccount))
-            {
+    public void currencyExchange(BankAccount bankAccount, String wantedCurrency) {
+        for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
+            if (x.getValue().contains(bankAccount)) {
                 bankAccount.currencyExchange(wantedCurrency);
             }
         }

@@ -5,8 +5,7 @@ public class Card {
     protected int PIN;
     protected String issueDate;
 
-    public Card()
-    {
+    public Card() {
         this.cardNumber = "";
         this.PIN = 0;
         this.issueDate = "";
@@ -45,25 +44,25 @@ public class Card {
 
     @Override
     public boolean equals(Object obj) {
-        if(this!=obj)
+        if (this != obj)
             return false;
-        if(obj==null)
+        if (obj == null)
             return false;
-        if(this.getClass()!=obj.getClass())
+        if (this.getClass() != obj.getClass())
             return false;
-        Card card= (Card) obj;
-        if(!Objects.equals(this.cardNumber, this.cardNumber))
+        Card card = (Card) obj;
+        if (!Objects.equals(this.cardNumber, this.cardNumber))
             return false;
-        if(this.PIN!=card.PIN)
+        if (this.PIN != card.PIN)
             return false;
-        if(!Objects.equals(this.issueDate, this.issueDate))
+        if (!Objects.equals(this.issueDate, this.issueDate))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        StringBuilder c= new StringBuilder();
+        StringBuilder c = new StringBuilder();
         c.append("Cardul " + this.cardNumber + " cu pinul " + this.PIN + " a fost emis la data de " + this.issueDate);
         return c.toString();
     }
