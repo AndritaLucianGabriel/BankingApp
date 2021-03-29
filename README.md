@@ -42,7 +42,7 @@
  Service class that checks all the loans' information to match the specific template and reduce the chance to insert faulty data. 
 #### *6. ToProvidersValidation*
  Service class that checks all the providers' information to match the specific template and reduce the chance to insert faulty data. 
-## **Main classes**
+## **MainClasses**
 #### *1. Bank*
  The class stores details like the bank's name and location and uses two maps to store the information regarding it's clients, their bank accounts and loans.
    1. normalizeBankIndex(Client client)
