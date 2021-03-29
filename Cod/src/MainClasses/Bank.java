@@ -182,7 +182,7 @@ public class Bank {
     //AddBankAccountClient pe baza de client - nu are sens altfel (avem nevoie de detalii)
     public void addBankAccountClient(Client client) {
         if (this.clientBankAccountMap.containsKey(client)) {
-            System.out.println("Clientul " + client.getFirst_name() + " " + client.getLast_name() + " exista deja!\n");
+            System.out.println("Clientul " + client.getFirstName() + " " + client.getLastName() + " exista deja!\n");
         } else {
             List<BankAccount> dummy = new ArrayList<>();
             this.clientBankAccountMap.put(client, dummy);
@@ -195,7 +195,7 @@ public class Bank {
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             for (BankAccount y : x.getValue()) {
                 if (y.equals(bankAccount)) {
-                    System.out.println("Contul " + bankAccount.getIBAN() + " exista deja pentru clientul " + x.getKey().getFirst_name() + " " + x.getKey().getLast_name() + "\n");
+                    System.out.println("Contul " + bankAccount.getIBAN() + " exista deja pentru clientul " + x.getKey().getFirstName() + " " + x.getKey().getLastName() + "\n");
                     c++;
                 }
             }
@@ -227,7 +227,7 @@ public class Bank {
     //AddLoanClient pe baza de client - nu are sens altfel (avem nevoie de detalii)
     public void addLoanCLient(Client client) {
         if (this.clientLoanMap.containsKey(client)) {
-            System.out.println("Clientul " + client.getFirst_name() + " " + client.getLast_name() + " exista deja!\n");
+            System.out.println("Clientul " + client.getFirstName() + " " + client.getLastName() + " exista deja!\n");
         } else {
             List<Loan> dummy = new ArrayList<>();
             this.clientLoanMap.put(client, dummy);
@@ -240,7 +240,7 @@ public class Bank {
         for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
             for (Loan y : x.getValue()) {
                 if (y.equals(loan)) {
-                    System.out.println("Imprumutul exista deja pentru clientul " + x.getKey().getFirst_name() + " " + x.getKey().getLast_name() + "\n");
+                    System.out.println("Imprumutul exista deja pentru clientul " + x.getKey().getFirstName() + " " + x.getKey().getLastName() + "\n");
                     c++;
                 }
             }
@@ -515,7 +515,7 @@ public class Bank {
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             for (BankAccount y : x.getValue()) {
                 if (y.getIBAN().equals(Sender)) {
-                    System.out.print("\tClientul " + x.getKey().getFirst_name() + " " + x.getKey().getLast_name());
+                    System.out.print("\tClientul " + x.getKey().getFirstName() + " " + x.getKey().getLastName());
                     y.paymentUtilies(Receiver, value);
                     c++;
                 }

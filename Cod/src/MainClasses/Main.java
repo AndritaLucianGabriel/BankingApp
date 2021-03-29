@@ -34,7 +34,7 @@ public class Main {
             RO28INGB0001000000003333 - S.C. ENEL Energie Muntenia S.A.
             RO83INGB0001000000000888 - ENGIE Romania S.A.
             RO51INGB0001000000018827 - RCS RDS S.A.
-            RO33BRDE450SV01059614500 - Apa Nova
+            RO33BRDE4500501059614500 - Apa Nova
 
         Rates @ 25-03-2021 14:41
              Lei->X             Dolari->X          Euro->X
@@ -112,8 +112,8 @@ public class Main {
         FakeClientList[1] = client2;
 
         for (int i = 0; i < 2; i++) {
-            clientValidation.validateFirst_name(FakeClientList[i].getFirst_name());
-            clientValidation.validateLast_name(FakeClientList[i].getLast_name());
+            clientValidation.validateFirst_name(FakeClientList[i].getFirstName());
+            clientValidation.validateLast_name(FakeClientList[i].getLastName());
             clientValidation.validateCnp(FakeClientList[i].getCnp());
             clientValidation.validateAge(FakeClientList[i].getAge());
         }
