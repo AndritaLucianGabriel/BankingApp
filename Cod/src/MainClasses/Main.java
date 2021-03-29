@@ -1,3 +1,5 @@
+package MainClasses;
+
 import Operations.ToProviders;
 import Service.Validations.*;
 import Service.AccountStatement;
@@ -8,7 +10,7 @@ import java.util.*;
 /*
         TO DO (SOON):
     -fa manevra cu employee -> clerk & admin pentru mentodele de crud si separa-le dupa rank
-    -mosteniri pentru BankAccount (abstracta)
+    -mosteniri pentru MainClasses.BankAccount (abstracta)
 
         TO DO:
     -metoda de plata a datoriei
@@ -17,11 +19,13 @@ import java.util.*;
     -renunta la variabila statica pt id si fa o metoda separata (identifiable)
     -bank(addProviderDB)/remove
     -plata de imprumut pentru un client
-    -transaction automat in functie de curs valutar (Foloseste API)
-    -implementeaza API pentru currency si valuta
     -extrasul de cont va fi legat de un fisier extern pentru log-uri de tranzactii???????
         -metode de filtrare (interfete?)
     -de introdus ideea de factura (ToProviders) si stocarea ei
+
+        EXTRA PROJ:
+    -transaction automat in functie de curs valutar (Foloseste API)
+    -implementeaza API pentru currency si valuta
  */
 
 public class Main {
@@ -48,7 +52,7 @@ public class Main {
 
         AccountStatement accountStatement = new AccountStatement();
 
-        //Introducere date BankAccount + validari
+        //Introducere date MainClasses.BankAccount + validari
         List<BankAccount> bankAccountList = new ArrayList<>();
         BankAccount bankAccount = new BankAccount("RO59RZBR0000065122344800", "12-09-2021", null, 1203.2000, "Lei");
         BankAccount bankAccount1 = new BankAccount("RO59INGB0000062522326801", "25-07-2019", "12-09-2021", 1000, "Dolari");
@@ -65,7 +69,7 @@ public class Main {
             bankAccountValidation.validateCurrency(x.getCurrency());
         }
 
-        //Introducere date Loan + validari
+        //Introducere date MainClasses.Loan + validari
         List<Loan> loansList = new ArrayList<>();
         Loan loan = new Loan(21410.3, "Lei", "Imprumut pentru nevoi personale", "03-12-2021", 60);
         Loan loan1 = new Loan(15213, "Lei", "Imprumut pentru masina", "03-02-2020", 72);
@@ -81,7 +85,7 @@ public class Main {
             loanValidation.validateDurationMonths(x.getDurationMonths());
         }
 
-        //Introducere date Card + validari
+        //Introducere date MainClasses.Card + validari
         List<Card> cardList = new ArrayList<>();
         Card card = new Card("5213512152346781", 905, "25-09-2020");
         Card card1 = new Card("5603512157346791", 509, "05-10-2020");
@@ -100,7 +104,7 @@ public class Main {
             cardValidation.validatePin(x.getPIN());
         }
 
-        //Introducere date Client + validari
+        //Introducere date MainClasses.Client + validari
         Client[] FakeClientList = new Client[2];
         Client client1 = new Client("Vadim", "Tudor", 60, "5980926460187");
         Client client2 = new Client("Dan", "Diaconescu", 58, "3951120450185");
@@ -114,14 +118,14 @@ public class Main {
             clientValidation.validateAge(FakeClientList[i].getAge());
         }
 
-        //Introducere date Bank + validari
+        //Introducere date MainClasses.Bank + validari
         Map<Client, List<BankAccount>> clientBankAccountMap = new HashMap<Client, List<BankAccount>>();
         clientBankAccountMap.put(client1, bankAccountList);
 
         Map<Client, List<Loan>> clientLoanMap = new HashMap<Client, List<Loan>>();
         clientLoanMap.put(client2, loansList);
 
-        Bank bank = new Bank("Raiffeisen Bank", "Strada Sebastian, Nr 54, Sector 3, Bucuresti", clientBankAccountMap, clientLoanMap);
+        Bank bank = new Bank("Raiffeisen MainClasses.Bank", "Strada Sebastian, Nr 54, Sector 3, Bucuresti", clientBankAccountMap, clientLoanMap);
         bankValidation.validateName(bank.getName());
 
         System.out.println("==========================================================================================================================");

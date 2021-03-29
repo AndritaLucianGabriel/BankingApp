@@ -1,3 +1,5 @@
+package MainClasses;
+
 import Operations.CurrencyExchange;
 import Operations.ToProviders;
 import Operations.Transaction;

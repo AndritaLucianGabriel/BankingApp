@@ -1,3 +1,5 @@
+package MainClasses;
+
 import Operations.CurrencyExchange;
 import Service.AccountStatement;
 
@@ -151,7 +153,7 @@ public class Bank {
         }
     }
 
-    //Caz particular per Client pt imprumuturi
+    //Caz particular per MainClasses.Client pt imprumuturi
     public void normalizeLoanIndex(Client client) {
         for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
             if (x.getKey().equals(client)) {
@@ -414,7 +416,7 @@ public class Bank {
             if (dummy.contains(local)) {
                 c++;
                 x.getValue().remove(local);
-                BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID() - 2);//am mai declarat un BankAccount in cadrul functiei
+                BankAccount.setCounterBankAccountID(BankAccount.getCounterBankAccountID() - 2);//am mai declarat un MainClasses.BankAccount in cadrul functiei
                 //alta metoda de normalizare al idexului
                 for (BankAccount y : dummy) {
                     if (y.getBankAccountID() > local.getBankAccountID()) {

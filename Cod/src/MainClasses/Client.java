@@ -1,3 +1,5 @@
+package MainClasses;
+
 import java.util.Objects;
 
 public class Client {

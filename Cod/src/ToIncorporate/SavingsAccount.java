@@ -3,7 +3,7 @@ package ToIncorporate;
 import java.util.List;
 import java.util.Objects;
 
-//public class SavingsAccount extends BankAccount {
+//public class SavingsAccount extends MainClasses.BankAccount {
 //    protected double annualInterestRate;
 //
 //    public SavingsAccount(double annualInterestRate) {
@@ -15,7 +15,7 @@ import java.util.Objects;
 //        this.annualInterestRate = annualInterestRate;
 //    }
 //
-//    public SavingsAccount(String IBAN, String openingDate, String closingDate, double balance, String currency, List<Card> cardList, double annualInterestRate) {
+//    public SavingsAccount(String IBAN, String openingDate, String closingDate, double balance, String currency, List<MainClasses.Card> cardList, double annualInterestRate) {
 //        super(IBAN, openingDate, closingDate, balance, currency, cardList);
 //        this.annualInterestRate = annualInterestRate;
 //    }
@@ -53,7 +53,7 @@ import java.util.Objects;
 //        else {
 //            c.append(", avand suma de " + this.balance + " " + this.currency);
 //            if(!cardList.isEmpty())
-//                for( Card x: this.cardList)
+//                for( MainClasses.Card x: this.cardList)
 //                {
 //                    c.append("\n ~ "+x.toString());
 //                }
