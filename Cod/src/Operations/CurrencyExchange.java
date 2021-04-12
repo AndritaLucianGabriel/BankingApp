@@ -4,7 +4,11 @@ import javafx.util.Pair;
 
 import java.util.Objects;
 
-//o sa incerc sa adaug un API sa se ocupe de tot ce inseamna valoare, currency, inclusiv partea de conversie
+//o sa incerc sa adaug un API sa se ocupe de tot ce inseamna valoare, currency, inclusiv partea de conversie - Ba nu :)
+/* De ce e toata logica pe aici statica? Putea foarte bine sa fie un serviciu "pur":
+- currency si exchangeRates sa fie private si atat
+- si metodele sa fie publice si atat
+*/
 public class CurrencyExchange {
     static String[] currency = {"Lei", "Dolari", "Euro"};
     //Rates @ 25-03-2021 14:41
@@ -23,7 +27,7 @@ public class CurrencyExchange {
         System.out.println("\tExchangeRate: " + exchangeRates[indexBaseCurrency][indexWantedCurrency]);
         return new Pair<Double, String>(value * exchangeRates[indexBaseCurrency][indexWantedCurrency], wantedCurrency);
     }
-
+// logica duplicata - putea fi extrasa intr o metoda privata si refolosita in ambele metode publice
     public static double convertTransfer(double value, String baseCurrency, String wantedCurrency) {
         int indexBaseCurrency = 0, indexWantedCurrency = 0;
         for (int i = 0; i < currency.length; i++) {

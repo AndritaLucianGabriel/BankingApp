@@ -5,12 +5,13 @@ public class ClientValidation {
         if (!first_name.matches("^[a-zA-Z]+$"))
             System.out.println("First name invalid");
     }
-
+// no snake_case in metode
     public void validateLast_name(String last_name) {
         if (!last_name.matches("^[a-zA-Z- ]+$"))
             System.out.println("Last name invalid");
     }
 
+    // cred ca poti sa validezi mai mult aici decat sa fie mai mare ca 0
     public void validateAge(int age) {
         if (age < 0)
             System.out.println("Varsta invalida");

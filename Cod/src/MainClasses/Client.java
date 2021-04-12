@@ -1,7 +1,7 @@
 package MainClasses;
 
 import java.util.Objects;
-
+// 2 dto
 public class Client {
     protected String firstName;
     protected String lastName;
@@ -11,7 +11,7 @@ public class Client {
     public Client() {
         this.firstName = "";
         this.lastName = "";
-        this.age = 0;
+        this.age = 0; // age este deja 0, defaul value pentru variabilele de tip int din cadrul unei clase este 0
         this.cnp = "";
     }
 

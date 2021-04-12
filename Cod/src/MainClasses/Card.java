@@ -1,7 +1,7 @@
 package MainClasses;
 
 import java.util.Objects;
-
+// 1 dto
 public class Card {
     protected String cardNumber;
     protected int PIN;
@@ -46,14 +46,14 @@ public class Card {
 
     @Override
     public boolean equals(Object obj) {
-        if (this != obj)
+        if (this != obj) // != compara referintele obiectelor, ceea ce face equals by default, fara s-o suprascri.
             return false;
-        if (obj == null)
+        if (obj == null)  // intai ar fi trebuit sa verifici daca obj e null si apoi this != obj
             return false;
         if (this.getClass() != obj.getClass())
             return false;
         Card card = (Card) obj;
-        if (!Objects.equals(this.cardNumber, this.cardNumber))
+        if (!Objects.equals(this.cardNumber, this.cardNumber)) // intodeuna o sa returneze false - compari this.cardNumber cu this.cardNumber
             return false;
         if (this.PIN != card.PIN)
             return false;

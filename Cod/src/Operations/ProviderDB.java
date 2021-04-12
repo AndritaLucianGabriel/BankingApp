@@ -2,6 +2,7 @@ package Operations;
 
 import java.util.Objects;
 
+// 4 dto
 public class ProviderDB {
     protected String company;
     protected String IBAN;

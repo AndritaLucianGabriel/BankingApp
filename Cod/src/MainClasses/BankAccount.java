@@ -158,6 +158,7 @@ public class BankAccount {
 
     public void paymentUtilies(String IBAN, double value) {
         System.out.print(" a virat " + value + " " + this.currency + " din contul " + this.IBAN);
+        // faci new de o clasa incadrata la operations intr o clasa care ar trebui sa fie dto?
         this.transaction = new ToProviders(this.balance, this.currency);
         this.balance = transaction.paymentUtilities(IBAN, value);
     }

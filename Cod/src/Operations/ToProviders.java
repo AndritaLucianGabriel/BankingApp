@@ -6,13 +6,15 @@ import Service.Validations.ToProvidersValidation;
 import java.util.Objects;
 
 public class ToProviders extends Transaction {
+    // de ce e default?
     ToProvidersValidation toProvidersValidation = new ToProvidersValidation();
 
+    // de ce sunt statice si default?
     static ProviderDB providerDB = new ProviderDB("S.C. ENEL Energie Muntenia S.A.", "RO28INGB0001000000003333", "Lei");
     static ProviderDB providerDB1 = new ProviderDB("ENGIE Romania S.A.", "RO83INGB0001000000000888", "Dolari");
     static ProviderDB providerDB2 = new ProviderDB("RCS RDS S.A.", "RO51INGB0001000000018827", "Euro");
     static ProviderDB providerDB3 = new ProviderDB("Apa Nova", "RO33BRDE4500501059614500", "Dolari");
-    private ProviderDB[] array = {providerDB, providerDB1, providerDB2, providerDB3};
+    private ProviderDB[] array = {providerDB, providerDB1, providerDB2, providerDB3}; // numele de variabila "array" nu mi spune nimic - rename to "providers"
 
     //Getteri & Setteri
     public ProviderDB[] getArray() {
@@ -61,6 +63,10 @@ public class ToProviders extends Transaction {
         return val;
     }
 
+    // nu prea au sens aceste metode pentru ToProviders care stie sa plateasca utilitati, nu e asa?
+    // nu poti sa retragi bani din contul unui furnizor sau sa faci un depozit in contul unui furnizor
+    // asta ar fi trebuit sa-ti dea de gandit ca aceasta clasa nu prea are rost sa extinda Transaction
+    // in viata reala o Tranzactie nu stie sa payUtilities. O tranzactie e de sine statatoare si poate sa aiba: valoare, data, contul din care s-a facut tranzactia, contul catre care s-a facut tranzactia, etc. Mai mult sens ar fi avut ca payUtilities sa returneze un obiect de tip Transaction, nu crezi?
     @Override
     public double withdraw(double value) {
         return 0;

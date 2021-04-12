@@ -1,4 +1,5 @@
 package MainClasses;
+// numele pachetelor se scriu cu litere mici
 
 import Operations.CurrencyExchange;
 import Service.AccountStatement;
@@ -7,12 +8,24 @@ import java.util.*;
 
 public class Bank {
     protected static int counterBankID;
-    protected int BankID;
+    /* logica de generare a id-ului unic nu ar trebui sa stea in dto - ideal ar fi fost sa faci un serviciu de generat id-uri si nu ai mai fi avut cate o variabila statica in fiecare clasa si "grija" sa o incrementezi per clasa
+    Dar revenind la logica ta, corect ar fi fost sa o faci private pentru ca tine de "bucataria" interna a clasei Bank. Nu are rost sa fie mostenita, nu are rost sa fie expusa in pachet. De ex, poti din clasa Bank sa resetezi id-ul clasei BankAccount:
+    BankAccount.counterBankAccountID = 0;
+    Totodata ai facut setteri si getteri pentru counterBankId - de ce? nu este nevoie (si nici indicat) sa fie accesibila din exteriorul clasei Bank
+    !!! variabilele statice se pot apela cu numeleClasei.numeleVariabilei - si ele exista si daca nu ai nicio instanta de tip Bank
+     */
+    protected int BankID; // variabilele incep cu litera mica
     protected String name;
     protected String location;
+    // in loc sa ai structura asta complicata, si metodele acelea cu foarte multa logica pentru adaugare loan sau account, nu era mai bine si mai logic ca Bank sa aiba o lista de Client, iar Client sa aiba o lista de BankAccount si o lista de Loan?
     protected Map<Client, List<BankAccount>> clientBankAccountMap;
     protected Map<Client, List<Loan>> clientLoanMap;
 
+    /* nu prea ai nevoie de acest constructor,
+     daca vrei sa te asiguri ca nicio variabila nu este null de fiecare data cand instantiezi clasa Bank poti:
+         - la declararea variabilelor sa le dai valoare (desi nu vad rostul unor valori default pentru name si location, dar mapurile puteau fi instantiate)
+         - sa nu ai constructor default, ci doar contructori care cer valori
+    */
     public Bank() {
         counterBankID++;
         this.BankID = counterBankID;
@@ -24,14 +37,16 @@ public class Bank {
 
     //Clasic
     public Bank(String name, String location, Map<Client, List<BankAccount>> clientBankAccountMap, Map<Client, List<Loan>> clientListMap) {
+        // clientListMap nu este o lista de clienti, numele e misleading
+        // totodata nu este indicat sa folosesti in numele variabilei tipul variiabilei: list map
         counterBankID++;
         this.BankID = counterBankID;
         this.name = name;
         this.location = location;
-
         this.clientBankAccountMap = clientBankAccountMap;
         for (Map.Entry<Client, List<BankAccount>> x : clientBankAccountMap.entrySet()) {
 
+            // de ce schimbi id-urile?
             normalizeBankIndex(x.getKey());
         }
 
@@ -154,6 +169,7 @@ public class Bank {
     }
 
     //Caz particular per MainClasses.Client pt imprumuturi
+    // de ce e publica cand este folosita doar in interiorul clasei Bank? - la fel si pentru celelalte metode de normalizeIndex
     public void normalizeLoanIndex(Client client) {
         for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
             if (x.getKey().equals(client)) {

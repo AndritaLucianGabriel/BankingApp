@@ -42,6 +42,9 @@ public class Main {
         */
 
         //Declarari de servicii
+        // Validarile nu sunt chiar servicii si metodele din clasele de validari n-o sa le consider operatiuni/interogari
+        // exemple de operatiuni pe care le-as lua in seama pentru tema proiectului tau: exchangurile, sendMoney, seeBalance, extrasDeCont(care ar putea intoarce o lista de tranzactii sortate, filtrate, etc), openDeposit, applyForALoan, etc
+        // dar observi diferenta dintre o metoda sendMoney si o metoda validateName?
         BankValidation bankValidation = new BankValidation();
         BankAccountValidation bankAccountValidation = new BankAccountValidation();
         CardValidation cardValidation = new CardValidation();
@@ -61,6 +64,8 @@ public class Main {
         bankAccountList.add(bankAccount1);
         bankAccountList.add(bankAccount2);
 
+        // validarile au sens intr-un serviciu, nu in metoda main
+        // in cazul acesta intr-o metoda din serviciu care face adaugare de bankAccount
         for (BankAccount x : bankAccountList) {
             bankAccountValidation.validateIBAN(x.getIBAN());
             bankAccountValidation.validateOpeningDate(x.getOpeningDate());
@@ -136,6 +141,8 @@ public class Main {
 
         System.out.println("==========================================================================================================================");
         System.out.println("Am scos al doilea cont al lui Vadim si am refacut indexii + scadere variabila statica");
+        // indexii nu trebuie refacuti
+        // intr-o baza ai sa vezi ca daca stergi o intrare (ex: una cu primary key-ul 2) restul intrarilor raman neschimbate (ex: 1,3,4,5..)
         bank.removeAccount(bankAccount1);
         System.out.println(bank.toString());
         System.out.println("COUNTER CONTURI: " + BankAccount.getCounterBankAccountID());

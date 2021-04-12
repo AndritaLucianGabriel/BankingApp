@@ -3,11 +3,11 @@ package MainClasses;
 import Service.FormatDouble;
 
 import java.util.Objects;
-
+// 3 dto
 public class Loan {
     protected static int counterLoanID;
     protected int LoanID;
-    protected double value;
+    protected double value; // era mai indicat sa folosesti un wrapper (BigDecimal for example) pentru precizie
     protected String currency;
     protected String detail;
     protected String date;
@@ -92,8 +92,8 @@ public class Loan {
 
     @Override
     public boolean equals(Object obj) {
-        if (this != obj)
-            return false;
+        if (this != obj) // compari referintele obiectelor
+            return false; // metoda asta de equals ar trebui sa ti dea false din prima daca compari loanRef1 cu loanRef2 chiar daca au aceleasi valori, pentru ca sunt 2 referinte diferite
         if (obj == null)
             return false;
         if (this.getClass() != obj.getClass())
@@ -105,11 +105,11 @@ public class Loan {
             return false;
         if (!Objects.equals(this.currency, loan.currency))
             return false;
-        if (this.detail != loan.detail)
+        if (this.detail != loan.detail) // compari referintele celor 2 Stringuri, nu valorile. trebuie sa folosesti equals
             return false;
         if (!Objects.equals(this.date, loan.date))
             return false;
-        if (!Objects.equals(this.date, loan.date))
+        if (!Objects.equals(this.date, loan.date)) // ai verificat deja asta
             return false;
         if (this.durationMonths != loan.durationMonths)
             return false;

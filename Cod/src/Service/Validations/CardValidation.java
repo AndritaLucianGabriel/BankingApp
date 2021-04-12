@@ -6,11 +6,14 @@ public class CardValidation {
             System.out.println("Numar card invalid");
     }
 
+    // cred ca pinul ar trebui sa aiba si un max length totusi ca aceasta validare sa fie completa
     public void validatePin(int PIN) {
         if (PIN < 0)
             System.out.println("PIN invalid");
     }
 
+    // aceeasi metoda ca in BankAccountValidation dar cu nume diferit. Daca ambele valideaza acelasi lucru - si anume un date - nu are sent sa ai doua metode diferite, doar pentru ca una valideaza formatul lui issueDate si una formatul lui closingDate
+    // but again - aceasta metoda nu aduce nici o valoare
     public void validateIssueDate(String issueDate) {
         if (!issueDate.matches("^([0123]\\d)[- /.]([01]\\d)[- /.]([012]\\d\\d\\d)$"))
             System.out.println("Data emiterii invalida");

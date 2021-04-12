@@ -1,5 +1,6 @@
 package Operations;
 
+// nu-mi place cum ai folosit mostenirea. Un transfer si o tranzactie mi se par acelasi lucru. Transfer ar fi putut sa fie o actiune. Ex: transfer o suma de bani unui prieten -> rezulta o tranzactie
 public class Transfer extends Transaction {
 
     public Transfer() {
