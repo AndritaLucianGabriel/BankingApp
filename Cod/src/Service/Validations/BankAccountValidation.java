@@ -1,28 +1,36 @@
 package Service.Validations;
 
+import Service.Exceptions.BankAccountException;
+
 public class BankAccountValidation {
-    public void validateIBAN(String IBAN) {
+    public static void validateIBAN(String IBAN) throws BankAccountException {
         if (!IBAN.matches("^[A-Z]{2}[0-9]{2}[A-Z]{4}[0-9]{16,18}$"))
-            System.out.println("IBAN invalid");
+            throw new BankAccountException("IBAN invalid");
     }
 
-    public void validateOpeningDate(String openingDate) {
+    public static void validateOpeningDate(String openingDate) throws BankAccountException {
         if (!openingDate.matches("^([0123]\\d)[- /.]([01]\\d)[- /.]([012]\\d\\d\\d)$"))
-            System.out.println("Data de deschidere invalida");
+            throw new BankAccountException("Data de deschidere invalida");
     }
 
-    public void validateClosingDate(String closingDate) {
-        if (!((closingDate == null) || closingDate.matches("^([0123]\\d)[- /.]([01]\\d)[- /.]([012]\\d\\d\\d)$")))
-            System.out.println("Data de inchidere invalida");
+    public static void validateClosingDate(String closingDate) throws BankAccountException {
+        if (!((closingDate.equals("-")) || closingDate.matches("^([0123]\\d)[- /.]([01]\\d)[- /.]([012]\\d\\d\\d)$")))
+            throw new BankAccountException("Data de inchidere invalida");
     }
 
-    public void validateBalance(double balance) {
+    public static void validateBalance(double balance) throws BankAccountException {
         if (balance < 0)
-            System.out.println("Balanta invalida");
+            throw new BankAccountException("Balanta invalida");
     }
 
-    public void validateCurrency(String currency) {
+    public static void validateCurrency(String currency) throws BankAccountException {
         if (!currency.matches("^[a-zA-Z]+$"))
-            System.out.println("Currency invalid");
+            throw new BankAccountException("Currency invalid");
     }
+
+    public static void validateAnnualInterestRate(double annualInterestRate) throws BankAccountException {
+        if (annualInterestRate < 0)
+            throw new BankAccountException("Interest rate invalid");
+    }
+
 }

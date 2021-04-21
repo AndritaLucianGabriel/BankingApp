@@ -1,8 +1,14 @@
 package Service.Validations;
 
+import Service.Exceptions.BankException;
+
 public class BankValidation {
-    public void validateName(String name) {
+    public static void validateName(String name) throws BankException {
         if (!name.matches("^[^-\\s\\d][a-zA-Z0-9\\s-]+$"))
-            System.out.println("Nume invalid");
+            throw new BankException("Nume banca invalid");
+    }
+    public static void validateSign(String sign) throws BankException{
+        if(!sign.matches("^(<=)||(>=)||(<>)||(><)||(><=)||(>=<)||(>=<=)||[<>=]$"))
+            throw new BankException("Semn al filtrarii invalid");
     }
 }

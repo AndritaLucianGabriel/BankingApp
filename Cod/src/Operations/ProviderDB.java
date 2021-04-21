@@ -1,5 +1,10 @@
 package Operations;
 
+import Service.Exceptions.ProviderDBException;
+import Service.Timestamp;
+import Service.FormatDouble;
+import Service.Validations.ProviderDBValidation;
+
 import java.util.Objects;
 
 public class ProviderDB {
@@ -12,17 +17,26 @@ public class ProviderDB {
         this.company = "";
         this.IBAN = "";
         this.balance = 0;
-        currency = "";
+        this.currency = "";
     }
 
-    public ProviderDB(String company, String IBAN, String currency) {
+    public ProviderDB(String company, String IBAN, String currency) throws ProviderDBException {
+        ProviderDBValidation.validateCompany(company);
+        ProviderDBValidation.validateIBAN(IBAN);
+        ProviderDBValidation.validateCurrency(currency);
+
         this.company = company;
         this.IBAN = IBAN;
         this.balance = 0;
         this.currency = currency;
     }
 
-    public ProviderDB(String company, String IBAN, double balance, String currency) {
+    public ProviderDB(String company, String IBAN, double balance, String currency) throws ProviderDBException {
+        ProviderDBValidation.validateCompany(company);
+        ProviderDBValidation.validateIBAN(IBAN);
+        ProviderDBValidation.validateBalance(balance);
+        ProviderDBValidation.validateCurrency(currency);
+
         this.company = company;
         this.IBAN = IBAN;
         this.balance = balance;
@@ -41,7 +55,8 @@ public class ProviderDB {
         return company;
     }
 
-    public void setCompany(String company) {
+    public void setCompany(String company) throws ProviderDBException {
+        ProviderDBValidation.validateCompany(company);
         this.company = company;
     }
 
@@ -49,15 +64,17 @@ public class ProviderDB {
         return IBAN;
     }
 
-    public void setIBAN(String IBAN) {
+    public void setIBAN(String IBAN) throws ProviderDBException {
+        ProviderDBValidation.validateIBAN(IBAN);
         this.IBAN = IBAN;
     }
 
     public double getBalance() {
-        return balance;
+        return FormatDouble.format(balance);
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(double balance) throws ProviderDBException {
+        ProviderDBValidation.validateBalance(balance);
         this.balance = balance;
     }
 
@@ -65,15 +82,22 @@ public class ProviderDB {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(String currency) throws ProviderDBException {
+        ProviderDBValidation.validateCurrency(currency);
         this.currency = currency;
+    }
+
+    //Functi ce va face update-ul fisierelor de intrare
+    protected String providerDBReaderUpdate() {
+        Timestamp.timestamp("ProviderDB: providerDBReaderUpdate");
+        return this.company + "," + this.IBAN + "," + FormatDouble.format(this.balance) + "," + this.currency;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
         if (obj == null)
-            return false;
-        if (this != obj)
             return false;
         ProviderDB providerDB = (ProviderDB) obj;
         if (this.getClass() != obj.getClass())
@@ -90,7 +114,7 @@ public class ProviderDB {
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("Compania '" + this.company + "' are " + this.balance + " " + this.currency + " in contul " + this.IBAN);
+        c.append("Compania '" + this.company + "' are " + FormatDouble.format(this.balance) + " " + this.currency + " in contul " + this.IBAN);
         return c.toString();
     }
 

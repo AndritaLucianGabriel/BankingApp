@@ -1,80 +1,104 @@
 package Operations;
 
-import java.time.LocalDateTime;
+import Service.AsigUUID;
+import Service.Exceptions.ProviderDBException;
+import Service.Exceptions.TransactionException;
+import Service.FormatDouble;
+import Service.Validations.TransactionValidation;
 
-//o sa duc informatia intr un fisier pt extras, momentan datele membre nu prea au sens ca doar prelucrez date
-public abstract class Transaction {
-    protected static int counterTransactionID;
-    protected int transactionID;
-    //am nevoie de timestamp pentru filtrele ulterioare
-    protected LocalDateTime timestamp;
+import java.time.LocalDate;
+
+public abstract class Transaction implements AsigUUID {
+    protected String transactionID;
+    protected String IBAN;
+    protected LocalDate timestamp;
     protected double value;
+    protected double tradeValue;
     protected String currency;
 
     public Transaction() {
-        counterTransactionID++;
-        this.transactionID = counterTransactionID;
-        this.timestamp = LocalDateTime.now();
+        this.transactionID = generateId();
+        this.IBAN = "";
+        this.timestamp = LocalDate.now();
         this.value = 0;
+        this.tradeValue = 0;
         this.currency = "";
     }
 
-    public Transaction(double value, String currency) {
-        counterTransactionID++;
-        this.transactionID = counterTransactionID;
-        this.timestamp = LocalDateTime.now();
+    public Transaction(String IBAN, double value, String currency) throws TransactionException {
+        TransactionValidation.validateIBAN(IBAN);
+        TransactionValidation.validateCurrency(currency);
+        this.transactionID = generateId();
+        this.IBAN = IBAN;
+        this.timestamp = LocalDate.now();
         this.value = value;
+        this.tradeValue = 0;
         this.currency = currency;
     }
 
     //Getteri & Setteri
-    public static int getCounterTransactionID() {
-        return counterTransactionID;
-    }
-
-    public static void setCounterTransactionID(int counterTransactionID) {
-        Transaction.counterTransactionID = counterTransactionID;
-    }
-
-    public int getTransactionID() {
+    public String getTransactionID() {
         return transactionID;
     }
 
-    public void setTransactionID(int transactionID) {
+    public void setTransactionID(String transactionID) {
         this.transactionID = transactionID;
     }
 
-    public LocalDateTime getTimestamp() {
+    public String getIBAN() {
+        return IBAN;
+    }
+
+    public void setIBAN(String IBAN) {
+        this.IBAN = IBAN;
+    }
+
+    public LocalDate getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime x) {
+    public void setTimestamp(LocalDate x) {
         this.timestamp = x;
     }
 
     public double getValue() {
-        return value;
+        return FormatDouble.format(value);
     }
 
     public void setValue(double value) {
         this.value = value;
     }
 
+    public double getTradeValue() {
+        return tradeValue;
+    }
+
+    public void setTradeValue(double tradeValue) throws TransactionException {
+        TransactionValidation.validateValue(value);
+        this.tradeValue = tradeValue;
+    }
+
     public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(String currency) throws TransactionException {
+        TransactionValidation.validateCurrency(currency);
         this.currency = currency;
     }
 
     //Metode abstracte
     public abstract double withdraw(double value);
 
-    public abstract double paymentUtilities(String IBAN, double value);
+    public abstract double paymentUtilities(String IBAN, double value) throws ProviderDBException;
 
     public abstract double deposit(double value);
 
-    public abstract Object getElemArray(int i);
-
+    @Override
+    public String toString() {
+        return transactionID +
+                ", " + timestamp +
+                ", " + tradeValue +
+                ", " + currency + "\n";
+    }
 }

@@ -1,23 +1,25 @@
 package Service.Validations;
 
+import Service.Exceptions.LoanException;
+
 public class LoanValidation {
-    public void validateValue(double value) {
+    public static void validateValue(double value) throws LoanException {
         if (value < 0)
-            System.out.println("Valoare invalida");
+            throw new LoanException("Valoare invalida");
     }
 
-    public void validateCurrency(String currency) {
+    public static void validateCurrency(String currency) throws LoanException {
         if (!currency.matches("^[a-zA-Z]+$"))
-            System.out.println("Currency invalid");
+            throw new LoanException("Currency invalid");
     }
 
-    public void validateDate(String date) {
+    public static void validateDate(String date) throws LoanException {
         if (!date.matches("^([0123]\\d)[- /.]([01]\\d)[- /.]([012]\\d\\d\\d)$"))
-            System.out.println("Data invalida");
+            throw new LoanException("Data invalida");
     }
 
-    public void validateDurationMonths(int durationMonths) {
+    public static void validateDurationMonths(int durationMonths) throws LoanException {
         if (durationMonths < 0)
-            System.out.println("Durata invalida");
+            throw new LoanException("Durata invalida");
     }
 }

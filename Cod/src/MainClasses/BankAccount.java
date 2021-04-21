@@ -1,25 +1,30 @@
 package MainClasses;
 
-import Operations.CurrencyExchange;
+import Service.CurrencyExchange;
 import Operations.ToProviders;
 import Operations.Transaction;
 import Operations.Transfer;
+import Service.Exceptions.BankAccountException;
+import Service.Exceptions.ProviderDBException;
+import Service.Exceptions.TransactionException;
+import Service.Timestamp;
 import Service.FormatDouble;
+import Service.Validations.BankAccountValidation;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class BankAccount {
+public abstract class BankAccount {
     protected static int counterBankAccountID;
     protected int BankAccountID;
     protected String IBAN;
-    private String openingDate;
-    private String closingDate;
+    protected String openingDate;
+    protected String closingDate;
     protected double balance;
     protected String currency;
-    List<Card> cardList;
+    protected List<Card> cardList;
     protected Transaction transaction;
 
     public BankAccount() {
@@ -34,7 +39,13 @@ public class BankAccount {
     }
 
     //Constructor pentru pentru conturi fara carduri
-    public BankAccount(String IBAN, String openingDate, String closingDate, double balance, String currency) {
+    public BankAccount(String IBAN, String openingDate, String closingDate, double balance, String currency) throws BankAccountException {
+        BankAccountValidation.validateIBAN(IBAN);
+        BankAccountValidation.validateOpeningDate(openingDate);
+        BankAccountValidation.validateClosingDate(closingDate);
+        BankAccountValidation.validateBalance(balance);
+        BankAccountValidation.validateCurrency(currency);
+
         counterBankAccountID++;
         this.BankAccountID = counterBankAccountID;
         this.IBAN = IBAN;
@@ -46,7 +57,13 @@ public class BankAccount {
     }
 
     //Constructor pentru pentru conturi cu carduri
-    public BankAccount(String IBAN, String openingDate, String closingDate, double balance, String currency, List<Card> cardList) {
+    public BankAccount(String IBAN, String openingDate, String closingDate, double balance, String currency, List<Card> cardList) throws BankAccountException {
+        BankAccountValidation.validateIBAN(IBAN);
+        BankAccountValidation.validateOpeningDate(openingDate);
+        BankAccountValidation.validateClosingDate(closingDate);
+        BankAccountValidation.validateBalance(balance);
+        BankAccountValidation.validateCurrency(currency);
+
         counterBankAccountID++;
         this.BankAccountID = counterBankAccountID;
         this.IBAN = IBAN;
@@ -78,7 +95,8 @@ public class BankAccount {
         return IBAN;
     }
 
-    public void setIBAN(String IBAN) {
+    public void setIBAN(String IBAN) throws BankAccountException {
+        BankAccountValidation.validateIBAN(IBAN);
         this.IBAN = IBAN;
     }
 
@@ -86,7 +104,8 @@ public class BankAccount {
         return openingDate;
     }
 
-    public void setOpeningDate(String openingDate) {
+    public void setOpeningDate(String openingDate) throws BankAccountException {
+        BankAccountValidation.validateOpeningDate(openingDate);
         this.openingDate = openingDate;
     }
 
@@ -94,15 +113,17 @@ public class BankAccount {
         return closingDate;
     }
 
-    public void setClosingDate(String closingDate) {
+    public void setClosingDate(String closingDate) throws BankAccountException {
+        BankAccountValidation.validateClosingDate(closingDate);
         this.closingDate = closingDate;
     }
 
     public double getBalance() {
-        return balance;
+        return FormatDouble.format(balance);
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(double balance) throws BankAccountException {
+        BankAccountValidation.validateBalance(balance);
         this.balance = balance;
     }
 
@@ -110,7 +131,8 @@ public class BankAccount {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(String currency) throws BankAccountException {
+        BankAccountValidation.validateCurrency(currency);
         this.currency = currency;
     }
 
@@ -130,15 +152,19 @@ public class BankAccount {
         this.transaction = transaction;
     }
 
+    public abstract void setAnnualInterestRate(double annualInterestRate) throws BankAccountException;
+
     //Functii manipulare carduri
-    public void addCard(Card card) {
+    protected void addCard(Card card) {
+        Timestamp.timestamp("BankAccount: addCard");
         if (cardList.contains(card))
             System.out.println("Cardul " + card.cardNumber + "exista deja.");
         else
             cardList.add(card);
     }
 
-    public void removeCard(Card card) {
+    protected void removeCard(Card card) {
+        Timestamp.timestamp("BankAccount: removeCard");
         if (!cardList.contains(card))
             System.out.println("Cardul " + card.cardNumber + " nu exista.");
         else
@@ -146,32 +172,40 @@ public class BankAccount {
     }
 
     //Functii manipulare sold
-    public void withdraw(double value) {
-        Transaction transaction = new Transfer(this.balance, this.currency);
+    protected void withdraw(double value) throws TransactionException {
+        Timestamp.timestamp("BankAccount: withdraw");
+        Transaction transaction = new Transfer(this.IBAN, this.balance, this.currency);
         this.balance = transaction.withdraw(value);
     }
 
-    public void deposit(double value) {
-        Transaction transaction = new Transfer(this.balance, this.currency);
+    protected void deposit(double value) throws TransactionException {
+        Timestamp.timestamp("BankAccount: deposit");
+        Transaction transaction = new Transfer(this.IBAN, this.balance, this.currency);
         this.balance = transaction.deposit(value);
     }
 
-    public void paymentUtilies(String IBAN, double value) {
-        System.out.print(" a virat " + value + " " + this.currency + " din contul " + this.IBAN);
-        this.transaction = new ToProviders(this.balance, this.currency);
+    protected void paymentUtilies(String IBAN, double value) throws ProviderDBException, TransactionException {
+        Timestamp.timestamp("BankAccount: paymentUtilies");
+        System.out.print(" a virat " + FormatDouble.format(value) + " " + this.currency + " din contul " + this.IBAN);
+        this.transaction = ToProviders.getInstance(this.IBAN, this.balance, this.currency);
         this.balance = transaction.paymentUtilities(IBAN, value);
     }
 
-    public void currencyExchange(String wantedCurrency) {
+    //Functie de schimbare a valutei
+    protected void currencyExchange(String wantedCurrency) {
+        Timestamp.timestamp("BankAccount: currencyExchange");
         Pair<Double, String> doubleStringPair = CurrencyExchange.exchangeBankAccount(this.balance, this.currency, wantedCurrency);
         this.balance = doubleStringPair.getKey();
         this.currency = doubleStringPair.getValue();
     }
 
+    //Functie ce va ajuta la update-ul fisierelor de intrare
+    protected abstract String bankAccountReaderUpdate();
+
     @Override
     public boolean equals(Object obj) {
-        if (this != obj)
-            return false;
+        if (this == obj)
+            return true;
         if (obj == null)
             return false;
         if (this.getClass() != obj.getClass())
@@ -192,24 +226,6 @@ public class BankAccount {
         if (!Objects.equals(this.cardList, bankAccount.cardList))
             return false;
         return true;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder c = new StringBuilder();
-        c.append("[" + this.BankAccountID + "]" + " Contul " + this.IBAN + " a fost deschis in data de " + this.openingDate);
-        //inlocuieste asta cu clasa cu verificarea
-        if (!Objects.equals(this.closingDate, null))//conturile inchise teoretic nu au carduri
-            //nu are sens sa aibe suma daca contu e inchis????
-            c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + FormatDouble.Format(this.balance) + " " + this.currency);
-        else {
-            c.append(", avand suma de " + FormatDouble.Format(this.balance) + " " + this.currency);
-            if (!cardList.isEmpty())
-                for (Card x : this.cardList) {
-                    c.append("\n ~ " + x.toString());
-                }
-        }
-        return c.toString();
     }
 
     @Override

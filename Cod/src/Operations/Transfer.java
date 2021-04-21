@@ -1,30 +1,35 @@
 package Operations;
 
+import Service.Exceptions.TransactionException;
+import Service.Timestamp;
+import Service.Files.WriterFiles;
+
 public class Transfer extends Transaction {
 
     public Transfer() {
         super();
     }
 
-    public Transfer(double value, String currency) {
-        super(value, currency);
+    public Transfer(String IBAN, double value, String currency) throws TransactionException {
+        super(IBAN, value, currency);
     }
 
     public double withdraw(double value) {
+        Timestamp.timestamp("Transfer: withdraw");
+        this.tradeValue = -value;
+        WriterFiles.getInstance().writerAccountStatement(this);
         return this.value -= value;
     }
 
     public double deposit(double value) {
+        Timestamp.timestamp("Transfer: withdraw");
+        this.tradeValue = value;
+        WriterFiles.getInstance().writerAccountStatement(this);
         return this.value += value;
     }
 
     @Override
     public double paymentUtilities(String IBAN, double value) {
         return 0;
-    }
-
-    @Override
-    public Object getElemArray(int i) {
-        return null;
     }
 }

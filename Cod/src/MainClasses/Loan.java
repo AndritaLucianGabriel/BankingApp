@@ -1,6 +1,9 @@
 package MainClasses;
 
+import Service.Exceptions.LoanException;
+import Service.Timestamp;
 import Service.FormatDouble;
+import Service.Validations.LoanValidation;
 
 import java.util.Objects;
 
@@ -23,7 +26,12 @@ public class Loan {
         this.durationMonths = 0;
     }
 
-    public Loan(double value, String currency, String detail, String date, int durationMonths) {
+    public Loan(double value, String currency, String detail, String date, int durationMonths) throws LoanException {
+        LoanValidation.validateValue(value);
+        LoanValidation.validateCurrency(currency);
+        LoanValidation.validateDate(date);
+        LoanValidation.validateDurationMonths(durationMonths);
+
         counterLoanID++;
         this.LoanID = counterLoanID;
         this.value = value;
@@ -51,10 +59,11 @@ public class Loan {
     }
 
     public double getValue() {
-        return value;
+        return FormatDouble.format(value);
     }
 
-    public void setValue(double value) {
+    public void setValue(double value) throws LoanException {
+        LoanValidation.validateValue(value);
         this.value = value;
     }
 
@@ -62,7 +71,8 @@ public class Loan {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setCurrency(String currency) throws LoanException {
+        LoanValidation.validateCurrency(currency);
         this.currency = currency;
     }
 
@@ -78,7 +88,8 @@ public class Loan {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(String date) throws LoanException {
+        LoanValidation.validateDate(date);
         this.date = date;
     }
 
@@ -86,14 +97,48 @@ public class Loan {
         return durationMonths;
     }
 
-    public void setDurationMonths(int durationMonths) {
+    public void setDurationMonths(int durationMonths) throws LoanException {
+        LoanValidation.validateDurationMonths(durationMonths);
         this.durationMonths = durationMonths;
+    }
+
+    //Functie ce returneaza valoarea ratei lunare
+    protected double valueMonthlyRate() {
+        Timestamp.timestamp("Loan: valueMonthlyRate");
+        return this.value / this.durationMonths;
+    }
+
+    //Plata unei sume > decat rata lunara
+    protected void payMonthlyRate(double value) {
+        Timestamp.timestamp("Loan: payMonthlyRate");
+        if (value >= this.valueMonthlyRate()) {
+            double oldRate = valueMonthlyRate();
+            this.value = this.value - value;
+            double newRate = valueMonthlyRate();
+            this.durationMonths--;
+            System.out.println(" a platit " + FormatDouble.format(value) + " " + this.currency + ".\n" + " ~Update rata: " + FormatDouble.format(oldRate) + " -> " + FormatDouble.format(newRate) + "\n ~" + FormatDouble.format(this.value) + " " + this.currency + " ramasi pentru " + this.durationMonths + " de luni");
+        } else
+            System.out.println(" trebuie sa introduca o suma mai mare decat " + FormatDouble.format(this.valueMonthlyRate()) + " pentru a plati minimul ratei.");
+    }
+
+    //Plata ratei fixe
+    protected void payMonthlyRate() {
+        Timestamp.timestamp("Loan: payMonthlyRate");
+        this.value = this.value - valueMonthlyRate();
+        this.durationMonths--;
+        System.out.println(" si-a platit cu succes rata in valoare de " + FormatDouble.format(this.valueMonthlyRate()) + " " + this.currency + ". " + FormatDouble.format(this.value) + " " + this.currency + " ramasi pentru " + this.durationMonths + " de luni");
+    }
+
+    //Functi ce va face update-ul fisierelor de intrare
+    protected String loanReaderUpdate() {
+        Timestamp.timestamp("Loan: loanReaderUpdate");
+        return FormatDouble.format(this.value) + "," + this.currency + "," + this.detail + "," + this.date + "," + this.durationMonths;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this != obj)
-            return false;
+        if (this == obj)
+            return true;
         if (obj == null)
             return false;
         if (this.getClass() != obj.getClass())
@@ -105,9 +150,7 @@ public class Loan {
             return false;
         if (!Objects.equals(this.currency, loan.currency))
             return false;
-        if (this.detail != loan.detail)
-            return false;
-        if (!Objects.equals(this.date, loan.date))
+        if (!Objects.equals(this.detail, loan.detail))
             return false;
         if (!Objects.equals(this.date, loan.date))
             return false;
@@ -119,7 +162,7 @@ public class Loan {
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("[" + this.LoanID + "] Suma = " + FormatDouble.Format(this.value) + " " + this.currency + " in data de " + this.date + " pe " + this.durationMonths + " luni (" + this.detail + ")");
+        c.append("[" + this.LoanID + "] Suma = " + FormatDouble.format(this.value) + " " + this.currency + " in data de " + this.date + " pe " + this.durationMonths + " luni (" + this.detail + ")");
         return c.toString();
     }
 

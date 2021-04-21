@@ -1,5 +1,9 @@
 package MainClasses;
 
+import Service.Exceptions.ClientException;
+import Service.Timestamp;
+import Service.Validations.ClientValidation;
+
 import java.util.Objects;
 
 public class Client {
@@ -15,7 +19,12 @@ public class Client {
         this.cnp = "";
     }
 
-    public Client(String firstName, String lastName, int age, String cnp) {
+    public Client(String firstName, String lastName, int age, String cnp) throws ClientException {
+        ClientValidation.validateFirstName(firstName);
+        ClientValidation.validateLastName(lastName);
+        ClientValidation.validateAge(age);
+        ClientValidation.validateCnp(cnp);
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -40,20 +49,30 @@ public class Client {
     }
 
     //setteri
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName) throws ClientException {
+        ClientValidation.validateFirstName(firstName);
         this.firstName = firstName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName) throws ClientException {
+        ClientValidation.validateLastName(lastName);
         this.lastName = lastName;
     }
 
-    public void setAge(int age) {
+    public void setAge(int age) throws ClientException {
+        ClientValidation.validateAge(age);
         this.age = age;
     }
 
-    public void setCnp(String cnp) {
+    public void setCnp(String cnp) throws ClientException {
+        ClientValidation.validateCnp(cnp);
         this.cnp = cnp;
+    }
+
+    //Functie ce va ajuta la update-ul fisierelor de intrare
+    protected String clientReaderUpdate() {
+        Timestamp.timestamp("Client: clientReaderUpdate");
+        return this.firstName + "," + this.lastName + "," + this.age + "," + this.cnp;
     }
 
     @Override
@@ -62,7 +81,6 @@ public class Client {
             return true;
         if (obj == null)
             return false;
-        //testeaza chestia asta pentru cast
         if (this.getClass() != obj.getClass())
             return false;
         Client client = (Client) obj;
@@ -74,6 +92,7 @@ public class Client {
             return false;
         if (!Objects.equals(this.cnp, client.cnp))
             return false;
+
         return true;
     }
 
