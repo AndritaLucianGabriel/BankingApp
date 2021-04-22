@@ -90,10 +90,10 @@ public class SavingsAccount extends BankAccount {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
         if (obj == null)
             return false;
+        if (this == obj)
+            return true;
         if (!super.equals(obj))
             return false;
         SavingsAccount savingsAccount = (SavingsAccount) obj;
@@ -106,9 +106,7 @@ public class SavingsAccount extends BankAccount {
     public String toString() {
         StringBuilder c = new StringBuilder();
         c.append("[" + this.BankAccountID + "]" + " Contul de economii " + this.IBAN + " a fost deschis in data de " + this.openingDate);
-        //inlocuieste asta cu clasa cu verificarea
-        if (!(Objects.equals(this.closingDate, null) || Objects.equals(this.closingDate, "-")))//conturile inchise teoretic nu au carduri
-            //nu are sens sa aibe suma daca contu e inchis????
+        if (!(Objects.equals(this.closingDate, null) || Objects.equals(this.closingDate, "-")))
             c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + FormatDouble.format(this.balance) + " " + this.currency + ", avand dobanda anuala de " + FormatDouble.format(this.annualInterestRate) + "%");
         else {
             c.append(", avand suma de " + FormatDouble.format(this.balance) + " " + this.currency + ", avand comision anual de " + FormatDouble.format(this.annualInterestRate) + "%");

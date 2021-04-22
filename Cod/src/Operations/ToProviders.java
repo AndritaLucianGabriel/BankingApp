@@ -132,6 +132,8 @@ public class ToProviders extends Transaction {
         return val;
     }
 
+//    stiu ca ati spus ca nu are sens sa fie mostenita din Transaction, dar am vazut foarte tarziu feedbackul (nu stiam unde sa ma uit si am vazut tarziu noul branch)
+//    si deja terminasem etapa 2 cand am vazut. Trebuia sa schimb toata logica din spatele extrasului
     @Override
     public double withdraw(double value) {
         return 0;

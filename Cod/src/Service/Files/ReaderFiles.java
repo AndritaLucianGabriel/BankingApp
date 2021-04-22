@@ -43,7 +43,7 @@ public class ReaderFiles {
             Loan.setCounterLoanID(0);
             String linie;
             String[] dummy;
-            Bank local = new Bank();
+            Bank local;
             bankReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Bank.txt"));
             linie = bankReader.readLine();
             dummy = linie.split("[,]+");
@@ -52,10 +52,7 @@ public class ReaderFiles {
             Map<Client, List<Loan>> clientLoanMap = ReaderFiles.getInstance().readerLoan(Objects.requireNonNull(clientList));
 
             Bank.setCounterBankID(Bank.getCounterBankID() - 1);
-            local.setName(dummy[0]);
-            local.setLocation(dummy[1]);
-            local.setClientBankAccountMap(clientBankAccountMap);
-            local.setClientLoanMap(clientLoanMap);
+            local=new Bank(dummy[0], dummy[1], clientBankAccountMap, clientLoanMap);
 
             bankReader.close();
             return local;

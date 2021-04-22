@@ -34,9 +34,7 @@ public class DebitAccount extends BankAccount {
     public String toString() {
         StringBuilder c = new StringBuilder();
         c.append("[" + this.BankAccountID + "]" + " Contul de debit " + this.IBAN + " a fost deschis in data de " + this.openingDate);
-        //inlocuieste asta cu clasa cu verificarea
-        if (!(Objects.equals(this.closingDate, null) || Objects.equals(this.closingDate, "-")))//conturile inchise teoretic nu au carduri
-            //nu are sens sa aibe suma daca contu e inchis????
+        if (!(Objects.equals(this.closingDate, null) || Objects.equals(this.closingDate, "-")))
             c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + FormatDouble.format(this.balance) + " " + this.currency);
         else {
             c.append(", avand suma de " + FormatDouble.format(this.balance) + " " + this.currency);

@@ -14,8 +14,9 @@ public class ClientValidation {
             throw new ClientException("Last name invalid");
     }
 
+    //o sa am doar clienti majori
     public static void validateAge(int age) throws ClientException {
-        if (age < 0)
+        if (age <= 18 || age >= 200)
             throw new ClientException("Varsta invalida");
     }
 

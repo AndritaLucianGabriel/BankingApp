@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /*
-        DONE:
+        Diferente fata de Etapa 1:
     -metoda de plata a datoriei (una basic pentru a plati fix cat rata, alta pentru mai mult + recalculare)
     -validari in cadrul constructorilor + setteri + integrare exceptii
     -am transformat ToProviders in singleton + am creat metode de adaugare/stergere al providerilor
@@ -189,7 +189,7 @@ public class Main {
         WriterFiles.getInstance().writerBank("\n\tVadim vrea sa vada ce tranzactii a facut (vezi AccountStatementTemp)\n" + bank + "\nCOUNTER CONTURI: " + BankAccount.getCounterBankAccountID() + "\nCOUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
 
 //        Update-ul fisierelor de intrare
-        ReaderFiles.getInstance().updateReaders(bank);
+//        ReaderFiles.getInstance().updateReaders(bank);
 
     }
 }

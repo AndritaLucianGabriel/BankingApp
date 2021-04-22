@@ -77,10 +77,10 @@ public class Client {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
         if (obj == null)
             return false;
+        if (this == obj)
+            return true;
         if (this.getClass() != obj.getClass())
             return false;
         Client client = (Client) obj;

@@ -14,26 +14,17 @@ import Service.Validations.BankValidation;
 import java.util.*;
 
 public class Bank implements AccountStatement {
-    protected static int counterBankID;
-    protected int BankID;
+    private static int counterBankID;
+    protected int bankID;
     protected String name;
     protected String location;
     protected Map<Client, List<BankAccount>> clientBankAccountMap;
     protected Map<Client, List<Loan>> clientLoanMap;
 
-    public Bank() {
-        counterBankID++;
-        this.BankID = counterBankID;
-        this.name = "";
-        this.location = "";
-        this.clientBankAccountMap = new HashMap<>();
-        this.clientLoanMap = new HashMap<>();
-    }
-
     //Constructor destinat incarcarii tutoror datelor bancii in acelasi timp
     public Bank(Bank copy) {
         counterBankID++;
-        this.BankID = counterBankID;
+        this.bankID = counterBankID;
         this.name = copy.name;
         this.location = copy.location;
         this.clientBankAccountMap = copy.clientBankAccountMap;
@@ -41,10 +32,10 @@ public class Bank implements AccountStatement {
     }
 
     //Clasic
-    public Bank(String name, String location, Map<Client, List<BankAccount>> clientBankAccountMap, Map<Client, List<Loan>> clientListMap) throws BankException {
+    public Bank(String name, String location, Map<Client, List<BankAccount>> clientBankAccountMap, Map<Client, List<Loan>> clientLoanMap) throws BankException {
         BankValidation.validateName(name);
         counterBankID++;
-        this.BankID = counterBankID;
+        this.bankID = counterBankID;
         this.name = name;
         this.location = location;
 
@@ -54,8 +45,8 @@ public class Bank implements AccountStatement {
             normalizeBankIndex(x.getKey());
         }
 
-        this.clientLoanMap = clientListMap;
-        for (Map.Entry<Client, List<Loan>> x : clientLoanMap.entrySet()) {
+        this.clientLoanMap = clientLoanMap;
+        for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
             normalizeLoanIndex(x.getKey());
         }
     }
@@ -64,7 +55,7 @@ public class Bank implements AccountStatement {
     public Bank(String name, String location, Client clientBankAccount, List<BankAccount> bankAccounts, Client clientLoan, List<Loan> loans) throws BankException {
         BankValidation.validateName(name);
         counterBankID++;
-        this.BankID = counterBankID;
+        this.bankID = counterBankID;
         this.name = name;
         this.location = location;
 
@@ -82,7 +73,7 @@ public class Bank implements AccountStatement {
     public Bank(String name, String location, Client clientBankAccount, BankAccount bankAccounts, Client clientLoan, Loan loans) throws BankException {
         BankValidation.validateName(name);
         counterBankID++;
-        this.BankID = counterBankID;
+        this.bankID = counterBankID;
         this.name = name;
         this.location = location;
 
@@ -109,11 +100,11 @@ public class Bank implements AccountStatement {
     }
 
     public int getBankID() {
-        return BankID;
+        return bankID;
     }
 
     public void setBankID(int bankID) {
-        BankID = bankID;
+        this.bankID = bankID;
     }
 
     public String getName() {
@@ -880,14 +871,14 @@ public class Bank implements AccountStatement {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
         if (obj == null)
             return false;
+        if (this == obj)
+            return true;
         if (this.getClass() != obj.getClass())
             return false;
         Bank bank = (Bank) obj;
-        if (!Objects.equals(this.BankID, bank.BankID))
+        if (!Objects.equals(this.bankID, bank.bankID))
             return false;
         if (!Objects.equals(this.name, bank.name))
             return false;
@@ -903,7 +894,7 @@ public class Bank implements AccountStatement {
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("\n\t\t" + "[" + this.BankID + "]" + " Banca " + this.name + " cu ID-ul " + this.BankID + " aflata la " + this.location);
+        c.append("\n\t\t" + "[" + this.bankID + "]" + " Banca " + this.name + " cu ID-ul " + this.bankID + " aflata la " + this.location);
         if (this.clientBankAccountMap.size() == 0 && this.clientLoanMap.size() == 0)
             c.append(" nu are clienti.\n");
         else {
@@ -994,6 +985,6 @@ public class Bank implements AccountStatement {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.BankID, this.name, this.location, this.clientBankAccountMap, this.clientLoanMap);
+        return Objects.hash(this.bankID, this.name, this.location, this.clientBankAccountMap, this.clientLoanMap);
     }
 }

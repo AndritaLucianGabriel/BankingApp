@@ -13,7 +13,6 @@ public class Card {
 
     public Card() {
         this.cardNumber = "";
-        this.PIN = 0;
         this.issueDate = "";
     }
 
@@ -63,10 +62,10 @@ public class Card {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
         if (obj == null)
             return false;
+        if (this == obj)
+            return true;
         if (this.getClass() != obj.getClass())
             return false;
         Card card = (Card) obj;
