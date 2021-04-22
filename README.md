@@ -9,7 +9,7 @@
    1. addProvider(ProviderDB providerDB)
        > Method allows the addition of a new provider.
    2. addProvider(List<ProviderDB> providerDBList)
-       > Method Method allows the addition of a new list of providers.
+       > Method allows the addition of a new list of providers.
    3. removeProvider(ProviderDB providerDB)
        > Method allows the removal of a privder.
    4. removeProvider(String IBAN)
@@ -19,9 +19,9 @@
    6. anotherToString()
        > Method that is used to update the reader file for the providers.
    7. paymentUtilities(String IBAN, double value)
-       > Method executes the transfers itself and converts, if needed, the ammount to the provider's preferred currency.
+       > Method executes the transfers themselves and converts, if needed, the amount to the provider's preferred currency.
 #### *3. Transaction*
- Abstract class that will receive information about any type of transaction from and to a bank account. Every transaction will use the AsigUUID interface to receive a unique ID and a timestamp of the current day will be created using the LocalDate class. All the information will be stored in a unique file based on the bank accounts's IBAN in order to be processed later for the creation of an account statement.
+ Abstract class that will receive information about any type of transaction to and from a bank account. Every transaction will use the AsigUUID interface to receive a unique ID and a timestamp of the current day will be created using the LocalDate class. All the information will be stored in a unique file based on the bank accounts' IBAN in order to be processed later for the creation of an account statement.
    1. withdraw(double value)
        > Abstract method.
    2. paymentUtilities(String IBAN, double value)
@@ -31,9 +31,9 @@
 #### *4. Transfer*
  Derived class from *Transaction* handles deposits and withdraws to and from an account.
    1. withdraw(double value)
-       > Method that withdraws an ammount from the account and updates it's balance.
+       > Method that withdraws an amount from the account and updates its balance.
    2. deposit(double value)
-       > Method that deposits an ammount to the account and updates it's balance.
+       > Method that deposits an amount to the account and updates its balance.
 ## **Service Packge**
 #### *1. AccountStatement*
  Interface that will provide functionalities to select specific transactions.
@@ -42,28 +42,28 @@
        >     =  -> returns the given parameter if it exists
        >     >  -> bigger than the given parameter
        >     <  -> smaller than the given parameter
-       >     <= -> smaller or equals than the given parameter
-       >     >= -> bigger or equals than the given parameter
+       >     <= -> smaller than or equal to the given parameter
+       >     >= -> smaller than or equal to the given parameter
        >     <> -> anything but the given parameter
        >     >< -> everything in the given range
    1. balanceCheck(double value, String currency)
        > Method that checks the account's balance.
    2. myTypeOfDateSinceThereIsNoWayToDoItProperly(String date)
-       > Method that will return the european date format.
+       > Method that will return the European date format.
    3. filterDate(String IBAN, String startDate, String sign)
-       > Method that allows a client to filter his transactions based on a date.
+       > Method that allows a client to filter their transactions based on a date.
    4. filterDate(String IBAN, String startDate, String sign, String stopDate)
-       > Method that allows a client to filter his transactions based on a period of time.
+       > Method that allows a client to filter their transactions based on a period of time.
    5. filterValue(String IBAN, double value, String sign)
-       > Method that allows a client to filter his transactions based on a value.
+       > Method that allows a client to filter their transactions based on a value.
    6. filterValue(String IBAN, double minValue, String sign, double maxValue)
-       > Method that allows a client to filter his transactions based on a range of values.
+       > Method that allows a client to filter their transactions based on a range of values.
    7. filterCurrency(String IBAN, String currency, String sign)
-       > Method that allows a client to filter his transactions based on a type of currency.
+       > Method that allows a client to filter their transactions based on a type of currency.
 #### *2. AsigUUID*
- Interface that will provide to each transaction a UUID.
+ Interface that will provide each transaction with an UUID.
    1. generateId()
-       > Method that generates a UUID.
+       > Method that generates an UUID.
 #### *3. CurrencyExchange*
  Interface that provides a service which allows the transfer of funds between two different accounts regardless of currency.
    1. exchangeBankAccount(double value, String baseCurrency, String wantedCurrency)
@@ -84,27 +84,27 @@
 #### *1. BankAccountException*
  Exception class for the BankAccount class.
    1. BankAccountException(String text)
-       > Method that will thow a custom exception based on given text.
+       > Method that will throw a custom exception based on given text.
 #### *2. BankException*
  Exception class for the Bank class.
    1. BankException(String text)
-       > Method that will thow a custom exception based on given text.
+       > Method that will throw a custom exception based on given text.
 #### *3. CardException*
  Exception class for the Card class.
    1. CardException(String text)
-       > Method that will thow a custom exception based on given text.
+       > Method that will throw a custom exception based on given text.
 #### *4. ClientException*
  Exception class for the Client class.
    1. ClientException(String text)
-       > Method that will thow a custom exception based on given text.
+       > Method that will throw a custom exception based on given text.
 #### *5. LoanException*
  Exception class for the Loan class.
    1. LoanException(String text)
-       > Method that will thow a custom exception based on given text.
+       > Method that will throw a custom exception based on given text.
 #### *6. ProviderDBException*
  Exception class for the ProviderDB class.
    1. ProviderDBException(String text)
-       > Method that will thow a custom exception based on given text.
+       > Method that will throw a custom exception based on given text.
 #### *7. TransactionException*
  Exception class for the Transaction class.
    1. TransactionException(String text)
@@ -113,7 +113,7 @@
 #### *1. ReaderFiles*
  Exception class for the BankAccount class.
    1. readerBank()
-       > Method that will retrieve the all the information needed for a bank.
+       > Method that will retrieve all the information needed for a bank.
    2. readerBankAccount(List<Client> clientList)
        > Method that will read the bank accounts' information from a reader file based on a list of clients.
    3. readerCard(String IBAN)
@@ -127,7 +127,7 @@
    7. readerAccountStatement(String IBAN)
        > Method that will read all the transactions from a reader file in order to process it.
    8. updateReaders(Bank bank)
-       > Method that will update all the input files at the end of the execution of the code.
+       > Method that will update all the input files at the end of the execution.
 #### *2. WriterFiles*
  Exception class for the Bank class.
    1. writerBank(String c)
@@ -155,7 +155,7 @@
  Service class that checks all the providers' information to match the specific template and reduce the chance to insert faulty data. 
 ## **MainClasses**
 #### *1. Bank*
- The class stores details like the bank's name and location and uses two maps to store the information regarding it's clients, their bank accounts and loans.
+ The class stores details like the bank's name and location and uses two maps to store the information regarding its clients, their bank accounts and loans.
    1. normalizeBankIndex(Client client)
        > Helps the bank with the correct indexing of the bank accounts of a given client in its storage by normalizing it in relation to the others.
    2. normalizeBankIndex()
@@ -179,15 +179,15 @@
    11. removeCard(Card card)
        > Method that removes a card from a bank account using it's entire data collection (DB oriented method).
    12. removeClientLoan(String cnp)
-       > Method that removes all the client's loans from the bank's storage system based on his social security number.
+       > Method that removes all the client's loans from the bank's storage system based on their social security number.
    13. removeClientLoan(Client client)
-       > Method that removes a client from the loans' storage system completely using his entire data collection (DB oriented method).
+       > Method that removes a client from the loans' storage system completely using their entire data collection (DB oriented method).
    14. removeLoan(Loan loan)
        > Method that removes a specific loan from the client's entry at the bank and reorders all the loans' IDs of the given client.
    15. removeClientBankAccount(String cnp)
-       > Method that removes all the client's bank accounts from the bank's storage system based on his social security number.
+       > Method that removes all the client's bank accounts from the bank's storage system based on their social security number.
    16. removeClientBankAccount(Client client)
-       > Method that removes all the client's bank accounts from the bank's storage system using his entire data collection (DB oriented method).
+       > Method that removes all the client's bank accounts from the bank's storage system using their entire data collection (DB oriented method).
    17. removeAccount(String IBAN)
        > Method that removes a specific bank account from the client's entry at the bank and reorders all the bank accounts' IDs of the given client.
    18. removeAccount(BankAccount bankAccount)
@@ -195,27 +195,27 @@
    19. interBanking(String receiver, String sender, double value)
        > Method that allows a client to transfer funds from one of their bank accounts to another client. The method will convert the amount to his receiver's bank account's type of currency based on a conversion ratio.
    20. balanceCheck(BankAccount bankAccount)
-       > Method that allows a client to see the balance of one of his bank accounts.
+       > Method that allows a client to see the balance of one of their bank accounts.
    21. filterByDate(String IBAN, String startDate, String sign)
-       > Method that allows a client filter all the transactions of one of his accounts. The method itself first checks for the integrity of the received data, then uses the AccountStatement interface to check for the specified dates based on the provided sign. The information is received via Service/File/Resources/AccountStatement and then the statement is written in the Service/File/Resources/AccountStatementTemp folder based on the account's IBAN.
+       > Method that allows a client filter all the transactions of one of their accounts. The method itself first checks for the integrity of the received data, then uses the AccountStatement interface to check for the specified dates based on the provided sign. The information is received via Service/File/Resources/AccountStatement and then the statement is written in the Service/File/Resources/AccountStatementTemp folder based on the account's IBAN.
    22. filterByDate(String IBAN, String startDate, String sign, String stopDate)
-       > Method that allows a client filter all the transactions of one of his accounts. The method itself first checks for the integrity of the received data, then uses the AccountStatement interface to check for the specified period of time (startDate, stopDate) based on the provided sign. The information is received via Service/File/Resources/AccountStatement and then the statement is written in the Service/File/Resources/AccountStatementTemp folder based on the account's IBAN.
+       > Method that allows a client filter all the transactions of one of their accounts. The method itself first checks for the integrity of the received data, then uses the AccountStatement interface to check for the specified period of time (startDate, stopDate) based on the provided sign. The information is received via Service/File/Resources/AccountStatement and then the statement is written in the Service/File/Resources/AccountStatementTemp folder based on the account's IBAN.
    23. filterByValue(String IBAN, double value, String sign)
-       > Method that allows a client filter all the transactions of one of his accounts. The method itself first checks for the integrity of the received data, then uses the AccountStatement interface to check for the specified values based on the provided sign. The information is received via Service/File/Resources/AccountStatement and then the statement is written in the Service/File/Resources/AccountStatementTemp folder based on the account's IBAN.
+       > Method that allows a client filter all the transactions of one of their accounts. The method itself first checks for the integrity of the received data, then uses the AccountStatement interface to check for the specified values based on the provided sign. The information is received via Service/File/Resources/AccountStatement and then the statement is written in the Service/File/Resources/AccountStatementTemp folder based on the account's IBAN.
    24. filterByValue(String IBAN, double minValue, String sign, double maxValue)
-       > Method that allows a client filter all the transactions of one of his accounts. The method itself first checks for the integrity of the received data, then uses the AccountStatement interface to check for the specified range of values based on the provided sign. The information is received via Service/File/Resources/AccountStatement and then the statement is written in the Service/File/Resources/AccountStatementTemp folder based on the account's IBAN.
+       > Method that allows a client filter all the transactions of one of their accounts. The method itself first checks for the integrity of the received data, then uses the AccountStatement interface to check for the specified range of values based on the provided sign. The information is received via Service/File/Resources/AccountStatement and then the statement is written in the Service/File/Resources/AccountStatementTemp folder based on the account's IBAN.
    25. filterByCurrency(String IBAN, String currency, String sign)
-       > Method that allows a client filter all the transactions of one of his accounts. The method itself first checks for the integrity of the received data, then uses the AccountStatement interface to check for the specified type of currency based on the provided sign. The information is received via Service/File/Resources/AccountStatement and then the statement is written in the Service/File/Resources/AccountStatementTemp folder based on the account's IBAN.
+       > Method that allows a client filter all the transactions of one of their accounts. The method itself first checks for the integrity of the received data, then uses the AccountStatement interface to check for the specified type of currency based on the provided sign. The information is received via Service/File/Resources/AccountStatement and then the statement is written in the Service/File/Resources/AccountStatementTemp folder based on the account's IBAN.
    26. paymentUtilies(String Sender, String Receiver, double value)
-       > Method that allows a client to pay his utilities using an existing DB in the bank systems. The method will convert the amount to his receiver's bank accounts's type of currency based on a conversion ratio.
+       > Method that allows a client to pay their utilities using an existing DB in the bank systems. The method will convert the amount to their receiver's bank accounts' type of currency based on a conversion ratio.
    27. currencyExchange(BankAccount bankAccount, String wantedCurrency)
-       > Method that allows a client to convert his bank account currency.
+       > Method that allows a client to convert their bank account currency.
    28. currencyExchange(String IBAN, String wantedCurrency)
-       > Method that allows a client to convert his bank account currency based of his IBAN.
+       > Method that allows a client to convert their bank account currency based of their IBAN.
    29. payLoan(BankAccount bankAccount, Loan loan, double value)
-       > Method that allows a client to pay more than one of his monthly installments using one of his bank accounts. The method recalculates the remaining loan and creates a new monthly installment and reduces the period of the loan.
+       > Method that allows a client to pay more than one of their monthly installments using one of their bank accounts. The method recalculates the remaining loan and creates a new monthly installment and reduces the period of the loan.
    30. payLoan(BankAccount bankAccount, Loan loan)
-       > Method that allows a client to pay exactly one of his monthly installments using one of his bank accounts. The method recalculates the remaining loan and creates a new monthly installment and reduces the period of the loan.
+       > Method that allows a client to pay exactly one of their monthly installments using one of their bank accounts. The method recalculates the remaining loan and creates a new monthly installment and reduces the period of the loan.
    31. addProvider(ProviderDB providerDB)
        > Method that adds a new provider in the bank's database.
    32. addProvider(List<ProviderDB> providerDBList)
@@ -223,7 +223,7 @@
    33. removeProvider(ProviderDB providerDB)
        > Method that removes a provider from the bank's database.
    34. removeProvider(String IBAN)
-       > Method that removes a provider from the bank's database based on his IBAN.
+       > Method that removes a provider from the bank's database based on their IBAN.
    35. checkProviders(StringBuilder c)
        > Method that will be integrated in the bank's toString() method to show all the information about providers.
    36. bankReaderUpdate()
@@ -237,7 +237,7 @@
    40. List<String> loanReaderUpdate()
        > Method that is used to update the reader file for the loans.
 #### *2. BankAccount*
- Abstract class that creates a unique ID of the account in relation to the client and then stores data about the clients' money, the type of currency he prefers and a list of all the cards that were linked to this account.
+ Abstract class that creates a unique ID of the account in relation to the client and then stores data about the clients' money, the type of currency they prefer and a list of all the cards that were linked to this account.
    1. addCard(Card card)
        > Method that links a card to the bank account.
    2. removeCard(Card card)
@@ -269,9 +269,9 @@
    1. valueMonthlyRate()
        > Method that calculates the monthly installment.
    2. payMonthlyRate(double value)
-       > Method that allows the client to pay more than his monthly intallment, recalculating the new monthly installment and reducing the period of time by 1 month.
+       > Method that allows the client to pay more than their monthly installment, recalculating the new monthly installment and reducing the period of time by 1 month.
    3. payMonthlyRate()
-       > Method that allows the client to pay exactly his monthly installment.
+       > Method that allows the client to pay exactly their monthly installment.
    4. loanReaderUpdate()
        > Method that is used to update the reader file for the loans.
 #### *7. SavingsAccount*

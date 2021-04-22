@@ -89,7 +89,7 @@ public class Main {
         Card card2 = new Card("5113512652346763", 524, "10-05-2019");
 //        Card card3 = new Card("5223512152346752", 501, "18-04-2018");
         Card card4 = new Card("5151251415234674", 234, "08-03-2017");
-        
+
 //        Extras
         BankAccount bankAccount = new DebitAccount("RO59RZBR0000065122344800", "12-09-2021", "-", 20030, "Lei");
         BankAccount bankAccount1 = new SavingsAccount("RO59INGB0000062522326801", "25-07-2019", "12-09-2021", 1000, "Dolari", 3.3);
@@ -189,7 +189,7 @@ public class Main {
         WriterFiles.getInstance().writerBank("\n\tVadim vrea sa vada ce tranzactii a facut (vezi AccountStatementTemp)\n" + bank + "\nCOUNTER CONTURI: " + BankAccount.getCounterBankAccountID() + "\nCOUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
 
 //        Update-ul fisierelor de intrare
-//        ReaderFiles.getInstance().updateReaders(bank);
+        ReaderFiles.getInstance().updateReaders(bank);
 
     }
 }
