@@ -1,15 +1,15 @@
-package MainClasses;
+package mainClasses;
 
-import Service.CurrencyExchange;
-import Operations.ToProviders;
-import Operations.Transaction;
-import Operations.Transfer;
-import Service.Exceptions.BankAccountException;
-import Service.Exceptions.ProviderDBException;
-import Service.Exceptions.TransactionException;
-import Service.Timestamp;
-import Service.FormatDouble;
-import Service.Validations.BankAccountValidation;
+import service.CurrencyExchange;
+import operations.ToProviders;
+import operations.Transaction;
+import operations.Transfer;
+import service.exceptions.BankAccountException;
+import service.exceptions.ProviderDBException;
+import service.exceptions.TransactionException;
+import service.Timestamp;
+import service.FormatDouble;
+import service.validations.BankAccountValidation;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -223,9 +223,7 @@ public abstract class BankAccount {
             return false;
         if (!Objects.equals(this.currency, bankAccount.currency))
             return false;
-        if (!Objects.equals(this.cardList, bankAccount.cardList))
-            return false;
-        return true;
+        return Objects.equals(this.cardList, bankAccount.cardList);
     }
 
     @Override

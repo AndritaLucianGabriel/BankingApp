@@ -1,9 +1,9 @@
-package Operations;
+package operations;
 
-import Service.Exceptions.ProviderDBException;
-import Service.Timestamp;
-import Service.FormatDouble;
-import Service.Validations.ProviderDBValidation;
+import service.exceptions.ProviderDBException;
+import service.Timestamp;
+import service.FormatDouble;
+import service.validations.ProviderDBValidation;
 
 import java.util.Objects;
 
@@ -106,15 +106,14 @@ public class ProviderDB {
             return false;
         if (!Objects.equals(this.IBAN, providerDB.IBAN))
             return false;
-        if (this.balance != providerDB.balance)
-            return false;
-        return true;
+        return this.balance == providerDB.balance;
     }
 
     @Override
     public String toString() {
-        StringBuilder c = new StringBuilder();
-        c.append("Compania '" + this.company + "' are " + FormatDouble.format(this.balance) + " " + this.currency + " in contul " + this.IBAN);
+        StringBuilder c;
+        c = new StringBuilder();
+        c.append("Compania '").append(this.company).append("' are ").append(FormatDouble.format(this.balance)).append(" ").append(this.currency).append(" in contul ").append(this.IBAN);
         return c.toString();
     }
 

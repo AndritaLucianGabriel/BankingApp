@@ -1,6 +1,6 @@
-package Service.Validations;
+package service.validations;
 
-import Service.Exceptions.ClientException;
+import service.exceptions.ClientException;
 
 public class ClientValidation {
 

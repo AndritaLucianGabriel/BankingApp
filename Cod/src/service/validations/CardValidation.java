@@ -1,6 +1,6 @@
-package Service.Validations;
+package service.validations;
 
-import Service.Exceptions.CardException;
+import service.exceptions.CardException;
 
 public class CardValidation {
     public static void validateCardNumber(String cardNumber) throws CardException {

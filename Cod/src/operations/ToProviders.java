@@ -1,13 +1,13 @@
-package Operations;
+package operations;
 
-import Service.CurrencyExchange;
-import Service.Exceptions.BankAccountException;
-import Service.Exceptions.ProviderDBException;
-import Service.Exceptions.TransactionException;
-import Service.Timestamp;
-import Service.Files.WriterFiles;
-import Service.FormatDouble;
-import Service.Validations.BankAccountValidation;
+import service.CurrencyExchange;
+import service.exceptions.BankAccountException;
+import service.exceptions.ProviderDBException;
+import service.exceptions.TransactionException;
+import service.Timestamp;
+import service.files.WriterFiles;
+import service.FormatDouble;
+import service.validations.BankAccountValidation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,7 +132,7 @@ public class ToProviders extends Transaction {
         return val;
     }
 
-//    stiu ca ati spus ca nu are sens sa fie mostenita din Transaction, dar am vazut foarte tarziu feedbackul (nu stiam unde sa ma uit si am vazut tarziu noul branch)
+    //    stiu ca ati spus ca nu are sens sa fie mostenita din Transaction, dar am vazut foarte tarziu feedbackul (nu stiam unde sa ma uit si am vazut tarziu noul branch)
 //    si deja terminasem etapa 2 cand am vazut. Trebuia sa schimb toata logica din spatele extrasului
     @Override
     public double withdraw(double value) {
@@ -155,11 +155,11 @@ public class ToProviders extends Transaction {
         if (providerDBList.isEmpty())
             c.append("\tNu avem nici un provider.");
         else if (providerDBList.size() == 1)
-            c.append("\tAvem urmatorul provider:\n" + providerDBList.get(0).toString());
+            c.append("\tAvem urmatorul provider:\n").append(providerDBList.get(0).toString());
         else {
             c.append("\tAvem urmatorii provideri:");
             for (ProviderDB x : providerDBList)
-                c.append("\n" + x.toString());
+                c.append("\n").append(x.toString());
         }
         return c.toString();
     }

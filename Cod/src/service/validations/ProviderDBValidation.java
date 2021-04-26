@@ -1,6 +1,6 @@
-package Service.Validations;
+package service.validations;
 
-import Service.Exceptions.ProviderDBException;
+import service.exceptions.ProviderDBException;
 
 public class ProviderDBValidation {
     public static void validateCompany(String name) throws ProviderDBException {

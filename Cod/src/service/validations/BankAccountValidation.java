@@ -1,6 +1,6 @@
-package Service.Validations;
+package service.validations;
 
-import Service.Exceptions.BankAccountException;
+import service.exceptions.BankAccountException;
 
 public class BankAccountValidation {
     public static void validateIBAN(String IBAN) throws BankAccountException {

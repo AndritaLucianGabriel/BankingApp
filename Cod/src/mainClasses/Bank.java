@@ -1,15 +1,15 @@
-package MainClasses;
+package mainClasses;
 
-import Service.CurrencyExchange;
-import Operations.ProviderDB;
-import Operations.ToProviders;
-import Service.AccountStatement;
-import Service.Exceptions.*;
-import Service.Timestamp;
-import Service.Files.WriterFiles;
-import Service.FormatDouble;
-import Service.Validations.BankAccountValidation;
-import Service.Validations.BankValidation;
+import service.CurrencyExchange;
+import operations.ProviderDB;
+import operations.ToProviders;
+import service.AccountStatement;
+import service.exceptions.*;
+import service.Timestamp;
+import service.files.WriterFiles;
+import service.FormatDouble;
+import service.validations.BankAccountValidation;
+import service.validations.BankValidation;
 
 import java.util.*;
 
@@ -792,14 +792,15 @@ public class Bank implements AccountStatement {
     }
 
     //Afisarea providerilor o data cu banca
-    public StringBuilder checkProviders(StringBuilder c) {
+    public StringBuilder checkProviders() {
         Timestamp.timestamp("Bank: checkProviders");
+        StringBuilder c = new StringBuilder();
         if (ToProviders.getInstance() == null)
             System.out.println("Inca nu exista nici un provider");
         else {
             c.append("\tAvem urmatorii provideri:\n");
             for (ProviderDB x : ToProviders.getProviderDBList())
-                c.append(" ~ " + x.toString() + "\n");
+                c.append(" ~ ").append(x.toString()).append("\n");
         }
         return c;
     }
@@ -886,15 +887,13 @@ public class Bank implements AccountStatement {
             return false;
         if (!Objects.equals(this.clientBankAccountMap, bank.clientBankAccountMap))
             return false;
-        if (!Objects.equals(this.clientLoanMap, bank.clientLoanMap))
-            return false;
-        return true;
+        return Objects.equals(this.clientLoanMap, bank.clientLoanMap);
     }
 
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("\n\t\t" + "[" + this.bankID + "]" + " Banca " + this.name + " cu ID-ul " + this.bankID + " aflata la " + this.location);
+        c.append("\n\t\t" + "[").append(this.bankID).append("]").append(" Banca ").append(this.name).append(" cu ID-ul ").append(this.bankID).append(" aflata la ").append(this.location);
         if (this.clientBankAccountMap.size() == 0 && this.clientLoanMap.size() == 0)
             c.append(" nu are clienti.\n");
         else {
@@ -913,9 +912,9 @@ public class Bank implements AccountStatement {
                 if (this.clientBankAccountMap.containsKey(dummy.get(0))) {
                     for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
                         if (x.getKey().equals(dummy.get(0)) && (!x.getValue().isEmpty())) {
-                            c.append(dummy.get(0).toString() + "\n  ->CONTURI:\n");
+                            c.append(dummy.get(0).toString()).append("\n  ->CONTURI:\n");
                             for (BankAccount y : x.getValue())
-                                c.append(y.toString() + "\n");
+                                c.append(y.toString()).append("\n");
                             contCont++;
                         }
                     }
@@ -925,10 +924,10 @@ public class Bank implements AccountStatement {
                         for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
                             if (x.getKey().equals(dummy.get(0)) && (!x.getValue().isEmpty())) {
                                 if (contCont == 0)
-                                    c.append(dummy.get(0).toString() + "\n");
+                                    c.append(dummy.get(0).toString()).append("\n");
                                 c.append("  ->IMPRUMUTURI:\n");
                                 for (Loan y : x.getValue())
-                                    c.append(y.toString() + "\n");
+                                    c.append(y.toString()).append("\n");
                                 contImpr++;
                             }
                         }
@@ -947,9 +946,9 @@ public class Bank implements AccountStatement {
                         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
                             if (x.getKey().equals(local) && (!x.getValue().isEmpty())) // daca se foloseste addBankAccount sa nu considere ca are conturi
                             {
-                                c.append(local.toString() + "\n  ->CONTURI:\n");
+                                c.append(local).append("\n  ->CONTURI:\n");
                                 for (BankAccount y : x.getValue())
-                                    c.append(y.toString() + "\n");
+                                    c.append(y.toString()).append("\n");
                                 contCont++;
                             }
                         }
@@ -960,10 +959,10 @@ public class Bank implements AccountStatement {
                                 if (x.getKey().equals(local) && (!x.getValue().isEmpty())) // daca se foloseste addLoan sa nu considere ca are conturi
                                 {
                                     if (contCont == 0)
-                                        c.append(local.toString() + "\n");
+                                        c.append(local).append("\n");
                                     c.append("  ->IMPRUMUTURI:\n");
                                     for (Loan y : x.getValue())
-                                        c.append(y.toString() + "\n");
+                                        c.append(y.toString()).append("\n");
                                     contImpr++;
                                 }
                             }
@@ -974,12 +973,12 @@ public class Bank implements AccountStatement {
                     else if (contImpr == 0 && contCont != 0)
                         c.append("  ->NU ARE IMPRUMUTURI\n");
                     else if (contImpr == 0)
-                        c.append(local.toString() + " nu are nici conturi, nici imprumuturi.\n");
+                        c.append(local.toString()).append(" nu are nici conturi, nici imprumuturi.\n");
                     c.append("\n");
                 }
             }
         }
-        this.checkProviders(c);
+        c.append(this.checkProviders());
         return c.toString();
     }
 

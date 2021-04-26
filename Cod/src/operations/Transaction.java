@@ -1,14 +1,14 @@
-package Operations;
+package operations;
 
-import Service.AsigUUID;
-import Service.Exceptions.ProviderDBException;
-import Service.Exceptions.TransactionException;
-import Service.FormatDouble;
-import Service.Validations.TransactionValidation;
+import service.AsigUUID;
+import service.exceptions.ProviderDBException;
+import service.exceptions.TransactionException;
+import service.FormatDouble;
+import service.validations.TransactionValidation;
 
 import java.time.LocalDate;
 
-public abstract class Transaction implements AsigUUID {
+public abstract class Transaction implements AsigUUID, Comparable<Transaction> {
     protected String transactionID;
     protected String IBAN;
     protected LocalDate timestamp;
@@ -93,6 +93,11 @@ public abstract class Transaction implements AsigUUID {
     public abstract double paymentUtilities(String IBAN, double value) throws ProviderDBException;
 
     public abstract double deposit(double value);
+
+    @Override
+    public int compareTo(Transaction transaction) {
+        return (int) (this.value-transaction.getValue());
+    }
 
     @Override
     public String toString() {

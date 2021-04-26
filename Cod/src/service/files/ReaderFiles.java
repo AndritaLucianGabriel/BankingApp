@@ -1,21 +1,21 @@
-package Service.Files;
+package service.files;
 
-import MainClasses.*;
-import Operations.ProviderDB;
-import Operations.ToProviders;
-import Operations.Transaction;
-import Operations.Transfer;
-import Service.Exceptions.*;
-import Service.Timestamp;
+import mainClasses.*;
+import operations.ProviderDB;
+import operations.ToProviders;
+import operations.Transaction;
+import operations.Transfer;
+import service.exceptions.*;
+import service.Timestamp;
 
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
-import static Service.Files.WriterFiles.RESOURCES_FOLDER_MIX;
+import static service.files.WriterFiles.RESOURCES_FOLDER_MIX;
 
 public class ReaderFiles {
-    public static final String RESOURCES_FOLDER = System.getProperty("user.dir") + "\\src\\Service\\Files\\Resources\\Readers";
+    public static final String RESOURCES_FOLDER = System.getProperty("user.dir") + "\\src\\service\\files\\resources\\readers";
     public static BufferedReader cardReader;
     public static BufferedReader clientReader;
     public static BufferedReader bankAccountReader;
@@ -52,7 +52,7 @@ public class ReaderFiles {
             Map<Client, List<Loan>> clientLoanMap = ReaderFiles.getInstance().readerLoan(Objects.requireNonNull(clientList));
 
             Bank.setCounterBankID(Bank.getCounterBankID() - 1);
-            local=new Bank(dummy[0], dummy[1], clientBankAccountMap, clientLoanMap);
+            local = new Bank(dummy[0], dummy[1], clientBankAccountMap, clientLoanMap);
 
             bankReader.close();
             return local;
@@ -256,6 +256,7 @@ public class ReaderFiles {
                 local.setCurrency(dummy[3]);
                 transactionList.add(local);
             }
+            transactionList.sort(Transaction::compareTo);
             accountStatementTempReader.close();
             return transactionList;
         } catch (IOException | TransactionException e) {

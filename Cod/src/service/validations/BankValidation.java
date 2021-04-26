@@ -1,6 +1,6 @@
-package Service.Validations;
+package service.validations;
 
-import Service.Exceptions.BankException;
+import service.exceptions.BankException;
 
 public class BankValidation {
     public static void validateName(String name) throws BankException {

@@ -1,9 +1,9 @@
-package MainClasses;
+package mainClasses;
 
-import Service.Exceptions.LoanException;
-import Service.Timestamp;
-import Service.FormatDouble;
-import Service.Validations.LoanValidation;
+import service.exceptions.LoanException;
+import service.Timestamp;
+import service.FormatDouble;
+import service.validations.LoanValidation;
 
 import java.util.Objects;
 
@@ -154,15 +154,14 @@ public class Loan {
             return false;
         if (!Objects.equals(this.date, loan.date))
             return false;
-        if (this.durationMonths != loan.durationMonths)
-            return false;
-        return true;
+        return this.durationMonths == loan.durationMonths;
     }
 
     @Override
     public String toString() {
-        StringBuilder c = new StringBuilder();
-        c.append("[" + this.LoanID + "] Suma = " + FormatDouble.format(this.value) + " " + this.currency + " in data de " + this.date + " pe " + this.durationMonths + " luni (" + this.detail + ")");
+        StringBuilder c;
+        c = new StringBuilder();
+        c.append("[").append(this.LoanID).append("] Suma = ").append(FormatDouble.format(this.value)).append(" ").append(this.currency).append(" in data de ").append(this.date).append(" pe ").append(this.durationMonths).append(" luni (").append(this.detail).append(")");
         return c.toString();
     }
 

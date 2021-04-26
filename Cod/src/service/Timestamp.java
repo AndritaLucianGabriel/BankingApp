@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public interface Timestamp {
-    String RESOURCE_FOLDER_LOGS = System.getProperty("user.dir") + "\\src\\Service\\Files\\Resources\\Logs\\Logs.txt";
+    String RESOURCE_FOLDER_LOGS = System.getProperty("user.dir") + "\\src\\service\\files\\resources\\logs\\Logs.txt";
 
     static void timestamp(String text) {
         try {

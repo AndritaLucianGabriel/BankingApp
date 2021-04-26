@@ -1,8 +1,8 @@
-package MainClasses;
+package mainClasses;
 
-import Service.Exceptions.ClientException;
-import Service.Timestamp;
-import Service.Validations.ClientValidation;
+import service.exceptions.ClientException;
+import service.Timestamp;
+import service.validations.ClientValidation;
 
 import java.util.Objects;
 
@@ -90,17 +90,15 @@ public class Client {
             return false;
         if (this.age != client.age)
             return false;
-        if (!Objects.equals(this.cnp, client.cnp))
-            return false;
-
-        return true;
+        return Objects.equals(this.cnp, client.cnp);
     }
 
     @Override
     public String toString() {
         //verificare nume si chestii din service
-        StringBuilder c = new StringBuilder();
-        c.append("\t" + this.firstName + " " + this.lastName + " in varsta de " + this.age + " ani, CNP: " + this.cnp);
+        StringBuilder c;
+        c = new StringBuilder();
+        c.append("\t").append(this.firstName).append(" ").append(this.lastName).append(" in varsta de ").append(this.age).append(" ani, CNP: ").append(this.cnp);
         return c.toString();
     }
 

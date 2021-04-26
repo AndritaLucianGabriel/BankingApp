@@ -1,4 +1,4 @@
-package Service.Exceptions;
+package service.exceptions;
 
 public class BankAccountException extends Exception {
     public BankAccountException(String text) {

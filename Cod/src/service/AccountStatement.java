@@ -1,7 +1,7 @@
-package Service;
+package service;
 
-import Operations.Transaction;
-import Service.Files.ReaderFiles;
+import operations.Transaction;
+import service.files.ReaderFiles;
 
 import java.time.LocalDate;
 
@@ -20,6 +20,16 @@ public interface AccountStatement {
         return local[2] + "-" + local[1] + "-" + local[0];
     }
 
+    default StringBuilder showTransaction(Transaction transaction) {
+        StringBuilder text;
+        text = new StringBuilder();
+        text.append(transaction.getTransactionID()).append(", ");
+        text.append(transaction.getTimestamp().toString()).append(", ");
+        text.append(transaction.getValue()).append(", ");
+        text.append(transaction.getCurrency()).append("\n");
+        return text;
+    }
+
     default String filterDate(String IBAN, String startDate, String sign) {
         Timestamp.timestamp("AccountStatement: filterDate");
         StringBuilder text = new StringBuilder();
@@ -28,10 +38,7 @@ public interface AccountStatement {
             case ("="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().equals(parsedDate)) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -39,10 +46,7 @@ public interface AccountStatement {
             case (">"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedDate) > 0) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -50,10 +54,7 @@ public interface AccountStatement {
             case ("<"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedDate) < 0) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -61,10 +62,7 @@ public interface AccountStatement {
             case ("<="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedDate) <= 0) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -72,10 +70,7 @@ public interface AccountStatement {
             case (">="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedDate) >= 0) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -83,10 +78,7 @@ public interface AccountStatement {
             case ("<>"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (!x.getTimestamp().equals(parsedDate)) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
             }
@@ -104,10 +96,7 @@ public interface AccountStatement {
             case ("><"): { //parsedDate > startDate && parsedDate < stopDate
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedStartDate) > 0 && x.getTimestamp().compareTo(parsedStopDate) < 0) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -115,10 +104,7 @@ public interface AccountStatement {
             case ("><="): { //parsedDate > startDate && parsedDate <= stopDate
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedStartDate) > 0 && x.getTimestamp().compareTo(parsedStopDate) <= 0) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -126,10 +112,7 @@ public interface AccountStatement {
             case (">=<"): { //parsedDate >= startDate && parsedDate < stopDate
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedStartDate) >= 0 && x.getTimestamp().compareTo(parsedStopDate) < 0) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -138,10 +121,7 @@ public interface AccountStatement {
             case (">=<="): { //parsedDate >= startDate && parsedDate <= stopDate
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedStartDate) >= 0 && x.getTimestamp().compareTo(parsedStopDate) <= 0) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -150,10 +130,7 @@ public interface AccountStatement {
             case ("<>"): { //parsedDate < startDate && parsedDate > stopDate -> sa nu se afle in interval
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedStartDate) < 0 && x.getTimestamp().compareTo(parsedStopDate) > 0) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -169,10 +146,7 @@ public interface AccountStatement {
             case ("="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) == value) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -181,10 +155,7 @@ public interface AccountStatement {
             case (">"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) > value) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -193,10 +164,7 @@ public interface AccountStatement {
             case (">="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) >= value) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -205,10 +173,7 @@ public interface AccountStatement {
             case ("<"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) < value) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -217,10 +182,7 @@ public interface AccountStatement {
             case ("<="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) <= value) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -229,10 +191,7 @@ public interface AccountStatement {
             case ("<>"): { //diferit
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) != value) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -249,10 +208,7 @@ public interface AccountStatement {
             case ("><"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) > minValue && Math.abs(x.getValue()) < maxValue) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -261,10 +217,7 @@ public interface AccountStatement {
             case ("><="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) > minValue && Math.abs(x.getValue()) <= maxValue) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -273,10 +226,7 @@ public interface AccountStatement {
             case (">=<"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) >= minValue && Math.abs(x.getValue()) < maxValue) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -285,10 +235,7 @@ public interface AccountStatement {
             case (">=<="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) >= minValue && Math.abs(x.getValue()) <= maxValue) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -297,10 +244,7 @@ public interface AccountStatement {
             case ("<>"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) < minValue && Math.abs(x.getValue()) > maxValue) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -317,10 +261,7 @@ public interface AccountStatement {
             case ("="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getCurrency().equals(currency)) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;
@@ -328,10 +269,7 @@ public interface AccountStatement {
             case ("<>"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (!x.getCurrency().equals(currency)) {
-                        text.append(x.getTransactionID() + ", ");
-                        text.append(x.getTimestamp().toString() + ", ");
-                        text.append(x.getValue() + ", ");
-                        text.append(x.getCurrency() + "\n");
+                        text.append(showTransaction(x));
                     }
                 }
                 break;

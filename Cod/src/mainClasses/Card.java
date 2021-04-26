@@ -1,8 +1,8 @@
-package MainClasses;
+package mainClasses;
 
-import Service.Exceptions.CardException;
-import Service.Timestamp;
-import Service.Validations.CardValidation;
+import service.exceptions.CardException;
+import service.Timestamp;
+import service.validations.CardValidation;
 
 import java.util.Objects;
 
@@ -73,15 +73,14 @@ public class Card {
             return false;
         if (this.PIN != card.PIN)
             return false;
-        if (!Objects.equals(this.issueDate, card.issueDate))
-            return false;
-        return true;
+        return Objects.equals(this.issueDate, card.issueDate);
     }
 
     @Override
     public String toString() {
-        StringBuilder c = new StringBuilder();
-        c.append("Cardul " + this.cardNumber + " cu pinul " + this.PIN + " a fost emis la data de " + this.issueDate + ".");
+        StringBuilder c;
+        c = new StringBuilder();
+        c.append("Cardul ").append(this.cardNumber).append(" cu pinul ").append(this.PIN).append(" a fost emis la data de ").append(this.issueDate).append(".");
         return c.toString();
     }
 

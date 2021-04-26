@@ -1,6 +1,6 @@
-package Service.Validations;
+package service.validations;
 
-import Service.Exceptions.LoanException;
+import service.exceptions.LoanException;
 
 public class LoanValidation {
     public static void validateValue(double value) throws LoanException {

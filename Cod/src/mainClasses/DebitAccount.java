@@ -1,8 +1,8 @@
-package MainClasses;
+package mainClasses;
 
-import Service.Exceptions.BankAccountException;
-import Service.Timestamp;
-import Service.FormatDouble;
+import service.exceptions.BankAccountException;
+import service.Timestamp;
+import service.FormatDouble;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,20 +27,20 @@ public class DebitAccount extends BankAccount {
     }
 
     @Override
-    public void setAnnualInterestRate(double annualInterestRate) throws BankAccountException {
+    public void setAnnualInterestRate(double annualInterestRate) {
     }
 
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("[" + this.BankAccountID + "]" + " Contul de debit " + this.IBAN + " a fost deschis in data de " + this.openingDate);
+        c.append("[").append(this.BankAccountID).append("]").append(" Contul de debit ").append(this.IBAN).append(" a fost deschis in data de ").append(this.openingDate);
         if (!(Objects.equals(this.closingDate, null) || Objects.equals(this.closingDate, "-")))
-            c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + FormatDouble.format(this.balance) + " " + this.currency);
+            c.append(" si a fost inchis in data de ").append(this.closingDate).append(", avand suma de ").append(FormatDouble.format(this.balance)).append(" ").append(this.currency);
         else {
-            c.append(", avand suma de " + FormatDouble.format(this.balance) + " " + this.currency);
+            c.append(", avand suma de ").append(FormatDouble.format(this.balance)).append(" ").append(this.currency);
             if (!cardList.isEmpty())
                 for (Card x : this.cardList) {
-                    c.append("\n ~ " + x.toString());
+                    c.append("\n ~ ").append(x.toString());
                 }
         }
         return c.toString();

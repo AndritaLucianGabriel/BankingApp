@@ -1,4 +1,4 @@
-package Service.Exceptions;
+package service.exceptions;
 
 public class ClientException extends Exception {
     public ClientException(String text) {

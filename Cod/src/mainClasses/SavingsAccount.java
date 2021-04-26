@@ -1,12 +1,12 @@
-package MainClasses;
+package mainClasses;
 
-import Service.CurrencyExchange;
-import Service.Exceptions.BankAccountException;
-import Service.Exceptions.ProviderDBException;
-import Service.Exceptions.TransactionException;
-import Service.Timestamp;
-import Service.FormatDouble;
-import Service.Validations.BankAccountValidation;
+import service.CurrencyExchange;
+import service.exceptions.BankAccountException;
+import service.exceptions.ProviderDBException;
+import service.exceptions.TransactionException;
+import service.Timestamp;
+import service.FormatDouble;
+import service.validations.BankAccountValidation;
 
 import java.util.List;
 import java.util.Objects;
@@ -37,13 +37,13 @@ public class SavingsAccount extends BankAccount {
         this.annualInterestRate = 0;
     }
 
-    public SavingsAccount(String IBAN, String openingDate, String closingDate, double balance, String currency, List<MainClasses.Card> cardList, double annualInterestRate) throws BankAccountException {
+    public SavingsAccount(String IBAN, String openingDate, String closingDate, double balance, String currency, List<mainClasses.Card> cardList, double annualInterestRate) throws BankAccountException {
         super(IBAN, openingDate, closingDate, balance, currency, cardList);
         BankAccountValidation.validateAnnualInterestRate(annualInterestRate);
         this.annualInterestRate = annualInterestRate;
     }
 
-    public SavingsAccount(String IBAN, String openingDate, String closingDate, double balance, String currency, List<MainClasses.Card> cardList) throws BankAccountException {
+    public SavingsAccount(String IBAN, String openingDate, String closingDate, double balance, String currency, List<mainClasses.Card> cardList) throws BankAccountException {
         super(IBAN, openingDate, closingDate, balance, currency, cardList);
         this.annualInterestRate = 0;
     }
@@ -97,22 +97,20 @@ public class SavingsAccount extends BankAccount {
         if (!super.equals(obj))
             return false;
         SavingsAccount savingsAccount = (SavingsAccount) obj;
-        if (this.annualInterestRate != savingsAccount.annualInterestRate)
-            return false;
-        return true;
+        return this.annualInterestRate == savingsAccount.annualInterestRate;
     }
 
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        c.append("[" + this.BankAccountID + "]" + " Contul de economii " + this.IBAN + " a fost deschis in data de " + this.openingDate);
+        c.append("[").append(this.BankAccountID).append("]").append(" Contul de economii ").append(this.IBAN).append(" a fost deschis in data de ").append(this.openingDate);
         if (!(Objects.equals(this.closingDate, null) || Objects.equals(this.closingDate, "-")))
-            c.append(" si a fost inchis in data de " + this.closingDate + ", avand suma de " + FormatDouble.format(this.balance) + " " + this.currency + ", avand dobanda anuala de " + FormatDouble.format(this.annualInterestRate) + "%");
+            c.append(" si a fost inchis in data de ").append(this.closingDate).append(", avand suma de ").append(FormatDouble.format(this.balance)).append(" ").append(this.currency).append(", avand dobanda anuala de ").append(FormatDouble.format(this.annualInterestRate)).append("%");
         else {
-            c.append(", avand suma de " + FormatDouble.format(this.balance) + " " + this.currency + ", avand comision anual de " + FormatDouble.format(this.annualInterestRate) + "%");
+            c.append(", avand suma de ").append(FormatDouble.format(this.balance)).append(" ").append(this.currency).append(", avand comision anual de ").append(FormatDouble.format(this.annualInterestRate)).append("%");
             if (!cardList.isEmpty())
-                for (MainClasses.Card x : this.cardList) {
-                    c.append("\n ~ " + x.toString());
+                for (mainClasses.Card x : this.cardList) {
+                    c.append("\n ~ ").append(x.toString());
                 }
         }
         return c.toString();

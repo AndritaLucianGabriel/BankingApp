@@ -1,6 +1,6 @@
-package Service.Validations;
+package service.validations;
 
-import Service.Exceptions.TransactionException;
+import service.exceptions.TransactionException;
 
 public class TransactionValidation {
 

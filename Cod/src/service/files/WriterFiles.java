@@ -1,8 +1,8 @@
-package Service.Files;
+package service.files;
 
-import Operations.ToProviders;
-import Operations.Transaction;
-import Service.Timestamp;
+import operations.ToProviders;
+import operations.Transaction;
+import service.Timestamp;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class WriterFiles {
-    public static final String RESOURCES_FOLDER = System.getProperty("user.dir") + "\\src\\Service\\Files\\Resources\\Writers";
-    public static final String RESOURCES_FOLDER_MIX = System.getProperty("user.dir") + "\\src\\Service\\Files\\Resources\\AccountStatement";
+    public static final String RESOURCES_FOLDER = System.getProperty("user.dir") + "\\src\\service\\files\\resources\\writers";
+    public static final String RESOURCES_FOLDER_MIX = System.getProperty("user.dir") + "\\src\\service\\files\\resources\\accountStatement";
     public static BufferedWriter bankWriter;
     public static BufferedWriter accountStatementWriter;
     private static WriterFiles instance = null;
@@ -55,7 +55,7 @@ public class WriterFiles {
     public void writerAccountStatementTemp(String IBAN, String text) {
         try {
             Timestamp.timestamp("WriterFiles: writerAccountStatementTemp");
-            BufferedWriter accountStatementTempWriter = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\Service\\Files\\Resources\\AccountStatementTemp\\" + IBAN + ".txt", true));
+            BufferedWriter accountStatementTempWriter = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\service\\files\\resources\\accountStatementTemp\\" + IBAN + ".txt", true));
             accountStatementTempWriter.write(text);
             accountStatementTempWriter.close();
         } catch (IOException e) {
@@ -67,14 +67,14 @@ public class WriterFiles {
     public void clearAllFiles(String folder) {
         try {
             Timestamp.timestamp("WriterFiles: clearAllFiles");
-            File dir = new File(System.getProperty("user.dir") + "\\src\\Service\\Files\\Resources\\" + folder);
+            File dir = new File(System.getProperty("user.dir") + "\\src\\service\\files\\resources\\" + folder);
             List<String> children = new ArrayList<>(Arrays.asList(Objects.requireNonNull(dir.list())));
             if (!children.isEmpty()) {
                 int i = 0;
                 String filename = children.get(i);
                 while (i < children.size() && filename.contains(".txt")) {
                     filename = children.get(i);
-                    PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "\\src\\Service\\Files\\Resources\\" + folder + "\\" + filename);
+                    PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "\\src\\service\\files\\resources\\" + folder + "\\" + filename);
                     writer.print("");
                     writer.close();
                     i++;
@@ -86,10 +86,10 @@ public class WriterFiles {
     }
 
     public void clearAllFolders() {
-        File folder = new File(System.getProperty("user.dir") + "\\src\\Service\\Files\\Resources");
+        File folder = new File(System.getProperty("user.dir") + "\\src\\service\\files\\resources");
         File[] files = folder.listFiles();
-        for (File file : files) {
-            if (!file.isFile() && !file.getName().equals("Readers")) {
+        for (File file : Objects.requireNonNull(files)) {
+            if (!file.isFile() && !file.getName().equals("readers")) {
                 WriterFiles.getInstance().clearAllFiles(file.getName());
             }
         }

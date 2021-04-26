@@ -50,15 +50,17 @@
        > Method that checks the account's balance.
    2. myTypeOfDateSinceThereIsNoWayToDoItProperly(String date)
        > Method that will return the European date format.
-   3. filterDate(String IBAN, String startDate, String sign)
+   3. showTransaction(Transaction transaction)
+       > Method that returns the formatted transaction.
+   4. filterDate(String IBAN, String startDate, String sign)
        > Method that allows a client to filter their transactions based on a date.
-   4. filterDate(String IBAN, String startDate, String sign, String stopDate)
+   5. filterDate(String IBAN, String startDate, String sign, String stopDate)
        > Method that allows a client to filter their transactions based on a period of time.
-   5. filterValue(String IBAN, double value, String sign)
+   6. filterValue(String IBAN, double value, String sign)
        > Method that allows a client to filter their transactions based on a value.
-   6. filterValue(String IBAN, double minValue, String sign, double maxValue)
+   7. filterValue(String IBAN, double minValue, String sign, double maxValue)
        > Method that allows a client to filter their transactions based on a range of values.
-   7. filterCurrency(String IBAN, String currency, String sign)
+   8. filterCurrency(String IBAN, String currency, String sign)
        > Method that allows a client to filter their transactions based on a type of currency.
 #### *2. AsigUUID*
  Interface that will provide each transaction with an UUID.
@@ -125,7 +127,7 @@
    6. readerProviderDB()
        > Method that will read all the providers from a reader file.
    7. readerAccountStatement(String IBAN)
-       > Method that will read all the transactions from a reader file in order to process it.
+       > Method that will read all the transactions from a reader file in order to process it and return a sorted list of transaction based on their values.
    8. updateReaders(Bank bank)
        > Method that will update all the input files at the end of the execution.
 #### *2. WriterFiles*
@@ -224,7 +226,7 @@
        > Method that removes a provider from the bank's database.
    34. removeProvider(String IBAN)
        > Method that removes a provider from the bank's database based on their IBAN.
-   35. checkProviders(StringBuilder c)
+   35. checkProviders()
        > Method that will be integrated in the bank's toString() method to show all the information about providers.
    36. bankReaderUpdate()
        > Method that is used to update the reader file for the bank.

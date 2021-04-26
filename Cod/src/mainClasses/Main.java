@@ -1,9 +1,9 @@
-package MainClasses;
+package mainClasses;
 
-import Operations.ProviderDB;
-import Service.Exceptions.*;
-import Service.Files.ReaderFiles;
-import Service.Files.WriterFiles;
+import operations.ProviderDB;
+import service.exceptions.*;
+import service.files.ReaderFiles;
+import service.files.WriterFiles;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -43,6 +43,7 @@ import java.util.*;
     -modificat din LocalDateTime in LocalDate
     -AccountStatement
         -am adaugat o metoda ajutatoare pentru a realiza filtrele pe baza datei
+        -am adaugat o metoda ajutatoare pentru afisare
         -am adaugat metodele filterDate()
         -am adaugat metodele filterValue()
         -am adaugat metodele filterCurrency()
@@ -190,6 +191,5 @@ public class Main {
 
 //        Update-ul fisierelor de intrare
         ReaderFiles.getInstance().updateReaders(bank);
-
     }
 }
