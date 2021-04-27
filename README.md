@@ -81,7 +81,7 @@
 #### *5. Timestamp*
  Interface that will provide a timestamp of each function and store it in Service/Files/Resources/Logs
    1. timestamp(String text)
-       > Method that will create the timestamp and store it in Logs.txt file.
+       > Method that will create the timestamp and store it in Logs.csv file.
 ## **Exceptions SubPackage**
 #### *1. BankAccountException*
  Exception class for the BankAccount class.

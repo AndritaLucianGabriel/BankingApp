@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public interface Timestamp {
-    String RESOURCE_FOLDER_LOGS = System.getProperty("user.dir") + "\\src\\service\\files\\resources\\logs\\Logs.txt";
+    String RESOURCE_FOLDER_LOGS = System.getProperty("user.dir") + "\\src\\service\\files\\resources\\logs\\Logs.csv";
 
     static void timestamp(String text) {
         try {
@@ -14,7 +14,7 @@ public interface Timestamp {
             LogsReader.write(text + " " + LocalDateTime.now() + "\n");
             LogsReader.close();
         } catch (IOException e) {
-            System.out.println("Eroare la scrierea in fisierul Logs.txt (" + text + ").");
+            System.out.println("Eroare la scrierea in fisierul Logs.csv (" + text + ").");
         }
     }
 

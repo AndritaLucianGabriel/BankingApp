@@ -805,13 +805,13 @@ public class Bank implements AccountStatement {
         return c;
     }
 
-    //Face update la fisierul Bank.txt de intrare
+    //Face update la fisierul Bank.csv de intrare
     public String bankReaderUpdate() {
         Timestamp.timestamp("Bank: bankReaderUpdate");
         return this.name + "," + this.location + "\n";
     }
 
-    //Face update la fisierul BankAccount.txt de intrare
+    //Face update la fisierul BankAccount.csv de intrare
     public List<String> bankAccountReaderUpdate() {
         Timestamp.timestamp("Bank: bankAccountReaderUpdate");
         List<String> local = new ArrayList<>();
@@ -823,7 +823,7 @@ public class Bank implements AccountStatement {
         return local;
     }
 
-    //Face update la fisierul Card.txt de intrare
+    //Face update la fisierul Card.csv de intrare
     public List<String> cardReaderUpdate() {
         Timestamp.timestamp("Bank: cardReaderUpdate");
         List<String> local = new ArrayList<>();
@@ -837,7 +837,7 @@ public class Bank implements AccountStatement {
         return local;
     }
 
-    //Face update la fisierul Client.txt de intrare
+    //Face update la fisierul Client.csv de intrare
     public List<String> clientReaderUpdate() {
         Timestamp.timestamp("Bank: clientReaderUpdate");
         List<Client> localClient = new ArrayList<>();
@@ -858,7 +858,7 @@ public class Bank implements AccountStatement {
         return local;
     }
 
-    //Face update la fisierul Loan.txt de intrare
+    //Face update la fisierul Loan.csv de intrare
     public List<String> loanReaderUpdate() {
         Timestamp.timestamp("Bank: loanReaderUpdate");
         List<String> local = new ArrayList<>();

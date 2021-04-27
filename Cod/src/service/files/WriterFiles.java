@@ -30,36 +30,36 @@ public class WriterFiles {
     public void writerBank(String c) {
         try {
             Timestamp.timestamp("WriterFiles: writerBank");
-            bankWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Bank.txt", true));
+            bankWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Bank.csv", true));
             bankWriter.write("\n==========================================================================================================================" + c);
             bankWriter.close();
         } catch (IOException e) {
-            System.out.println("Eroare la afisarea in fisierul Bank.txt.");
+            System.out.println("Eroare la afisarea in fisierul Bank.csv.");
         }
     }
 
     public void writerAccountStatement(Transaction transaction) {
         try {
             Timestamp.timestamp("WriterFiles: writerAccountStatement");
-            accountStatementWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER_MIX + "\\" + transaction.getIBAN() + ".txt", true));
+            accountStatementWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER_MIX + "\\" + transaction.getIBAN() + ".csv", true));
             if (transaction instanceof ToProviders)
                 accountStatementWriter.write(((ToProviders) transaction).anotherToString());
             else
                 accountStatementWriter.write(transaction.toString());
             accountStatementWriter.close();
         } catch (IOException e) {
-            System.out.println("Eroare la afisarea in fisierul " + transaction.getIBAN() + ".txt.");
+            System.out.println("Eroare la afisarea in fisierul " + transaction.getIBAN() + ".csv.");
         }
     }
 
     public void writerAccountStatementTemp(String IBAN, String text) {
         try {
             Timestamp.timestamp("WriterFiles: writerAccountStatementTemp");
-            BufferedWriter accountStatementTempWriter = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\service\\files\\resources\\accountStatementTemp\\" + IBAN + ".txt", true));
+            BufferedWriter accountStatementTempWriter = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\service\\files\\resources\\accountStatementTemp\\" + IBAN + ".csv", true));
             accountStatementTempWriter.write(text);
             accountStatementTempWriter.close();
         } catch (IOException e) {
-            System.out.println("Eroare la afisarea extrasului in fisierul " + IBAN + ".txt.");
+            System.out.println("Eroare la afisarea extrasului in fisierul " + IBAN + ".csv.");
         }
 
     }
@@ -72,7 +72,7 @@ public class WriterFiles {
             if (!children.isEmpty()) {
                 int i = 0;
                 String filename = children.get(i);
-                while (i < children.size() && filename.contains(".txt")) {
+                while (i < children.size() && filename.contains(".csv")) {
                     filename = children.get(i);
                     PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "\\src\\service\\files\\resources\\" + folder + "\\" + filename);
                     writer.print("");

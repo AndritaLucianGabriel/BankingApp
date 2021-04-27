@@ -44,7 +44,7 @@ public class ReaderFiles {
             String linie;
             String[] dummy;
             Bank local;
-            bankReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Bank.txt"));
+            bankReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Bank.csv"));
             linie = bankReader.readLine();
             dummy = linie.split("[,]+");
             List<Client> clientList = ReaderFiles.getInstance().readerClient();
@@ -57,10 +57,10 @@ public class ReaderFiles {
             bankReader.close();
             return local;
         } catch (IOException e) {
-            System.out.println("Eroare la citirea din fisierul BankAccount.txt.");
+            System.out.println("Eroare la citirea din fisierul BankAccount.csv.");
             return null;
         } catch (BankException e) {
-            System.out.println("Eroare la prelucrarea din fisierul Bank.txt.");
+            System.out.println("Eroare la prelucrarea din fisierul Bank.csv.");
             return null;
         }
     }
@@ -74,7 +74,7 @@ public class ReaderFiles {
             BankAccount local;
             Client CNP = new Client();
             for (Client x : clientList) {
-                bankAccountReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\BankAccount.txt"));
+                bankAccountReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\BankAccount.csv"));
                 List<BankAccount> bankAccountList = new ArrayList<>();
                 while ((linie = bankAccountReader.readLine()) != null) {
                     dummy = linie.split("[,]+");
@@ -108,10 +108,10 @@ public class ReaderFiles {
             }
             return clientBankAccountMap;
         } catch (IOException e) {
-            System.out.println("Eroare la citirea din fisierul BankAccount.txt.");
+            System.out.println("Eroare la citirea din fisierul BankAccount.csv.");
             return null;
         } catch (BankAccountException e) {
-            System.out.println("Eroare la prelucrarea din fisierul BankAccount.txt.");
+            System.out.println("Eroare la prelucrarea din fisierul BankAccount.csv.");
             return null;
         } catch (ClientException e) {
             System.out.println("Eroare la introducerea CNP-ului.");
@@ -122,7 +122,7 @@ public class ReaderFiles {
     public List<Card> readerCard(String IBAN) {
         try {
             Timestamp.timestamp("ReaderFiles: readerCard");
-            cardReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Card.txt"));
+            cardReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Card.csv"));
             String linie;
             String[] dummy;
             List<Card> cardList = new ArrayList<>();
@@ -140,10 +140,10 @@ public class ReaderFiles {
             cardReader.close();
             return cardList;
         } catch (IOException e) {
-            System.out.println("Eroare la citirea din fisierul Card.txt.");
+            System.out.println("Eroare la citirea din fisierul Card.csv.");
             return null;
         } catch (CardException e) {
-            System.out.println("Eroare la prelucrarea de informatii din fisierul Card.txt.");
+            System.out.println("Eroare la prelucrarea de informatii din fisierul Card.csv.");
             return null;
         }
     }
@@ -151,7 +151,7 @@ public class ReaderFiles {
     public List<Client> readerClient() {
         try {
             Timestamp.timestamp("ReaderFiles: readerClient");
-            clientReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Client.txt"));
+            clientReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Client.csv"));
             String linie;
             String[] dummy;
             List<Client> clientList = new ArrayList<>();
@@ -167,10 +167,10 @@ public class ReaderFiles {
             clientReader.close();
             return clientList;
         } catch (IOException e) {
-            System.out.println("Eroare la citirea din fisierul Client.txt.");
+            System.out.println("Eroare la citirea din fisierul Client.csv.");
             return null;
         } catch (ClientException e) {
-            System.out.println("Eroare la prelucrarea de informatii din fisierul Client.txt.");
+            System.out.println("Eroare la prelucrarea de informatii din fisierul Client.csv.");
             return null;
         }
     }
@@ -184,7 +184,7 @@ public class ReaderFiles {
             Loan local;
             Client CNP = new Client();
             for (Client x : clientList) {
-                loanReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Loan.txt"));
+                loanReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Loan.csv"));
                 List<Loan> loanList = new ArrayList<>();
                 while ((linie = loanReader.readLine()) != null) {
                     dummy = linie.split("[,]+");
@@ -204,10 +204,10 @@ public class ReaderFiles {
             }
             return clientLoanMap;
         } catch (IOException e) {
-            System.out.println("Eroare la citirea din fisierul Loan.txt.");
+            System.out.println("Eroare la citirea din fisierul Loan.csv.");
             return null;
         } catch (LoanException e) {
-            System.out.println("Eroare la prelucrarea din fisierul Loan.txt.");
+            System.out.println("Eroare la prelucrarea din fisierul Loan.csv.");
             return null;
         } catch (ClientException e) {
             System.out.println("Eroare la introducerea CNP-ului.");
@@ -218,7 +218,7 @@ public class ReaderFiles {
     public void readerProviderDB() {
         try {
             Timestamp.timestamp("ReaderFiles: readerProviderDB");
-            providerDBReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\ProviderDB.txt"));
+            providerDBReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\ProviderDB.csv"));
             String linie;
             String[] dummy;
             ProviderDB local;
@@ -234,16 +234,16 @@ public class ReaderFiles {
             }
             ToProviders.addProvider(providerDBList);
         } catch (IOException e) {
-            System.out.println("Eroare la citirea din fisierul ProviderDB.txt.");
+            System.out.println("Eroare la citirea din fisierul ProviderDB.csv.");
         } catch (ProviderDBException e) {
-            System.out.println("Eroare la prelucararea informatiilor din ProviderDB.txt");
+            System.out.println("Eroare la prelucararea informatiilor din ProviderDB.csv");
         }
     }
 
     public List<Transaction> readerAccountStatement(String IBAN) {
         try {
             Timestamp.timestamp("ReaderFiles: readerAccountStatement");
-            BufferedReader accountStatementTempReader = new BufferedReader(new FileReader(RESOURCES_FOLDER_MIX + "\\" + IBAN + ".txt"));
+            BufferedReader accountStatementTempReader = new BufferedReader(new FileReader(RESOURCES_FOLDER_MIX + "\\" + IBAN + ".csv"));
             String linie;
             String[] dummy;
             List<Transaction> transactionList = new ArrayList<>();
@@ -268,12 +268,12 @@ public class ReaderFiles {
     public void updateReaders(Bank bank) {
         try {
             Timestamp.timestamp("ReaderFiles: updateReaders");
-            BufferedWriter bankWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Bank.txt"));
-            BufferedWriter bankAccountWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\BankAccount.txt"));
-            BufferedWriter cardWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Card.txt"));
-            BufferedWriter clientWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Client.txt"));
-            BufferedWriter loanWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Loan.txt"));
-            BufferedWriter providerDBWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\ProviderDB.txt"));
+            BufferedWriter bankWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Bank.csv"));
+            BufferedWriter bankAccountWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\BankAccount.csv"));
+            BufferedWriter cardWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Card.csv"));
+            BufferedWriter clientWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Client.csv"));
+            BufferedWriter loanWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Loan.csv"));
+            BufferedWriter providerDBWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\ProviderDB.csv"));
             bankWriter.write(bank.bankReaderUpdate());
             for (String x : bank.bankAccountReaderUpdate())
                 bankAccountWriter.write(x);
