@@ -56,7 +56,7 @@ public class Card {
 
     //Functie ce va ajuta la update-ul fisierelor de intrare
     protected String cardReaderUpdate() {
-        Timestamp.timestamp("Card: cardReaderUpdate");
+        Timestamp.timestamp("Card,cardReaderUpdate");
         return this.cardNumber + "," + this.PIN + "," + this.issueDate;
     }
 

@@ -1,131 +1,131 @@
-WriterFiles: clearAllFiles 2021-04-27T18:45:16.787
-WriterFiles: clearAllFolders 2021-04-27T18:45:16.787
-ReaderFiles: readerBank 2021-04-27T18:45:16.792
-ReaderFiles: readerProviderDB 2021-04-27T18:45:16.793
-ToProviders: addProvider 2021-04-27T18:45:16.795
-ReaderFiles: readerClient 2021-04-27T18:45:16.962
-ReaderFiles: readerBankAccount 2021-04-27T18:45:16.963
-ReaderFiles: readerCard 2021-04-27T18:45:16.964
-ReaderFiles: readerCard 2021-04-27T18:45:16.965
-ReaderFiles: readerCard 2021-04-27T18:45:16.966
-ReaderFiles: readerLoan 2021-04-27T18:45:16.967
-Bank: normalizeBankIndex 2021-04-27T18:45:16.969
-Bank: normalizeBankIndex 2021-04-27T18:45:16.970
-Bank: normalizeLoanIndex 2021-04-27T18:45:16.970
-Bank: normalizeLoanIndex 2021-04-27T18:45:16.971
-Bank: checkProviders 2021-04-27T18:45:16.972
-WriterFiles: writerBank 2021-04-27T18:45:16.973
-Bank: removeClientBankAccount 2021-04-27T18:45:16.973
-Bank: checkProviders 2021-04-27T18:45:16.974
-WriterFiles: writerBank 2021-04-27T18:45:16.974
-Bank: removeClientBankAccount 2021-04-27T18:45:16.975
-Bank: checkProviders 2021-04-27T18:45:16.975
-WriterFiles: writerBank 2021-04-27T18:45:16.976
-Bank: addBankAccountClient 2021-04-27T18:45:16.976
-Bank: checkProviders 2021-04-27T18:45:16.977
-WriterFiles: writerBank 2021-04-27T18:45:16.977
-Bank: addBankAccount 2021-04-27T18:45:16.978
-Bank: normalizeBankIndex 2021-04-27T18:45:16.978
-Bank: checkProviders 2021-04-27T18:45:16.978
-WriterFiles: writerBank 2021-04-27T18:45:16.979
-Bank: addBankAccountClient 2021-04-27T18:45:16.979
-Bank: addBankAccount 2021-04-27T18:45:16.979
-Bank: normalizeBankIndex 2021-04-27T18:45:16.980
-Bank: addBankAccount 2021-04-27T18:45:16.980
-Bank: normalizeBankIndex 2021-04-27T18:45:16.980
-Bank: checkProviders 2021-04-27T18:45:16.980
-WriterFiles: writerBank 2021-04-27T18:45:16.981
-Bank: addLoan 2021-04-27T18:45:16.981
-Bank: removeClientLoan 2021-04-27T18:45:16.982
-Bank: checkProviders 2021-04-27T18:45:16.982
-WriterFiles: writerBank 2021-04-27T18:45:16.982
-Bank: addLoan 2021-04-27T18:45:16.983
-Bank: addLoanCLient 2021-04-27T18:45:16.983
-Bank: normalizeLoanIndex 2021-04-27T18:45:16.983
-Bank: addLoan 2021-04-27T18:45:16.984
-Bank: normalizeLoanIndex 2021-04-27T18:45:16.984
-Bank: addLoan 2021-04-27T18:45:16.985
-Bank: normalizeLoanIndex 2021-04-27T18:45:16.985
-Bank: checkProviders 2021-04-27T18:45:16.985
-WriterFiles: writerBank 2021-04-27T18:45:16.986
-Bank: removeLoan 2021-04-27T18:45:16.986
-Bank: addLoan 2021-04-27T18:45:16.987
-Bank: normalizeLoanIndex 2021-04-27T18:45:16.987
-Bank: checkProviders 2021-04-27T18:45:16.988
-WriterFiles: writerBank 2021-04-27T18:45:16.988
-Bank: addCard 2021-04-27T18:45:16.989
-Bank: checkProviders 2021-04-27T18:45:16.989
-WriterFiles: writerBank 2021-04-27T18:45:16.989
-Bank: addCard 2021-04-27T18:45:16.990
-BankAccount: addCard 2021-04-27T18:45:16.990
-Bank: addCard 2021-04-27T18:45:16.990
-BankAccount: addCard 2021-04-27T18:45:16.991
-Bank: addCard 2021-04-27T18:45:16.991
-BankAccount: addCard 2021-04-27T18:45:16.991
-Bank: checkProviders 2021-04-27T18:45:16.991
-WriterFiles: writerBank 2021-04-27T18:45:16.992
-Bank: removeCard 2021-04-27T18:45:16.992
-Bank: checkProviders 2021-04-27T18:45:16.992
-WriterFiles: writerBank 2021-04-27T18:45:16.995
-Bank: balanceCheck 2021-04-27T18:45:16.996
-AccountStatement: balanceCheck 2021-04-27T18:45:16.996
-Bank: balanceCheck 2021-04-27T18:45:16.996
-AccountStatement: balanceCheck 2021-04-27T18:45:16.996
-Bank: interBanking 2021-04-27T18:45:16.997
-BankAccount: withdraw 2021-04-27T18:45:16.997
-Transfer: withdraw 2021-04-27T18:45:16.998
-WriterFiles: writerAccountStatement 2021-04-27T18:45:16.998
-CurrencyExchange: convertTransfer 2021-04-27T18:45:17
-CurrencyExchange: searchByCurrency 2021-04-27T18:45:17
-BankAccount: deposit 2021-04-27T18:45:17.001
-Transfer: withdraw 2021-04-27T18:45:17.001
-WriterFiles: writerAccountStatement 2021-04-27T18:45:17.001
-Bank: balanceCheck 2021-04-27T18:45:17.002
-AccountStatement: balanceCheck 2021-04-27T18:45:17.002
-Bank: balanceCheck 2021-04-27T18:45:17.003
-AccountStatement: balanceCheck 2021-04-27T18:45:17.003
-Bank: checkProviders 2021-04-27T18:45:17.004
-WriterFiles: writerBank 2021-04-27T18:45:17.004
-Bank: paymentUtilies 2021-04-27T18:45:17.005
-BankAccount: paymentUtilies 2021-04-27T18:45:17.006
-ToProviders: paymentUtilities 2021-04-27T18:45:17.006
-CurrencyExchange: convertTransfer 2021-04-27T18:45:17.006
-CurrencyExchange: searchByCurrency 2021-04-27T18:45:17.007
-WriterFiles: writerAccountStatement 2021-04-27T18:45:17.007
-ToProviders: anotherToString 2021-04-27T18:45:17.007
-Bank: paymentUtilies 2021-04-27T18:45:17.008
-Bank: checkProviders 2021-04-27T18:45:17.008
-WriterFiles: writerBank 2021-04-27T18:45:17.009
-Bank: currencyExchange 2021-04-27T18:45:17.009
-BankAccount: currencyExchange 2021-04-27T18:45:17.009
-CurrencyExchange: exchangeBankAccount 2021-04-27T18:45:17.010
-CurrencyExchange: searchByCurrency 2021-04-27T18:45:17.010
-Bank: checkProviders 2021-04-27T18:45:17.011
-WriterFiles: writerBank 2021-04-27T18:45:17.012
-Bank: payLoan 2021-04-27T18:45:17.012
-CurrencyExchange: convertTransfer 2021-04-27T18:45:17.013
-CurrencyExchange: searchByCurrency 2021-04-27T18:45:17.013
-BankAccount: withdraw 2021-04-27T18:45:17.013
-Transfer: withdraw 2021-04-27T18:45:17.014
-WriterFiles: writerAccountStatement 2021-04-27T18:45:17.014
-Loan: payMonthlyRate 2021-04-27T18:45:17.014
-Loan: valueMonthlyRate 2021-04-27T18:45:17.014
-Loan: valueMonthlyRate 2021-04-27T18:45:17.015
-Loan: valueMonthlyRate 2021-04-27T18:45:17.015
-Bank: checkProviders 2021-04-27T18:45:17.015
-WriterFiles: writerBank 2021-04-27T18:45:17.016
-Bank: filterByDate 2021-04-27T18:45:17.022
-AccountStatement: filterDate 2021-04-27T18:45:17.022
-AccountStatement: myTypeOfDateSinceThereIsNoWayToDoItProperly 2021-04-27T18:45:17.023
-ReaderFiles: readerAccountStatement 2021-04-27T18:45:17.026
-WriterFiles: writerAccountStatementTemp 2021-04-27T18:45:17.036
-Bank: filterByValue 2021-04-27T18:45:17.037
-AccountStatement: filterValue 2021-04-27T18:45:17.037
-ReaderFiles: readerAccountStatement 2021-04-27T18:45:17.037
-WriterFiles: writerAccountStatementTemp 2021-04-27T18:45:17.039
-Bank: filterByValue 2021-04-27T18:45:17.039
-AccountStatement: filterDate 2021-04-27T18:45:17.040
-ReaderFiles: readerAccountStatement 2021-04-27T18:45:17.040
-WriterFiles: writerAccountStatementTemp 2021-04-27T18:45:17.041
-Bank: checkProviders 2021-04-27T18:45:17.042
-WriterFiles: writerBank 2021-04-27T18:45:17.042
+WriterFiles,clearAllFiles,2021-04-28T08:36:05.090
+WriterFiles,clearAllFolders,2021-04-28T08:36:05.091
+ReaderFiles,readerBank,2021-04-28T08:36:05.096
+ReaderFiles,readerProviderDB,2021-04-28T08:36:05.096
+ToProviders,addProvider,2021-04-28T08:36:05.098
+ReaderFiles,readerClient,2021-04-28T08:36:05.262
+ReaderFiles,readerBankAccount,2021-04-28T08:36:05.263
+ReaderFiles,readerCard,2021-04-28T08:36:05.264
+ReaderFiles,readerCard,2021-04-28T08:36:05.265
+ReaderFiles,readerCard,2021-04-28T08:36:05.266
+ReaderFiles,readerLoan,2021-04-28T08:36:05.267
+Bank,normalizeBankIndex,2021-04-28T08:36:05.269
+Bank,normalizeBankIndex,2021-04-28T08:36:05.269
+Bank,normalizeLoanIndex,2021-04-28T08:36:05.269
+Bank,normalizeLoanIndex,2021-04-28T08:36:05.270
+Bank,checkProviders,2021-04-28T08:36:05.270
+WriterFiles,writerBank,2021-04-28T08:36:05.271
+Bank,removeClientBankAccount,2021-04-28T08:36:05.271
+Bank,checkProviders,2021-04-28T08:36:05.272
+WriterFiles,writerBank,2021-04-28T08:36:05.272
+Bank,removeClientBankAccount,2021-04-28T08:36:05.272
+Bank,checkProviders,2021-04-28T08:36:05.273
+WriterFiles,writerBank,2021-04-28T08:36:05.273
+Bank,addBankAccountClient,2021-04-28T08:36:05.274
+Bank,checkProviders,2021-04-28T08:36:05.274
+WriterFiles,writerBank,2021-04-28T08:36:05.274
+Bank,addBankAccount,2021-04-28T08:36:05.275
+Bank,normalizeBankIndex,2021-04-28T08:36:05.275
+Bank,checkProviders,2021-04-28T08:36:05.275
+WriterFiles,writerBank,2021-04-28T08:36:05.275
+Bank,addBankAccountClient,2021-04-28T08:36:05.276
+Bank,addBankAccount,2021-04-28T08:36:05.276
+Bank,normalizeBankIndex,2021-04-28T08:36:05.277
+Bank,addBankAccount,2021-04-28T08:36:05.277
+Bank,normalizeBankIndex,2021-04-28T08:36:05.277
+Bank,checkProviders,2021-04-28T08:36:05.277
+WriterFiles,writerBank,2021-04-28T08:36:05.278
+Bank,addLoan,2021-04-28T08:36:05.278
+Bank,removeClientLoan,2021-04-28T08:36:05.279
+Bank,checkProviders,2021-04-28T08:36:05.279
+WriterFiles,writerBank,2021-04-28T08:36:05.279
+Bank,addLoan,2021-04-28T08:36:05.280
+Bank,addLoanCLient,2021-04-28T08:36:05.280
+Bank,normalizeLoanIndex,2021-04-28T08:36:05.280
+Bank,addLoan,2021-04-28T08:36:05.280
+Bank,normalizeLoanIndex,2021-04-28T08:36:05.280
+Bank,addLoan,2021-04-28T08:36:05.281
+Bank,normalizeLoanIndex,2021-04-28T08:36:05.281
+Bank,checkProviders,2021-04-28T08:36:05.281
+WriterFiles,writerBank,2021-04-28T08:36:05.282
+Bank,removeLoan,2021-04-28T08:36:05.282
+Bank,addLoan,2021-04-28T08:36:05.282
+Bank,normalizeLoanIndex,2021-04-28T08:36:05.282
+Bank,checkProviders,2021-04-28T08:36:05.283
+WriterFiles,writerBank,2021-04-28T08:36:05.283
+Bank,addCard,2021-04-28T08:36:05.283
+Bank,checkProviders,2021-04-28T08:36:05.284
+WriterFiles,writerBank,2021-04-28T08:36:05.284
+Bank,addCard,2021-04-28T08:36:05.284
+BankAccount,addCard,2021-04-28T08:36:05.285
+Bank,addCard,2021-04-28T08:36:05.285
+BankAccount,addCard,2021-04-28T08:36:05.285
+Bank,addCard,2021-04-28T08:36:05.285
+BankAccount,addCard,2021-04-28T08:36:05.285
+Bank,checkProviders,2021-04-28T08:36:05.286
+WriterFiles,writerBank,2021-04-28T08:36:05.286
+Bank,removeCard,2021-04-28T08:36:05.286
+Bank,checkProviders,2021-04-28T08:36:05.287
+WriterFiles,writerBank,2021-04-28T08:36:05.290
+Bank,balanceCheck,2021-04-28T08:36:05.290
+AccountStatement,balanceCheck,2021-04-28T08:36:05.290
+Bank,balanceCheck,2021-04-28T08:36:05.290
+AccountStatement,balanceCheck,2021-04-28T08:36:05.291
+Bank,interBanking,2021-04-28T08:36:05.291
+BankAccount,withdraw,2021-04-28T08:36:05.291
+Transfer,withdraw,2021-04-28T08:36:05.295
+WriterFiles,writerAccountStatement,2021-04-28T08:36:05.296
+CurrencyExchange,convertTransfer,2021-04-28T08:36:05.297
+CurrencyExchange,searchByCurrency,2021-04-28T08:36:05.297
+BankAccount,deposit,2021-04-28T08:36:05.298
+Transfer,withdraw,2021-04-28T08:36:05.298
+WriterFiles,writerAccountStatement,2021-04-28T08:36:05.298
+Bank,balanceCheck,2021-04-28T08:36:05.299
+AccountStatement,balanceCheck,2021-04-28T08:36:05.299
+Bank,balanceCheck,2021-04-28T08:36:05.299
+AccountStatement,balanceCheck,2021-04-28T08:36:05.300
+Bank,checkProviders,2021-04-28T08:36:05.300
+WriterFiles,writerBank,2021-04-28T08:36:05.300
+Bank,paymentUtilies,2021-04-28T08:36:05.301
+BankAccount,paymentUtilies,2021-04-28T08:36:05.301
+ToProviders,paymentUtilities,2021-04-28T08:36:05.301
+CurrencyExchange,convertTransfer,2021-04-28T08:36:05.302
+CurrencyExchange,searchByCurrency,2021-04-28T08:36:05.302
+WriterFiles,writerAccountStatement,2021-04-28T08:36:05.302
+ToProviders,anotherToString,2021-04-28T08:36:05.302
+Bank,paymentUtilies,2021-04-28T08:36:05.303
+Bank,checkProviders,2021-04-28T08:36:05.303
+WriterFiles,writerBank,2021-04-28T08:36:05.303
+Bank,currencyExchange,2021-04-28T08:36:05.304
+BankAccount,currencyExchange,2021-04-28T08:36:05.305
+CurrencyExchange,exchangeBankAccount,2021-04-28T08:36:05.305
+CurrencyExchange,searchByCurrency,2021-04-28T08:36:05.305
+Bank,checkProviders,2021-04-28T08:36:05.306
+WriterFiles,writerBank,2021-04-28T08:36:05.306
+Bank,payLoan,2021-04-28T08:36:05.307
+CurrencyExchange,convertTransfer,2021-04-28T08:36:05.308
+CurrencyExchange,searchByCurrency,2021-04-28T08:36:05.308
+BankAccount,withdraw,2021-04-28T08:36:05.308
+Transfer,withdraw,2021-04-28T08:36:05.309
+WriterFiles,writerAccountStatement,2021-04-28T08:36:05.309
+Loan,payMonthlyRate,2021-04-28T08:36:05.309
+Loan,valueMonthlyRate,2021-04-28T08:36:05.309
+Loan,valueMonthlyRate,2021-04-28T08:36:05.310
+Loan,valueMonthlyRate,2021-04-28T08:36:05.310
+Bank,checkProviders,2021-04-28T08:36:05.310
+WriterFiles,writerBank,2021-04-28T08:36:05.310
+Bank,filterByDate,2021-04-28T08:36:05.316
+AccountStatement,filterDate,2021-04-28T08:36:05.316
+AccountStatement,myTypeOfDateSinceThereIsNoWayToDoItProperly,2021-04-28T08:36:05.317
+ReaderFiles,readerAccountStatement,2021-04-28T08:36:05.319
+WriterFiles,writerAccountStatementTemp,2021-04-28T08:36:05.327
+Bank,filterByValue,2021-04-28T08:36:05.327
+AccountStatement,filterValue,2021-04-28T08:36:05.328
+ReaderFiles,readerAccountStatement,2021-04-28T08:36:05.328
+WriterFiles,writerAccountStatementTemp,2021-04-28T08:36:05.329
+Bank,filterByValue,2021-04-28T08:36:05.329
+AccountStatement,filterDate,2021-04-28T08:36:05.329
+ReaderFiles,readerAccountStatement,2021-04-28T08:36:05.329
+WriterFiles,writerAccountStatementTemp,2021-04-28T08:36:05.330
+Bank,checkProviders,2021-04-28T08:36:05.331
+WriterFiles,writerBank,2021-04-28T08:36:05.331

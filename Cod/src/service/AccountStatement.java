@@ -9,13 +9,13 @@ public interface AccountStatement {
 
     //Functii de filtrare al tranzactiilor
     default void balanceCheck(double value, String currency) {
-        Timestamp.timestamp("AccountStatement: balanceCheck");
+        Timestamp.timestamp("AccountStatement,balanceCheck");
         System.out.println("Contul are " + FormatDouble.format(value) + " " + currency);
     }
 
     default String myTypeOfDateSinceThereIsNoWayToDoItProperly(String date) //18-09-2021 -> 2021-09-18
     {
-        Timestamp.timestamp("AccountStatement: myTypeOfDateSinceThereIsNoWayToDoItProperly");
+        Timestamp.timestamp("AccountStatement,myTypeOfDateSinceThereIsNoWayToDoItProperly");
         String[] local = date.split("-");
         return local[2] + "-" + local[1] + "-" + local[0];
     }
@@ -23,15 +23,15 @@ public interface AccountStatement {
     default StringBuilder showTransaction(Transaction transaction) {
         StringBuilder text;
         text = new StringBuilder();
-        text.append(transaction.getTransactionID()).append(", ");
-        text.append(transaction.getTimestamp().toString()).append(", ");
-        text.append(transaction.getValue()).append(", ");
+        text.append(transaction.getTransactionID()).append(",");
+        text.append(transaction.getTimestamp().toString()).append(",");
+        text.append(transaction.getValue()).append(",");
         text.append(transaction.getCurrency()).append("\n");
         return text;
     }
 
     default String filterDate(String IBAN, String startDate, String sign) {
-        Timestamp.timestamp("AccountStatement: filterDate");
+        Timestamp.timestamp("AccountStatement,filterDate");
         StringBuilder text = new StringBuilder();
         LocalDate parsedDate = LocalDate.parse(myTypeOfDateSinceThereIsNoWayToDoItProperly(startDate));
         switch (sign) {
@@ -88,7 +88,7 @@ public interface AccountStatement {
     }
 
     default String filterDate(String IBAN, String startDate, String sign, String stopDate) {
-        Timestamp.timestamp("AccountStatement: filterDate");
+        Timestamp.timestamp("AccountStatement,filterDate");
         StringBuilder text = new StringBuilder();
         LocalDate parsedStartDate = LocalDate.parse(myTypeOfDateSinceThereIsNoWayToDoItProperly(startDate));
         LocalDate parsedStopDate = LocalDate.parse(myTypeOfDateSinceThereIsNoWayToDoItProperly(stopDate));
@@ -140,7 +140,7 @@ public interface AccountStatement {
     }
 
     default String filterValue(String IBAN, double value, String sign) {
-        Timestamp.timestamp("AccountStatement: filterValue");
+        Timestamp.timestamp("AccountStatement,filterValue");
         StringBuilder text = new StringBuilder();
         switch (sign) {
             case ("="): {
@@ -202,7 +202,7 @@ public interface AccountStatement {
     }
 
     default String filterValue(String IBAN, double minValue, String sign, double maxValue) {
-        Timestamp.timestamp("AccountStatement: filterValue");
+        Timestamp.timestamp("AccountStatement,filterValue");
         StringBuilder text = new StringBuilder();
         switch (sign) {
             case ("><"): {
@@ -255,7 +255,7 @@ public interface AccountStatement {
     }
 
     default String filterCurrency(String IBAN, String currency, String sign) {
-        Timestamp.timestamp("AccountStatement: filterDate");
+        Timestamp.timestamp("AccountStatement,filterDate");
         StringBuilder text = new StringBuilder();
         switch (sign) {
             case ("="): {

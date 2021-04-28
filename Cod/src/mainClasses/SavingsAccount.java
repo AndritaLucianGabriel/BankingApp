@@ -60,7 +60,7 @@ public class SavingsAccount extends BankAccount {
 
     //Functie care efectueaza penalizarea
     protected void penalty() {
-        Timestamp.timestamp("SavingsAccount: penalty");
+        Timestamp.timestamp("SavingsAccount,penalty");
         System.out.print("\tPenalizare: \n ~Interest: " + FormatDouble.format(this.annualInterestRate) + " -> ");
         this.annualInterestRate = this.annualInterestRate - this.annualInterestRate / 10;
         System.out.print(FormatDouble.format(this.annualInterestRate) + "\n ~Balance (-1 Euro): " + FormatDouble.format(super.balance) + " " + super.currency + " -> ");
@@ -70,20 +70,20 @@ public class SavingsAccount extends BankAccount {
 
     //Functi ce va face update-ul fisierelor de intrare
     protected String bankAccountReaderUpdate() {
-        Timestamp.timestamp("SavingsAccount: bankAccountReaderUpdate");
+        Timestamp.timestamp("SavingsAccount,bankAccountReaderUpdate");
         return this.IBAN + "," + this.openingDate + "," + this.closingDate + "," + FormatDouble.format(this.balance) + "," + this.currency + "," + FormatDouble.format(this.annualInterestRate);
     }
 
     @Override
     protected void withdraw(double value) throws TransactionException {
-        Timestamp.timestamp("SavingsAccount: penalty");
+        Timestamp.timestamp("SavingsAccount,penalty");
         super.withdraw(value);
         this.penalty();
     }
 
     @Override
     protected void paymentUtilies(String IBAN, double value) throws ProviderDBException, TransactionException {
-        Timestamp.timestamp("SavingsAccount: penalty");
+        Timestamp.timestamp("SavingsAccount,penalty");
         super.paymentUtilies(IBAN, value);
         this.penalty();
     }

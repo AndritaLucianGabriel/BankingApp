@@ -102,8 +102,8 @@ public abstract class Transaction implements AsigUUID, Comparable<Transaction> {
     @Override
     public String toString() {
         return transactionID +
-                ", " + timestamp +
-                ", " + tradeValue +
-                ", " + currency + "\n";
+                "," + timestamp +
+                "," + tradeValue +
+                "," + currency + "\n";
     }
 }

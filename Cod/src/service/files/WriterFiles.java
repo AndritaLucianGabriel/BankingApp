@@ -29,18 +29,18 @@ public class WriterFiles {
     //Functii de afisare in fisiere
     public void writerBank(String c) {
         try {
-            Timestamp.timestamp("WriterFiles: writerBank");
-            bankWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Bank.csv", true));
+            Timestamp.timestamp("WriterFiles,writerBank");
+            bankWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Bank.txt", true));
             bankWriter.write("\n==========================================================================================================================" + c);
             bankWriter.close();
         } catch (IOException e) {
-            System.out.println("Eroare la afisarea in fisierul Bank.csv.");
+            System.out.println("Eroare la afisarea in fisierul Bank.txt.");
         }
     }
 
     public void writerAccountStatement(Transaction transaction) {
         try {
-            Timestamp.timestamp("WriterFiles: writerAccountStatement");
+            Timestamp.timestamp("WriterFiles,writerAccountStatement");
             accountStatementWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER_MIX + "\\" + transaction.getIBAN() + ".csv", true));
             if (transaction instanceof ToProviders)
                 accountStatementWriter.write(((ToProviders) transaction).anotherToString());
@@ -54,7 +54,7 @@ public class WriterFiles {
 
     public void writerAccountStatementTemp(String IBAN, String text) {
         try {
-            Timestamp.timestamp("WriterFiles: writerAccountStatementTemp");
+            Timestamp.timestamp("WriterFiles,writerAccountStatementTemp");
             BufferedWriter accountStatementTempWriter = new BufferedWriter(new FileWriter(System.getProperty("user.dir") + "\\src\\service\\files\\resources\\accountStatementTemp\\" + IBAN + ".csv", true));
             accountStatementTempWriter.write(text);
             accountStatementTempWriter.close();
@@ -66,13 +66,13 @@ public class WriterFiles {
 
     public void clearAllFiles(String folder) {
         try {
-            Timestamp.timestamp("WriterFiles: clearAllFiles");
+            Timestamp.timestamp("WriterFiles,clearAllFiles");
             File dir = new File(System.getProperty("user.dir") + "\\src\\service\\files\\resources\\" + folder);
             List<String> children = new ArrayList<>(Arrays.asList(Objects.requireNonNull(dir.list())));
             if (!children.isEmpty()) {
                 int i = 0;
                 String filename = children.get(i);
-                while (i < children.size() && filename.contains(".csv")) {
+                while (i < children.size() && (filename.contains(".csv") || filename.contains(".txt"))) {
                     filename = children.get(i);
                     PrintWriter writer = new PrintWriter(System.getProperty("user.dir") + "\\src\\service\\files\\resources\\" + folder + "\\" + filename);
                     writer.print("");
@@ -93,6 +93,6 @@ public class WriterFiles {
                 WriterFiles.getInstance().clearAllFiles(file.getName());
             }
         }
-        Timestamp.timestamp("WriterFiles: clearAllFolders");
+        Timestamp.timestamp("WriterFiles,clearAllFolders");
     }
 }

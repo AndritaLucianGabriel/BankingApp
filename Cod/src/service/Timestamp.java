@@ -11,7 +11,7 @@ public interface Timestamp {
     static void timestamp(String text) {
         try {
             BufferedWriter LogsReader = new BufferedWriter(new FileWriter(RESOURCE_FOLDER_LOGS, true));
-            LogsReader.write(text + " " + LocalDateTime.now() + "\n");
+            LogsReader.write(text + "," + LocalDateTime.now() + "\n");
             LogsReader.close();
         } catch (IOException e) {
             System.out.println("Eroare la scrierea in fisierul Logs.csv (" + text + ").");

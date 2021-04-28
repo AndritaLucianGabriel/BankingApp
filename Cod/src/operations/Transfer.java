@@ -15,14 +15,14 @@ public class Transfer extends Transaction {
     }
 
     public double withdraw(double value) {
-        Timestamp.timestamp("Transfer: withdraw");
+        Timestamp.timestamp("Transfer,withdraw");
         this.tradeValue = -value;
         WriterFiles.getInstance().writerAccountStatement(this);
         return this.value -= value;
     }
 
     public double deposit(double value) {
-        Timestamp.timestamp("Transfer: withdraw");
+        Timestamp.timestamp("Transfer,withdraw");
         this.tradeValue = value;
         WriterFiles.getInstance().writerAccountStatement(this);
         return this.value += value;

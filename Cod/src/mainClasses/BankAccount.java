@@ -156,7 +156,7 @@ public abstract class BankAccount {
 
     //Functii manipulare carduri
     protected void addCard(Card card) {
-        Timestamp.timestamp("BankAccount: addCard");
+        Timestamp.timestamp("BankAccount,addCard");
         if (cardList.contains(card))
             System.out.println("Cardul " + card.cardNumber + "exista deja.");
         else
@@ -164,7 +164,7 @@ public abstract class BankAccount {
     }
 
     protected void removeCard(Card card) {
-        Timestamp.timestamp("BankAccount: removeCard");
+        Timestamp.timestamp("BankAccount,removeCard");
         if (!cardList.contains(card))
             System.out.println("Cardul " + card.cardNumber + " nu exista.");
         else
@@ -173,19 +173,19 @@ public abstract class BankAccount {
 
     //Functii manipulare sold
     protected void withdraw(double value) throws TransactionException {
-        Timestamp.timestamp("BankAccount: withdraw");
+        Timestamp.timestamp("BankAccount,withdraw");
         Transaction transaction = new Transfer(this.IBAN, this.balance, this.currency);
         this.balance = transaction.withdraw(value);
     }
 
     protected void deposit(double value) throws TransactionException {
-        Timestamp.timestamp("BankAccount: deposit");
+        Timestamp.timestamp("BankAccount,deposit");
         Transaction transaction = new Transfer(this.IBAN, this.balance, this.currency);
         this.balance = transaction.deposit(value);
     }
 
     protected void paymentUtilies(String IBAN, double value) throws ProviderDBException, TransactionException {
-        Timestamp.timestamp("BankAccount: paymentUtilies");
+        Timestamp.timestamp("BankAccount,paymentUtilies");
         System.out.print(" a virat " + FormatDouble.format(value) + " " + this.currency + " din contul " + this.IBAN);
         this.transaction = ToProviders.getInstance(this.IBAN, this.balance, this.currency);
         this.balance = transaction.paymentUtilities(IBAN, value);
@@ -193,7 +193,7 @@ public abstract class BankAccount {
 
     //Functie de schimbare a valutei
     protected void currencyExchange(String wantedCurrency) {
-        Timestamp.timestamp("BankAccount: currencyExchange");
+        Timestamp.timestamp("BankAccount,currencyExchange");
         Pair<Double, String> doubleStringPair = CurrencyExchange.exchangeBankAccount(this.balance, this.currency, wantedCurrency);
         this.balance = doubleStringPair.getKey();
         this.currency = doubleStringPair.getValue();

@@ -36,7 +36,7 @@ public class ReaderFiles {
     //Functii de citire din fisiere
     public Bank readerBank() {
         try {
-            Timestamp.timestamp("ReaderFiles: readerBank");
+            Timestamp.timestamp("ReaderFiles,readerBank");
             ReaderFiles.getInstance().readerProviderDB();
             BankAccount.setCounterBankAccountID(0);
             Bank.setCounterBankID(0);
@@ -60,14 +60,14 @@ public class ReaderFiles {
             System.out.println("Eroare la citirea din fisierul BankAccount.csv.");
             return null;
         } catch (BankException e) {
-            System.out.println("Eroare la prelucrarea din fisierul Bank.csv.");
+            System.out.println("Eroare la prelucrarea din fisierul Bank.txt.");
             return null;
         }
     }
 
     public Map<Client, List<BankAccount>> readerBankAccount(List<Client> clientList) {
         try {
-            Timestamp.timestamp("ReaderFiles: readerBankAccount");
+            Timestamp.timestamp("ReaderFiles,readerBankAccount");
             String linie;
             String[] dummy;
             Map<Client, List<BankAccount>> clientBankAccountMap = new HashMap<>();
@@ -121,7 +121,7 @@ public class ReaderFiles {
 
     public List<Card> readerCard(String IBAN) {
         try {
-            Timestamp.timestamp("ReaderFiles: readerCard");
+            Timestamp.timestamp("ReaderFiles,readerCard");
             cardReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Card.csv"));
             String linie;
             String[] dummy;
@@ -150,7 +150,7 @@ public class ReaderFiles {
 
     public List<Client> readerClient() {
         try {
-            Timestamp.timestamp("ReaderFiles: readerClient");
+            Timestamp.timestamp("ReaderFiles,readerClient");
             clientReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Client.csv"));
             String linie;
             String[] dummy;
@@ -177,7 +177,7 @@ public class ReaderFiles {
 
     public Map<Client, List<Loan>> readerLoan(List<Client> clientList) {
         try {
-            Timestamp.timestamp("ReaderFiles: readerLoan");
+            Timestamp.timestamp("ReaderFiles,readerLoan");
             String linie;
             String[] dummy;
             Map<Client, List<Loan>> clientLoanMap = new HashMap<>();
@@ -217,7 +217,7 @@ public class ReaderFiles {
 
     public void readerProviderDB() {
         try {
-            Timestamp.timestamp("ReaderFiles: readerProviderDB");
+            Timestamp.timestamp("ReaderFiles,readerProviderDB");
             providerDBReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\ProviderDB.csv"));
             String linie;
             String[] dummy;
@@ -242,7 +242,7 @@ public class ReaderFiles {
 
     public List<Transaction> readerAccountStatement(String IBAN) {
         try {
-            Timestamp.timestamp("ReaderFiles: readerAccountStatement");
+            Timestamp.timestamp("ReaderFiles,readerAccountStatement");
             BufferedReader accountStatementTempReader = new BufferedReader(new FileReader(RESOURCES_FOLDER_MIX + "\\" + IBAN + ".csv"));
             String linie;
             String[] dummy;
@@ -267,8 +267,8 @@ public class ReaderFiles {
 
     public void updateReaders(Bank bank) {
         try {
-            Timestamp.timestamp("ReaderFiles: updateReaders");
-            BufferedWriter bankWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Bank.csv"));
+            Timestamp.timestamp("ReaderFiles,updateReaders");
+            BufferedWriter bankWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Bank.txt"));
             BufferedWriter bankAccountWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\BankAccount.csv"));
             BufferedWriter cardWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Card.csv"));
             BufferedWriter clientWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Client.csv"));

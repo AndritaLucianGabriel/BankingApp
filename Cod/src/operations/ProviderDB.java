@@ -89,7 +89,7 @@ public class ProviderDB {
 
     //Functi ce va face update-ul fisierelor de intrare
     protected String providerDBReaderUpdate() {
-        Timestamp.timestamp("ProviderDB: providerDBReaderUpdate");
+        Timestamp.timestamp("ProviderDB,providerDBReaderUpdate");
         return this.company + "," + this.IBAN + "," + FormatDouble.format(this.balance) + "," + this.currency;
     }
 

@@ -104,13 +104,13 @@ public class Loan {
 
     //Functie ce returneaza valoarea ratei lunare
     protected double valueMonthlyRate() {
-        Timestamp.timestamp("Loan: valueMonthlyRate");
+        Timestamp.timestamp("Loan,valueMonthlyRate");
         return this.value / this.durationMonths;
     }
 
     //Plata unei sume > decat rata lunara
     protected void payMonthlyRate(double value) {
-        Timestamp.timestamp("Loan: payMonthlyRate");
+        Timestamp.timestamp("Loan,payMonthlyRate");
         if (value >= this.valueMonthlyRate()) {
             double oldRate = valueMonthlyRate();
             this.value = this.value - value;
@@ -123,7 +123,7 @@ public class Loan {
 
     //Plata ratei fixe
     protected void payMonthlyRate() {
-        Timestamp.timestamp("Loan: payMonthlyRate");
+        Timestamp.timestamp("Loan,payMonthlyRate");
         this.value = this.value - valueMonthlyRate();
         this.durationMonths--;
         System.out.println(" si-a platit cu succes rata in valoare de " + FormatDouble.format(this.valueMonthlyRate()) + " " + this.currency + ". " + FormatDouble.format(this.value) + " " + this.currency + " ramasi pentru " + this.durationMonths + " de luni");
@@ -131,7 +131,7 @@ public class Loan {
 
     //Functi ce va face update-ul fisierelor de intrare
     protected String loanReaderUpdate() {
-        Timestamp.timestamp("Loan: loanReaderUpdate");
+        Timestamp.timestamp("Loan,loanReaderUpdate");
         return FormatDouble.format(this.value) + "," + this.currency + "," + this.detail + "," + this.date + "," + this.durationMonths;
     }
 

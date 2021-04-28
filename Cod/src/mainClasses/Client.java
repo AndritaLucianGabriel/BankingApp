@@ -71,7 +71,7 @@ public class Client {
 
     //Functie ce va ajuta la update-ul fisierelor de intrare
     protected String clientReaderUpdate() {
-        Timestamp.timestamp("Client: clientReaderUpdate");
+        Timestamp.timestamp("Client,clientReaderUpdate");
         return this.firstName + "," + this.lastName + "," + this.age + "," + this.cnp;
     }
 

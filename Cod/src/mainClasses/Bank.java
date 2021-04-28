@@ -142,7 +142,7 @@ public class Bank implements AccountStatement {
 
     //Caz particular per client pt conturi
     public void normalizeBankIndex(Client client) {
-        Timestamp.timestamp("Bank: normalizeBankIndex");
+        Timestamp.timestamp("Bank,normalizeBankIndex");
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             if (x.getKey().equals(client)) {
                 List<BankAccount> dummy = x.getValue();
@@ -157,7 +157,7 @@ public class Bank implements AccountStatement {
 
     //Caz general pentru conturi
     public void normalizeBankIndex() {
-        Timestamp.timestamp("Bank: normalizeBankIndex");
+        Timestamp.timestamp("Bank,normalizeBankIndex");
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             List<BankAccount> dummy = x.getValue();
             int poz = 1;
@@ -170,7 +170,7 @@ public class Bank implements AccountStatement {
 
     //Caz particular per Client pt imprumuturi
     public void normalizeLoanIndex(Client client) {
-        Timestamp.timestamp("Bank: normalizeLoanIndex");
+        Timestamp.timestamp("Bank,normalizeLoanIndex");
         for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
             if (x.getKey().equals(client)) {
                 List<Loan> dummy = x.getValue();
@@ -185,7 +185,7 @@ public class Bank implements AccountStatement {
 
     //Caz general pentru imprumuturi
     public void normalizeLoanIndex() {
-        Timestamp.timestamp("Bank: normalizeLoanIndex");
+        Timestamp.timestamp("Bank,normalizeLoanIndex");
         for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
             List<Loan> dummy = x.getValue();
             int poz = 1;
@@ -198,7 +198,7 @@ public class Bank implements AccountStatement {
 
     //AddBankAccountClient pe baza de client - nu are sens altfel (avem nevoie de detalii)
     public void addBankAccountClient(Client client) {
-        Timestamp.timestamp("Bank: addBankAccountClient");
+        Timestamp.timestamp("Bank,addBankAccountClient");
         if (this.clientBankAccountMap.containsKey(client)) {
             System.out.println("Clientul " + client.getFirstName() + " " + client.getLastName() + " exista deja!\n");
         } else {
@@ -209,7 +209,7 @@ public class Bank implements AccountStatement {
 
     //AddBankAccount pe baza de client - pentru citire
     public void addBankAccount(Client client, BankAccount bankAccount) {
-        Timestamp.timestamp("Bank: addBankAccount");
+        Timestamp.timestamp("Bank,addBankAccount");
         int avem = 0, c = 0;
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             for (BankAccount y : x.getValue()) {
@@ -247,7 +247,7 @@ public class Bank implements AccountStatement {
 
     //AddLoanClient pe baza de client - nu are sens altfel (avem nevoie de detalii)
     public void addLoanCLient(Client client) {
-        Timestamp.timestamp("Bank: addLoanCLient");
+        Timestamp.timestamp("Bank,addLoanCLient");
         if (this.clientLoanMap.containsKey(client)) {
             System.out.println("Clientul " + client.getFirstName() + " " + client.getLastName() + " exista deja!\n");
         } else {
@@ -258,7 +258,7 @@ public class Bank implements AccountStatement {
 
     //AddLoan pe baza de client - pentru citire
     public void addLoan(Client client, Loan loan) {
-        Timestamp.timestamp("Bank: addLoan");
+        Timestamp.timestamp("Bank,addLoan");
         int avem = 0, c = 0;
         for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
             for (Loan y : x.getValue()) {
@@ -296,7 +296,7 @@ public class Bank implements AccountStatement {
 
     //AddCard pe baza de card
     public void addCard(BankAccount bankAccount, Card card) {
-        Timestamp.timestamp("Bank: addCard");
+        Timestamp.timestamp("Bank,addCard");
         int c = 0;
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             if (x.getValue().contains(bankAccount)) {
@@ -317,7 +317,7 @@ public class Bank implements AccountStatement {
 
     //RemoveCard pe baza de card
     public void removeCard(Card card) {
-        Timestamp.timestamp("Bank: removeCard");
+        Timestamp.timestamp("Bank,removeCard");
         int c = 0;
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             for (BankAccount y : x.getValue()) {
@@ -334,7 +334,7 @@ public class Bank implements AccountStatement {
 
     //RemoveCard pe baza de numar de card
     public void removeCard(String cardNumber) {
-        Timestamp.timestamp("Bank: removeCard");
+        Timestamp.timestamp("Bank,removeCard");
         int c = 0;
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             for (BankAccount y : x.getValue()) {
@@ -353,7 +353,7 @@ public class Bank implements AccountStatement {
 
     //RemoveClientLoan pe baza de CNP - pentru citire
     public void removeClientLoan(String cnp) {
-        Timestamp.timestamp("Bank: removeClientLoan");
+        Timestamp.timestamp("Bank,removeClientLoan");
         Client evitConcurrentModificationException = new Client();
         int c = 0;
         int nrLoans = 0;
@@ -372,7 +372,7 @@ public class Bank implements AccountStatement {
 
     //RemoveClientLoan pe baza de client - pentru apel
     public void removeClientLoan(Client client) {
-        Timestamp.timestamp("Bank: removeClientLoan");
+        Timestamp.timestamp("Bank,removeClientLoan");
         int nrLoans = 0;
         if (this.clientLoanMap.containsKey(client)) {
             nrLoans = this.clientLoanMap.values().size() + 1;
@@ -383,7 +383,7 @@ public class Bank implements AccountStatement {
 
     //RemoveLoan pe baza de imprumut - nu am un camp unic sa zic ca pot sa l identific usor asa ca o sa o singura functie pt asta
     public void removeLoan(Loan loan) {
-        Timestamp.timestamp("Bank: removeLoan");
+        Timestamp.timestamp("Bank,removeLoan");
         int c = 0;
         for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
             if (x.getValue().remove(loan)) {
@@ -407,7 +407,7 @@ public class Bank implements AccountStatement {
 
     //RemoveClientBankAccount pe baza de CNP - pentru citire
     public void removeClientBankAccount(String cnp) {
-        Timestamp.timestamp("Bank: removeClientBankAccount");
+        Timestamp.timestamp("Bank,removeClientBankAccount");
         Client evitConcurrentModificationException = new Client();
         int c = 0;
         int nrConturi = 0;
@@ -426,7 +426,7 @@ public class Bank implements AccountStatement {
 
     //RemoveClientBankAccountt pe baza de client - pentru apel
     public void removeClientBankAccount(Client client) {
-        Timestamp.timestamp("Bank: removeClientBankAccount");
+        Timestamp.timestamp("Bank,removeClientBankAccount");
         int nrConturi = 0;
         if (this.clientBankAccountMap.containsKey(client)) {
             nrConturi = this.clientBankAccountMap.values().size() + 1;
@@ -437,7 +437,7 @@ public class Bank implements AccountStatement {
 
     //RemoveAccount pe baza de IBAN - pentru citire
     public void removeAccount(String IBAN) {
-        Timestamp.timestamp("Bank: removeClientBankAccount");
+        Timestamp.timestamp("Bank,removeClientBankAccount");
         int c = 0;
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             BankAccount local = null;
@@ -469,7 +469,7 @@ public class Bank implements AccountStatement {
 
     //RemoveAccount pe baza de cont - pentru apel
     public void removeAccount(BankAccount bankAccount) {
-        Timestamp.timestamp("Bank: removeAccount");
+        Timestamp.timestamp("Bank,removeAccount");
         int c = 0;
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             if (x.getValue().remove(bankAccount)) {
@@ -493,7 +493,7 @@ public class Bank implements AccountStatement {
 
     //Transfer de fonduri intre conturi (deposit+withdraw)
     public void interBanking(String receiver, String sender, double value) throws TransactionException {
-        Timestamp.timestamp("Bank: interBanking");
+        Timestamp.timestamp("Bank,interBanking");
         int c = 0, c1 = 0, c2 = 0, c3 = 0, k = 0;
         if (value <= 0) {
             System.out.println("De ce incerci asta? Fa-o invers :)");
@@ -540,7 +540,7 @@ public class Bank implements AccountStatement {
 
     //Balance check folosind clasa serviciu
     public void balanceCheck(BankAccount bankAccount) {
-        Timestamp.timestamp("Bank: balanceCheck");
+        Timestamp.timestamp("Bank,balanceCheck");
         int c = 0;
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             if (x.getValue().contains(bankAccount)) {
@@ -559,7 +559,7 @@ public class Bank implements AccountStatement {
     //Metoda ce filtreaza extrasele de cont dupa o data anume
     public void filterByDate(String IBAN, String startDate, String sign) {
         try {
-            Timestamp.timestamp("Bank: filterByDate");
+            Timestamp.timestamp("Bank,filterByDate");
             BankAccountValidation.validateIBAN(IBAN);
             BankAccountValidation.validateOpeningDate(startDate);
             BankValidation.validateSign(sign);
@@ -572,7 +572,7 @@ public class Bank implements AccountStatement {
     //Metoda ce filtreaza extrasele de cont dupa un interval
     public void filterByDate(String IBAN, String startDate, String sign, String stopDate) {
         try {
-            Timestamp.timestamp("Bank: filterByDate");
+            Timestamp.timestamp("Bank,filterByDate");
             BankAccountValidation.validateIBAN(IBAN);
             BankAccountValidation.validateOpeningDate(startDate);
             BankValidation.validateSign(sign);
@@ -586,7 +586,7 @@ public class Bank implements AccountStatement {
     //Metoda ce filtreaza extrasele de cont dupa o valoare anume
     public void filterByValue(String IBAN, double value, String sign) {
         try {
-            Timestamp.timestamp("Bank: filterByValue");
+            Timestamp.timestamp("Bank,filterByValue");
             BankAccountValidation.validateIBAN(IBAN);
             BankValidation.validateSign(sign);
             WriterFiles.getInstance().writerAccountStatementTemp(IBAN, filterValue(IBAN, value, sign));
@@ -598,7 +598,7 @@ public class Bank implements AccountStatement {
     //Metoda ce filtreaza extrasele de cont dupa un interval
     public void filterByValue(String IBAN, double minValue, String sign, double maxValue) {
         try {
-            Timestamp.timestamp("Bank: filterByValue");
+            Timestamp.timestamp("Bank,filterByValue");
             BankAccountValidation.validateIBAN(IBAN);
             BankValidation.validateSign(sign);
             WriterFiles.getInstance().writerAccountStatementTemp(IBAN, filterValue(IBAN, minValue, sign, maxValue));
@@ -610,7 +610,7 @@ public class Bank implements AccountStatement {
     //Metoda ce filtreaza extrasele de cont dupa un tip de valuta
     public void filterByCurrency(String IBAN, String currency, String sign) {
         try {
-            Timestamp.timestamp("Bank: filterByValue");
+            Timestamp.timestamp("Bank,filterByValue");
             BankAccountValidation.validateIBAN(IBAN);
             BankValidation.validateSign(sign);
             WriterFiles.getInstance().writerAccountStatementTemp(IBAN, filterCurrency(IBAN, currency, sign));
@@ -621,7 +621,7 @@ public class Bank implements AccountStatement {
 
     //Plata catre furnizorii deja existenti
     public void paymentUtilies(String Sender, String Receiver, double value) throws ProviderDBException, TransactionException {
-        Timestamp.timestamp("Bank: paymentUtilies");
+        Timestamp.timestamp("Bank,paymentUtilies");
         int c = 0, c1 = 0;
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             for (BankAccount y : x.getValue()) {
@@ -645,7 +645,7 @@ public class Bank implements AccountStatement {
 
     //CurrencyExchange pe cont
     public void currencyExchange(BankAccount bankAccount, String wantedCurrency) {
-        Timestamp.timestamp("Bank: currencyExchange");
+        Timestamp.timestamp("Bank,currencyExchange");
         int c = 0, c1 = 0;
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             if (x.getValue().contains(bankAccount)) {
@@ -666,7 +666,7 @@ public class Bank implements AccountStatement {
 
     //CurrencyExchange pe IBAN
     public void currencyExchange(String IBAN, String wantedCurrency) {
-        Timestamp.timestamp("Bank: currencyExchange");
+        Timestamp.timestamp("Bank,currencyExchange");
         int c = 0, c1 = 0;
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             for (BankAccount y : x.getValue()) {
@@ -690,7 +690,7 @@ public class Bank implements AccountStatement {
 
     //Plata unei rate mai mari decat cea fixa
     public void payLoan(BankAccount bankAccount, Loan loan, double value) throws TransactionException {
-        Timestamp.timestamp("Bank: payLoan");
+        Timestamp.timestamp("Bank,payLoan");
         Client dummy = new Client();
         Loan dupe = new Loan();
         Loan.setCounterLoanID(Loan.getCounterLoanID() - 1);
@@ -730,7 +730,7 @@ public class Bank implements AccountStatement {
 
     //Plata unei rate fixe
     public void payLoan(BankAccount bankAccount, Loan loan) throws TransactionException {
-        Timestamp.timestamp("Bank: payLoan");
+        Timestamp.timestamp("Bank,payLoan");
         Client dummy = new Client();
         Loan dupe = new Loan();
         int c = 0, c1 = 0, c2 = 0;
@@ -769,31 +769,31 @@ public class Bank implements AccountStatement {
 
     //Adaugarea unui provider
     public void addProvider(ProviderDB providerDB) {
-        Timestamp.timestamp("Bank: addProvider");
+        Timestamp.timestamp("Bank,addProvider");
         ToProviders.addProvider(providerDB);
     }
 
     //Adaugarea unei intregi liste de provideri (pentru incarcare date)
     public void addProvider(List<ProviderDB> providerDBList) {
-        Timestamp.timestamp("Bank: addProvider");
+        Timestamp.timestamp("Bank,addProvider");
         ToProviders.addProvider(providerDBList);
     }
 
     //Stergerea unui provider folosind colectia de informatii
     public void removeProvider(ProviderDB providerDB) {
-        Timestamp.timestamp("Bank: removeProvider");
+        Timestamp.timestamp("Bank,removeProvider");
         ToProviders.removeProvider(providerDB);
     }
 
     //Stergerea unui provider pe baza de cont
     public void removeProvider(String IBAN) throws BankAccountException {
-        Timestamp.timestamp("Bank: removeProvider");
+        Timestamp.timestamp("Bank,removeProvider");
         ToProviders.removeProvider(IBAN);
     }
 
     //Afisarea providerilor o data cu banca
     public StringBuilder checkProviders() {
-        Timestamp.timestamp("Bank: checkProviders");
+        Timestamp.timestamp("Bank,checkProviders");
         StringBuilder c = new StringBuilder();
         if (ToProviders.getInstance() == null)
             System.out.println("Inca nu exista nici un provider");
@@ -805,15 +805,15 @@ public class Bank implements AccountStatement {
         return c;
     }
 
-    //Face update la fisierul Bank.csv de intrare
+    //Face update la fisierul Bank.txt de intrare
     public String bankReaderUpdate() {
-        Timestamp.timestamp("Bank: bankReaderUpdate");
+        Timestamp.timestamp("Bank,bankReaderUpdate");
         return this.name + "," + this.location + "\n";
     }
 
     //Face update la fisierul BankAccount.csv de intrare
     public List<String> bankAccountReaderUpdate() {
-        Timestamp.timestamp("Bank: bankAccountReaderUpdate");
+        Timestamp.timestamp("Bank,bankAccountReaderUpdate");
         List<String> local = new ArrayList<>();
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             for (BankAccount y : x.getValue()) {
@@ -825,7 +825,7 @@ public class Bank implements AccountStatement {
 
     //Face update la fisierul Card.csv de intrare
     public List<String> cardReaderUpdate() {
-        Timestamp.timestamp("Bank: cardReaderUpdate");
+        Timestamp.timestamp("Bank,cardReaderUpdate");
         List<String> local = new ArrayList<>();
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             for (BankAccount y : x.getValue()) {
@@ -839,7 +839,7 @@ public class Bank implements AccountStatement {
 
     //Face update la fisierul Client.csv de intrare
     public List<String> clientReaderUpdate() {
-        Timestamp.timestamp("Bank: clientReaderUpdate");
+        Timestamp.timestamp("Bank,clientReaderUpdate");
         List<Client> localClient = new ArrayList<>();
         for (Map.Entry<Client, List<BankAccount>> x : this.clientBankAccountMap.entrySet()) {
             localClient.add(x.getKey());
@@ -860,7 +860,7 @@ public class Bank implements AccountStatement {
 
     //Face update la fisierul Loan.csv de intrare
     public List<String> loanReaderUpdate() {
-        Timestamp.timestamp("Bank: loanReaderUpdate");
+        Timestamp.timestamp("Bank,loanReaderUpdate");
         List<String> local = new ArrayList<>();
         for (Map.Entry<Client, List<Loan>> x : this.clientLoanMap.entrySet()) {
             for (Loan y : x.getValue()) {

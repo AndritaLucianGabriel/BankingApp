@@ -43,7 +43,7 @@ public class ToProviders extends Transaction {
 
     //Functie ce imi adauga un nou provider
     public static void addProvider(ProviderDB providerDB) {
-        Timestamp.timestamp("ToProviders: addProvider");
+        Timestamp.timestamp("ToProviders,addProvider");
         instance = ToProviders.getInstance();
         if (providerDBList.contains(providerDB))
             System.out.println("Providerul " + providerDB.getCompany() + " exista deja.");
@@ -55,7 +55,7 @@ public class ToProviders extends Transaction {
 
     //Functie ce imi adauga o lista intreaga de provideri (pentru incarcare date)
     public static void addProvider(List<ProviderDB> providerDBList) {
-        Timestamp.timestamp("ToProviders: addProvider");
+        Timestamp.timestamp("ToProviders,addProvider");
         instance = ToProviders.getInstance();
         //Vedem ce elemente difera si le introducem in lista
         if (ToProviders.providerDBList.isEmpty()) {
@@ -70,7 +70,7 @@ public class ToProviders extends Transaction {
 
     //Functie ce imi scoate un provider pe baza de colectie de date
     public static void removeProvider(ProviderDB providerDB) {
-        Timestamp.timestamp("ToProviders: removeProvider");
+        Timestamp.timestamp("ToProviders,removeProvider");
         if (!providerDBList.remove(providerDB))
             System.out.println("Nu exista providerul " + providerDB.getCompany());
         else
@@ -79,7 +79,7 @@ public class ToProviders extends Transaction {
 
     //Functie ce imi scoate un provider pe baza de IBAN
     public static void removeProvider(String IBAN) throws BankAccountException {
-        Timestamp.timestamp("ToProviders: removeProvider");
+        Timestamp.timestamp("ToProviders,removeProvider");
         BankAccountValidation.validateIBAN(IBAN);
         int c = 0;
         for (ProviderDB x : providerDBList)
@@ -95,7 +95,7 @@ public class ToProviders extends Transaction {
 
     //Functi ce va face update-ul fisierelor de intrare
     public static List<String> toProviderReaderUpdate() {
-        Timestamp.timestamp("ToProviders: toProviderReaderUpdate");
+        Timestamp.timestamp("ToProviders,toProviderReaderUpdate");
         List<String> local = new ArrayList<>();
         for (ProviderDB x : providerDBList) {
             local.add(x.providerDBReaderUpdate() + "\n");
@@ -104,16 +104,16 @@ public class ToProviders extends Transaction {
     }
 
     public String anotherToString() {
-        Timestamp.timestamp("ToProviders: anotherToString");
+        Timestamp.timestamp("ToProviders,anotherToString");
         return transactionID +
-                ", " + timestamp +
-                ", " + tradeValue +
-                ", " + currency + "\n";
+                "," + timestamp +
+                "," + tradeValue +
+                "," + currency + "\n";
     }
 
     @Override
     public double paymentUtilities(String IBAN, double value) throws ProviderDBException {
-        Timestamp.timestamp("ToProviders: paymentUtilities");
+        Timestamp.timestamp("ToProviders,paymentUtilities");
         double val = 0, c = 0;
         for (ProviderDB x : providerDBList) {
             if (Objects.equals(x.getIBAN(), IBAN)) {

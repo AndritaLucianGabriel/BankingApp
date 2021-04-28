@@ -22,7 +22,7 @@ public class DebitAccount extends BankAccount {
 
     //Functi ce va face update-ul fisierelor de intrare
     protected String bankAccountReaderUpdate() {
-        Timestamp.timestamp("DebitAccount: bankAccountReaderUpdate");
+        Timestamp.timestamp("DebitAccount,bankAccountReaderUpdate");
         return this.IBAN + "," + this.openingDate + "," + this.closingDate + "," + FormatDouble.format(this.balance) + "," + this.currency;
     }
 
