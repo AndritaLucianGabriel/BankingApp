@@ -36,7 +36,7 @@ import java.util.*;
     -am creat interfata asigUUID pentru id-urile tranzactiilor
     -am transformat in interfata FormatDouble, AccountStatement, CurrencyExchange
     -am adaugat in fiecare clasa dto o metoda ce afiseaza conform tiparului in fisierele csv noile date + creat in readerFiles metoda propriu-zisa (CRUD UPDATE)
-    -am gasit un bug la metodele equals() (hai ca nici n am pierdut 2 zile pana am gasit rezolvarea)
+    -am gasit un bug la metodele equals() (hai ca nici n am pierdut 2 zile pana am gasit problema) P.S. Am avut asta inainte de feedback
     -nu se mai pot face tranzactii cu/din conturile inchise
     -currencyExchange pe baza de IBAN
     -modificat BankValidation pentru a include si verificare de semn
@@ -190,6 +190,6 @@ public class Main {
         WriterFiles.getInstance().writerBank("\n\tVadim vrea sa vada ce tranzactii a facut (vezi AccountStatementTemp)\n" + bank + "\nCOUNTER CONTURI: " + BankAccount.getCounterBankAccountID() + "\nCOUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
 
 //        Update-ul fisierelor de intrare
-        ReaderFiles.getInstance().updateReaders(bank);
+//        ReaderFiles.getInstance().updateReaders(bank);
     }
 }
