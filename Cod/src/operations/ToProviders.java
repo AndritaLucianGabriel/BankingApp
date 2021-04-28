@@ -9,6 +9,8 @@ import service.files.WriterFiles;
 import service.FormatDouble;
 import service.validations.BankAccountValidation;
 
+import java.text.Format;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -107,7 +109,7 @@ public class ToProviders extends Transaction {
         Timestamp.timestamp("ToProviders,anotherToString");
         return transactionID +
                 "," + timestamp +
-                "," + tradeValue +
+                "," + FormatDouble.format(tradeValue) +
                 "," + currency + "\n";
     }
 

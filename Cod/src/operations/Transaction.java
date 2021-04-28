@@ -6,6 +6,7 @@ import service.exceptions.TransactionException;
 import service.FormatDouble;
 import service.validations.TransactionValidation;
 
+import java.text.Format;
 import java.time.LocalDate;
 
 public abstract class Transaction implements AsigUUID, Comparable<Transaction> {
@@ -103,7 +104,7 @@ public abstract class Transaction implements AsigUUID, Comparable<Transaction> {
     public String toString() {
         return transactionID +
                 "," + timestamp +
-                "," + tradeValue +
+                "," + FormatDouble.format(tradeValue) +
                 "," + currency + "\n";
     }
 }
