@@ -190,6 +190,6 @@ public class Main {
         WriterFiles.getInstance().writerBank("\n\tVadim vrea sa vada ce tranzactii a facut (vezi AccountStatementTemp)\n" + bank + "\nCOUNTER CONTURI: " + BankAccount.getCounterBankAccountID() + "\nCOUNTER IMPRUMUTURI: " + Loan.getCounterLoanID());
 
 //        Update-ul fisierelor de intrare
-//        ReaderFiles.getInstance().updateReaders(bank);
+        ReaderFiles.getInstance().updateReaders(bank);
     }
 }
