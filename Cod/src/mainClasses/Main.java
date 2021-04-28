@@ -47,6 +47,7 @@ import java.util.*;
         -am adaugat metodele filterDate()
         -am adaugat metodele filterValue()
         -am adaugat metodele filterCurrency()
+    -tranzactiile din extras vor fi sortate ( + multe alte schimbari bazate pe feedback)
 
         Current wip:
 
