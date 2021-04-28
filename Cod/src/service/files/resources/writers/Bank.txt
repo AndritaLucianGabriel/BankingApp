@@ -422,12 +422,12 @@ COUNTER IMPRUMUTURI: 3
 		[1] Banca Raiffeisen Bank cu ID-ul 1 aflata la Strada Sebastian Nr 5 Sector 3 Bucuresti are urmatorii clienti:
 	Vadim Tudor in varsta de 60 ani, CNP: 5980926460187
   ->CONTURI:
-[1] Contul de debit RO59RZBR0000065122344800 a fost deschis in data de 12-09-2021, avand suma de 780.0 Dolari
+[1] Contul de debit RO59RZBR0000065122344800 a fost deschis in data de 12-09-2021, avand suma de -3578.41 Dolari
  ~ Cardul 5213512152346781 cu pinul 905 a fost emis la data de 25-09-2020.
  ~ Cardul 5113512652346763 cu pinul 524 a fost emis la data de 10-05-2019.
 [2] Contul de debit RO59RZBR0000068222375802 a fost deschis in data de 15-05-2012, avand suma de 11812.0 Dolari
   ->IMPRUMUTURI:
-[1] Suma = 518651.0 Dolari in data de 05-10-2019 pe 119 luni (Imprumut pentru casa)
+[1] Suma = 514292.59 Dolari in data de 05-10-2019 pe 118 luni (Imprumut pentru casa)
 
 	Ionita Dragos in varsta de 20 ani, CNP: 5540522460057
   ->CONTURI:
@@ -445,19 +445,19 @@ COUNTER IMPRUMUTURI: 3
  ~ Compania 'Apa Nova' are 0.0 Dolari in contul RO33BRDE4500501059614500
 
 COUNTER CONTURI: 3
-COUNTER IMPRUMUTURI: 3
+COUNTER IMPRUMUTURI: 4
 ==========================================================================================================================
 	Vadim vrea sa vada ce tranzactii a facut (vezi AccountStatementTemp)
 
 		[1] Banca Raiffeisen Bank cu ID-ul 1 aflata la Strada Sebastian Nr 5 Sector 3 Bucuresti are urmatorii clienti:
 	Vadim Tudor in varsta de 60 ani, CNP: 5980926460187
   ->CONTURI:
-[1] Contul de debit RO59RZBR0000065122344800 a fost deschis in data de 12-09-2021, avand suma de 780.0 Dolari
+[1] Contul de debit RO59RZBR0000065122344800 a fost deschis in data de 12-09-2021, avand suma de -3578.41 Dolari
  ~ Cardul 5213512152346781 cu pinul 905 a fost emis la data de 25-09-2020.
  ~ Cardul 5113512652346763 cu pinul 524 a fost emis la data de 10-05-2019.
 [2] Contul de debit RO59RZBR0000068222375802 a fost deschis in data de 15-05-2012, avand suma de 11812.0 Dolari
   ->IMPRUMUTURI:
-[1] Suma = 518651.0 Dolari in data de 05-10-2019 pe 119 luni (Imprumut pentru casa)
+[1] Suma = 514292.59 Dolari in data de 05-10-2019 pe 118 luni (Imprumut pentru casa)
 
 	Ionita Dragos in varsta de 20 ani, CNP: 5540522460057
   ->CONTURI:
@@ -475,4 +475,4 @@ COUNTER IMPRUMUTURI: 3
  ~ Compania 'Apa Nova' are 0.0 Dolari in contul RO33BRDE4500501059614500
 
 COUNTER CONTURI: 3
-COUNTER IMPRUMUTURI: 3
+COUNTER IMPRUMUTURI: 4

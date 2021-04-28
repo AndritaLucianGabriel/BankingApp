@@ -268,7 +268,7 @@ public class ReaderFiles {
     public void updateReaders(Bank bank) {
         try {
             Timestamp.timestamp("ReaderFiles,updateReaders");
-            BufferedWriter bankWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Bank.txt"));
+            BufferedWriter bankWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Bank.csv"));
             BufferedWriter bankAccountWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\BankAccount.csv"));
             BufferedWriter cardWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Card.csv"));
             BufferedWriter clientWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Client.csv"));
