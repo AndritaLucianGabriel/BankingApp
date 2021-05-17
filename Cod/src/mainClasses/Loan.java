@@ -1,5 +1,6 @@
 package mainClasses;
 
+import service.dbResources.service.BankService;
 import service.exceptions.LoanException;
 import service.Timestamp;
 import service.FormatDouble;
@@ -9,7 +10,7 @@ import java.util.Objects;
 
 public class Loan {
     protected static int counterLoanID;
-    protected int LoanID;
+    protected int loanID;
     protected double value;
     protected String currency;
     protected String detail;
@@ -18,7 +19,7 @@ public class Loan {
 
     public Loan() {
         counterLoanID++;
-        this.LoanID = counterLoanID;
+        this.loanID = counterLoanID;
         this.value = 0;
         this.currency = "";
         this.detail = "";
@@ -33,7 +34,7 @@ public class Loan {
         LoanValidation.validateDurationMonths(durationMonths);
 
         counterLoanID++;
-        this.LoanID = counterLoanID;
+        this.loanID = counterLoanID;
         this.value = value;
         this.currency = currency;
         this.detail = detail;
@@ -41,7 +42,6 @@ public class Loan {
         this.durationMonths = durationMonths;
     }
 
-    //Getteri & Setteri
     public static int getCounterLoanID() {
         return counterLoanID;
     }
@@ -51,11 +51,11 @@ public class Loan {
     }
 
     public int getLoanID() {
-        return LoanID;
+        return loanID;
     }
 
     public void setLoanID(int loanID) {
-        LoanID = loanID;
+        this.loanID = loanID;
     }
 
     public double getValue() {
@@ -102,14 +102,12 @@ public class Loan {
         this.durationMonths = durationMonths;
     }
 
-    //Functie ce returneaza valoarea ratei lunare
     protected double valueMonthlyRate() {
         Timestamp.timestamp("Loan,valueMonthlyRate");
         return this.value / this.durationMonths;
     }
 
-    //Plata unei sume > decat rata lunara
-    protected void payMonthlyRate(double value) {
+    protected void payMonthlyRate(double value, String cnp) {
         Timestamp.timestamp("Loan,payMonthlyRate");
         if (value >= this.valueMonthlyRate()) {
             double oldRate = valueMonthlyRate();
@@ -117,19 +115,19 @@ public class Loan {
             double newRate = valueMonthlyRate();
             this.durationMonths--;
             System.out.println(" a platit " + FormatDouble.format(value) + " " + this.currency + ".\n" + " ~Update rata: " + FormatDouble.format(oldRate) + " -> " + FormatDouble.format(newRate) + "\n ~" + FormatDouble.format(this.value) + " " + this.currency + " ramasi pentru " + this.durationMonths + " de luni");
+            BankService.getInstance().updateLoan(this, cnp);
         } else
             System.out.println(" trebuie sa introduca o suma mai mare decat " + FormatDouble.format(this.valueMonthlyRate()) + " pentru a plati minimul ratei.");
     }
 
-    //Plata ratei fixe
-    protected void payMonthlyRate() {
+    protected void payMonthlyRate(String cnp) {
         Timestamp.timestamp("Loan,payMonthlyRate");
         this.value = this.value - valueMonthlyRate();
         this.durationMonths--;
         System.out.println(" si-a platit cu succes rata in valoare de " + FormatDouble.format(this.valueMonthlyRate()) + " " + this.currency + ". " + FormatDouble.format(this.value) + " " + this.currency + " ramasi pentru " + this.durationMonths + " de luni");
+        BankService.getInstance().updateLoan(this, cnp);
     }
 
-    //Functi ce va face update-ul fisierelor de intrare
     protected String loanReaderUpdate() {
         Timestamp.timestamp("Loan,loanReaderUpdate");
         return FormatDouble.format(this.value) + "," + this.currency + "," + this.detail + "," + this.date + "," + this.durationMonths;
@@ -144,7 +142,7 @@ public class Loan {
         if (this.getClass() != obj.getClass())
             return false;
         Loan loan = (Loan) obj;
-        if (this.LoanID != loan.LoanID)
+        if (this.loanID != loan.loanID)
             return false;
         if (this.value != loan.value)
             return false;
@@ -161,12 +159,12 @@ public class Loan {
     public String toString() {
         StringBuilder c;
         c = new StringBuilder();
-        c.append("[").append(this.LoanID).append("] Suma = ").append(FormatDouble.format(this.value)).append(" ").append(this.currency).append(" in data de ").append(this.date).append(" pe ").append(this.durationMonths).append(" luni (").append(this.detail).append(")");
+        c.append("[").append(this.loanID).append("] Suma = ").append(FormatDouble.format(this.value)).append(" ").append(this.currency).append(" in data de ").append(this.date).append(" pe ").append(this.durationMonths).append(" luni (").append(this.detail).append(")");
         return c.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.LoanID, this.value, this.currency, this.detail, this.date, this.durationMonths);
+        return Objects.hash(this.loanID, this.value, this.currency, this.detail, this.date, this.durationMonths);
     }
 }

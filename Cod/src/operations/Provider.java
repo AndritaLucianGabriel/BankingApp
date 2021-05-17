@@ -1,29 +1,29 @@
 package operations;
 
-import service.exceptions.ProviderDBException;
+import service.exceptions.ProviderException;
 import service.Timestamp;
 import service.FormatDouble;
-import service.validations.ProviderDBValidation;
+import service.validations.ProviderValidation;
 
 import java.util.Objects;
 
-public class ProviderDB {
+public class Provider {
     protected String company;
     protected String IBAN;
     protected double balance;
     protected String currency;
 
-    public ProviderDB() {
+    public Provider() {
         this.company = "";
         this.IBAN = "";
         this.balance = 0;
         this.currency = "";
     }
 
-    public ProviderDB(String company, String IBAN, String currency) throws ProviderDBException {
-        ProviderDBValidation.validateCompany(company);
-        ProviderDBValidation.validateIBAN(IBAN);
-        ProviderDBValidation.validateCurrency(currency);
+    public Provider(String company, String IBAN, String currency) throws ProviderException {
+        ProviderValidation.validateCompany(company);
+        ProviderValidation.validateIBAN(IBAN);
+        ProviderValidation.validateCurrency(currency);
 
         this.company = company;
         this.IBAN = IBAN;
@@ -31,11 +31,11 @@ public class ProviderDB {
         this.currency = currency;
     }
 
-    public ProviderDB(String company, String IBAN, double balance, String currency) throws ProviderDBException {
-        ProviderDBValidation.validateCompany(company);
-        ProviderDBValidation.validateIBAN(IBAN);
-        ProviderDBValidation.validateBalance(balance);
-        ProviderDBValidation.validateCurrency(currency);
+    public Provider(String company, String IBAN, double balance, String currency) throws ProviderException {
+        ProviderValidation.validateCompany(company);
+        ProviderValidation.validateIBAN(IBAN);
+        ProviderValidation.validateBalance(balance);
+        ProviderValidation.validateCurrency(currency);
 
         this.company = company;
         this.IBAN = IBAN;
@@ -43,20 +43,19 @@ public class ProviderDB {
         this.currency = currency;
     }
 
-    public ProviderDB(ProviderDB providerDB) {
-        this.company = providerDB.company;
-        this.IBAN = providerDB.IBAN;
-        this.balance = providerDB.balance;
-        this.currency = providerDB.currency;
+    public Provider(Provider provider) {
+        this.company = provider.company;
+        this.IBAN = provider.IBAN;
+        this.balance = provider.balance;
+        this.currency = provider.currency;
     }
 
-    //Getteri & Setteri
     public String getCompany() {
         return company;
     }
 
-    public void setCompany(String company) throws ProviderDBException {
-        ProviderDBValidation.validateCompany(company);
+    public void setCompany(String company) throws ProviderException {
+        ProviderValidation.validateCompany(company);
         this.company = company;
     }
 
@@ -64,8 +63,8 @@ public class ProviderDB {
         return IBAN;
     }
 
-    public void setIBAN(String IBAN) throws ProviderDBException {
-        ProviderDBValidation.validateIBAN(IBAN);
+    public void setIBAN(String IBAN) throws ProviderException {
+        ProviderValidation.validateIBAN(IBAN);
         this.IBAN = IBAN;
     }
 
@@ -73,8 +72,8 @@ public class ProviderDB {
         return FormatDouble.format(balance);
     }
 
-    public void setBalance(double balance) throws ProviderDBException {
-        ProviderDBValidation.validateBalance(balance);
+    public void setBalance(double balance) throws ProviderException {
+        ProviderValidation.validateBalance(balance);
         this.balance = balance;
     }
 
@@ -82,14 +81,13 @@ public class ProviderDB {
         return currency;
     }
 
-    public void setCurrency(String currency) throws ProviderDBException {
-        ProviderDBValidation.validateCurrency(currency);
+    public void setCurrency(String currency) throws ProviderException {
+        ProviderValidation.validateCurrency(currency);
         this.currency = currency;
     }
 
-    //Functi ce va face update-ul fisierelor de intrare
-    protected String providerDBReaderUpdate() {
-        Timestamp.timestamp("ProviderDB,providerDBReaderUpdate");
+    protected String providerReaderUpdate() {
+        Timestamp.timestamp("Provider,providerDBReaderUpdate");
         return this.company + "," + this.IBAN + "," + FormatDouble.format(this.balance) + "," + this.currency;
     }
 
@@ -99,14 +97,14 @@ public class ProviderDB {
             return false;
         if (this == obj)
             return true;
-        ProviderDB providerDB = (ProviderDB) obj;
+        Provider provider = (Provider) obj;
         if (this.getClass() != obj.getClass())
             return false;
-        if (!Objects.equals(this.company, providerDB.company))
+        if (!Objects.equals(this.company, provider.company))
             return false;
-        if (!Objects.equals(this.IBAN, providerDB.IBAN))
+        if (!Objects.equals(this.IBAN, provider.IBAN))
             return false;
-        return this.balance == providerDB.balance;
+        return this.balance == provider.balance;
     }
 
     @Override

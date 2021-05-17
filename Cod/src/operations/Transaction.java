@@ -1,12 +1,11 @@
 package operations;
 
 import service.AsigUUID;
-import service.exceptions.ProviderDBException;
+import service.exceptions.ProviderException;
 import service.exceptions.TransactionException;
 import service.FormatDouble;
 import service.validations.TransactionValidation;
 
-import java.text.Format;
 import java.time.LocalDate;
 
 public abstract class Transaction implements AsigUUID, Comparable<Transaction> {
@@ -37,7 +36,6 @@ public abstract class Transaction implements AsigUUID, Comparable<Transaction> {
         this.currency = currency;
     }
 
-    //Getteri & Setteri
     public String getTransactionID() {
         return transactionID;
     }
@@ -88,16 +86,15 @@ public abstract class Transaction implements AsigUUID, Comparable<Transaction> {
         this.currency = currency;
     }
 
-    //Metode abstracte
     public abstract double withdraw(double value);
 
-    public abstract double paymentUtilities(String IBAN, double value) throws ProviderDBException;
+    public abstract double paymentUtilities(String IBAN, double value) throws ProviderException;
 
     public abstract double deposit(double value);
 
     @Override
     public int compareTo(Transaction transaction) {
-        return (int) (this.value-transaction.getValue());
+        return (int) (this.value - transaction.getValue());
     }
 
     @Override

@@ -1,26 +1,23 @@
 package operations;
 
 import service.CurrencyExchange;
+import service.dbResources.service.BankService;
 import service.exceptions.BankAccountException;
-import service.exceptions.ProviderDBException;
+import service.exceptions.ProviderException;
 import service.exceptions.TransactionException;
 import service.Timestamp;
 import service.files.WriterFiles;
 import service.FormatDouble;
 import service.validations.BankAccountValidation;
 
-import java.text.Format;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-//clasa singleton (functionare tip baza de date? imi pastreaza providerii)
 public class ToProviders extends Transaction {
     private static ToProviders instance = null;
-    protected static List<ProviderDB> providerDBList = new ArrayList<>();
+    protected static List<Provider> providerList = new ArrayList<>();
 
-    //Constructor doar pentru...construit
     private ToProviders() {
     }
 
@@ -30,7 +27,6 @@ public class ToProviders extends Transaction {
         return instance;
     }
 
-    //Constructor folosit doar pentru tranzactii
     private ToProviders(String IBAN, double value, String currency) throws TransactionException {
         super(IBAN, value, currency);
     }
@@ -39,68 +35,71 @@ public class ToProviders extends Transaction {
         return new ToProviders(IBAN, value, currency);
     }
 
-    public static List<ProviderDB> getProviderDBList() {
-        return providerDBList;
+    public static List<Provider> getProviderDBList() {
+        return providerList;
     }
 
-    //Functie ce imi adauga un nou provider
-    public static void addProvider(ProviderDB providerDB) {
+    public static List<Object> getProvidersAsObject() {
+        return new ArrayList<>(ToProviders.getProviderDBList());
+    }
+
+    public static void addProvider(Provider provider) {
         Timestamp.timestamp("ToProviders,addProvider");
         instance = ToProviders.getInstance();
-        if (providerDBList.contains(providerDB))
-            System.out.println("Providerul " + providerDB.getCompany() + " exista deja.");
+        if (providerList.contains(provider))
+            System.out.println("Providerul " + provider.getCompany() + " exista deja.");
         else {
-            providerDBList.add(providerDB);
-            System.out.println("Providerul " + providerDB.getCompany() + " a fost adaugat cu succes!");
+            providerList.add(provider);
+            System.out.println("Providerul " + provider.getCompany() + " a fost adaugat cu succes!");
         }
     }
 
-    //Functie ce imi adauga o lista intreaga de provideri (pentru incarcare date)
-    public static void addProvider(List<ProviderDB> providerDBList) {
+    public static void addProvider(List<Provider> providerList) {
         Timestamp.timestamp("ToProviders,addProvider");
         instance = ToProviders.getInstance();
-        //Vedem ce elemente difera si le introducem in lista
-        if (ToProviders.providerDBList.isEmpty()) {
-            ToProviders.providerDBList.addAll(providerDBList);
+        if (ToProviders.providerList.isEmpty()) {
+            ToProviders.providerList.addAll(providerList);
         } else {
-            for (ProviderDB x : providerDBList) {
-                if (!ToProviders.providerDBList.contains(x))
-                    ToProviders.providerDBList.add(x);
+            for (Provider x : providerList) {
+                if (!ToProviders.providerList.contains(x)) {
+                    ToProviders.providerList.add(x);
+                }
             }
         }
     }
 
-    //Functie ce imi scoate un provider pe baza de colectie de date
-    public static void removeProvider(ProviderDB providerDB) {
+    public static void removeProvider(Provider provider) {
         Timestamp.timestamp("ToProviders,removeProvider");
-        if (!providerDBList.remove(providerDB))
-            System.out.println("Nu exista providerul " + providerDB.getCompany());
-        else
-            System.out.println("Providerul " + providerDB.getCompany() + " a fost eliminat cu succes!");
+        if (!providerList.remove(provider))
+            System.out.println("Nu exista providerul " + provider.getCompany());
+        else {
+            System.out.println("Providerul " + provider.getCompany() + " a fost eliminat cu succes!");
+        }
     }
 
-    //Functie ce imi scoate un provider pe baza de IBAN
     public static void removeProvider(String IBAN) throws BankAccountException {
         Timestamp.timestamp("ToProviders,removeProvider");
         BankAccountValidation.validateIBAN(IBAN);
         int c = 0;
-        for (ProviderDB x : providerDBList)
+        Provider local = new Provider();
+        for (Provider x : providerList)
             if (x.getIBAN().equals(IBAN)) {
                 c++;
-                providerDBList.remove(x);
+                local = x;
             }
         if (c == 0)
             System.out.println("Nu exista providerul cu IBAN-ul " + IBAN);
-        else
+        else {
             System.out.println("Providerul a fost eliminat cu succes!");
+            providerList.remove(local);
+        }
     }
 
-    //Functi ce va face update-ul fisierelor de intrare
-    public static List<String> toProviderReaderUpdate() {
+    public static List<String> toProvidersReaderUpdate() {
         Timestamp.timestamp("ToProviders,toProviderReaderUpdate");
         List<String> local = new ArrayList<>();
-        for (ProviderDB x : providerDBList) {
-            local.add(x.providerDBReaderUpdate() + "\n");
+        for (Provider x : providerList) {
+            local.add(x.providerReaderUpdate() + "\n");
         }
         return local;
     }
@@ -114,10 +113,10 @@ public class ToProviders extends Transaction {
     }
 
     @Override
-    public double paymentUtilities(String IBAN, double value) throws ProviderDBException {
+    public double paymentUtilities(String IBAN, double value) throws ProviderException {
         Timestamp.timestamp("ToProviders,paymentUtilities");
         double val = 0, c = 0;
-        for (ProviderDB x : providerDBList) {
+        for (Provider x : providerList) {
             if (Objects.equals(x.getIBAN(), IBAN)) {
                 c++;
                 System.out.println(" in contul " + IBAN + " (" + x.getCompany() + ")" + "\nSold anterior: " + FormatDouble.format(x.getBalance()) + " " + x.getCurrency());
@@ -126,6 +125,8 @@ public class ToProviders extends Transaction {
                 val = this.value - value;
                 this.tradeValue = -value;
                 WriterFiles.getInstance().writerAccountStatement(this);
+                BankService.getInstance().create(this);
+                BankService.getInstance().update(x);
                 break;
             }
         }
@@ -134,8 +135,6 @@ public class ToProviders extends Transaction {
         return val;
     }
 
-    //    stiu ca ati spus ca nu are sens sa fie mostenita din Transaction, dar am vazut foarte tarziu feedbackul (nu stiam unde sa ma uit si am vazut tarziu noul branch)
-//    si deja terminasem etapa 2 cand am vazut. Trebuia sa schimb toata logica din spatele extrasului
     @Override
     public double withdraw(double value) {
         return 0;
@@ -154,13 +153,13 @@ public class ToProviders extends Transaction {
     @Override
     public String toString() {
         StringBuilder c = new StringBuilder();
-        if (providerDBList.isEmpty())
+        if (providerList.isEmpty())
             c.append("\tNu avem nici un provider.");
-        else if (providerDBList.size() == 1)
-            c.append("\tAvem urmatorul provider:\n").append(providerDBList.get(0).toString());
+        else if (providerList.size() == 1)
+            c.append("\tAvem urmatorul provider:\n").append(providerList.get(0).toString());
         else {
             c.append("\tAvem urmatorii provideri:");
-            for (ProviderDB x : providerDBList)
+            for (Provider x : providerList)
                 c.append("\n").append(x.toString());
         }
         return c.toString();
@@ -168,6 +167,6 @@ public class ToProviders extends Transaction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(instance, providerDBList);
+        return Objects.hash(instance, providerList);
     }
 }

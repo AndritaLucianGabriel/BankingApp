@@ -26,7 +26,6 @@ public class WriterFiles {
         return instance;
     }
 
-    //Functii de afisare in fisiere
     public void writerBank(String c) {
         try {
             Timestamp.timestamp("WriterFiles,writerBank");

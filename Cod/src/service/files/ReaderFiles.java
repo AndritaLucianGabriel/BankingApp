@@ -1,7 +1,7 @@
 package service.files;
 
 import mainClasses.*;
-import operations.ProviderDB;
+import operations.Provider;
 import operations.ToProviders;
 import operations.Transaction;
 import operations.Transfer;
@@ -33,7 +33,6 @@ public class ReaderFiles {
         return instance;
     }
 
-    //Functii de citire din fisiere
     public Bank readerBank() {
         try {
             Timestamp.timestamp("ReaderFiles,readerBank");
@@ -218,25 +217,25 @@ public class ReaderFiles {
     public void readerProviderDB() {
         try {
             Timestamp.timestamp("ReaderFiles,readerProviderDB");
-            providerDBReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\ProviderDB.csv"));
+            providerDBReader = new BufferedReader(new FileReader(RESOURCES_FOLDER + "\\Provider.csv"));
             String linie;
             String[] dummy;
-            ProviderDB local;
-            List<ProviderDB> providerDBList = new ArrayList<>();
+            Provider local;
+            List<Provider> providerList = new ArrayList<>();
             while ((linie = providerDBReader.readLine()) != null) {
-                local = new ProviderDB();
+                local = new Provider();
                 dummy = linie.split("[,]+");
                 local.setCompany(dummy[0]);
                 local.setIBAN(dummy[1]);
                 local.setBalance(Double.parseDouble(dummy[2]));
                 local.setCurrency(dummy[3]);
-                providerDBList.add(local);
+                providerList.add(local);
             }
-            ToProviders.addProvider(providerDBList);
+            ToProviders.addProvider(providerList);
         } catch (IOException e) {
-            System.out.println("Eroare la citirea din fisierul ProviderDB.csv.");
-        } catch (ProviderDBException e) {
-            System.out.println("Eroare la prelucararea informatiilor din ProviderDB.csv");
+            System.out.println("Eroare la citirea din fisierul Provider.csv.");
+        } catch (ProviderException e) {
+            System.out.println("Eroare la prelucararea informatiilor din Provider.csv");
         }
     }
 
@@ -273,7 +272,7 @@ public class ReaderFiles {
             BufferedWriter cardWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Card.csv"));
             BufferedWriter clientWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Client.csv"));
             BufferedWriter loanWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Loan.csv"));
-            BufferedWriter providerDBWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\ProviderDB.csv"));
+            BufferedWriter providerDBWriter = new BufferedWriter(new FileWriter(RESOURCES_FOLDER + "\\Provider.csv"));
             bankWriter.write(bank.bankReaderUpdate());
             for (String x : bank.bankAccountReaderUpdate())
                 bankAccountWriter.write(x);
@@ -281,7 +280,7 @@ public class ReaderFiles {
                 cardWriter.write(x);
             for (String x : bank.clientReaderUpdate())
                 clientWriter.write(x);
-            for (String x : ToProviders.toProviderReaderUpdate())
+            for (String x : ToProviders.toProvidersReaderUpdate())
                 providerDBWriter.write(x);
             for (String x : bank.loanReaderUpdate())
                 loanWriter.write(x);

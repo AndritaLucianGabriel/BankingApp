@@ -4,8 +4,9 @@ import service.CurrencyExchange;
 import operations.ToProviders;
 import operations.Transaction;
 import operations.Transfer;
+import service.dbResources.service.BankService;
 import service.exceptions.BankAccountException;
-import service.exceptions.ProviderDBException;
+import service.exceptions.ProviderException;
 import service.exceptions.TransactionException;
 import service.Timestamp;
 import service.FormatDouble;
@@ -38,7 +39,6 @@ public abstract class BankAccount {
         this.cardList = new ArrayList<>();
     }
 
-    //Constructor pentru pentru conturi fara carduri
     public BankAccount(String IBAN, String openingDate, String closingDate, double balance, String currency) throws BankAccountException {
         BankAccountValidation.validateIBAN(IBAN);
         BankAccountValidation.validateOpeningDate(openingDate);
@@ -56,7 +56,6 @@ public abstract class BankAccount {
         this.cardList = new ArrayList<>();
     }
 
-    //Constructor pentru pentru conturi cu carduri
     public BankAccount(String IBAN, String openingDate, String closingDate, double balance, String currency, List<Card> cardList) throws BankAccountException {
         BankAccountValidation.validateIBAN(IBAN);
         BankAccountValidation.validateOpeningDate(openingDate);
@@ -74,7 +73,6 @@ public abstract class BankAccount {
         this.cardList = cardList;
     }
 
-    //Getteri & Setteri
     public static int getCounterBankAccountID() {
         return counterBankAccountID;
     }
@@ -154,13 +152,13 @@ public abstract class BankAccount {
 
     public abstract void setAnnualInterestRate(double annualInterestRate) throws BankAccountException;
 
-    //Functii manipulare carduri
     protected void addCard(Card card) {
         Timestamp.timestamp("BankAccount,addCard");
         if (cardList.contains(card))
             System.out.println("Cardul " + card.cardNumber + "exista deja.");
-        else
+        else {
             cardList.add(card);
+        }
     }
 
     protected void removeCard(Card card) {
@@ -171,7 +169,6 @@ public abstract class BankAccount {
             cardList.remove(card);
     }
 
-    //Functii manipulare sold
     protected void withdraw(double value) throws TransactionException {
         Timestamp.timestamp("BankAccount,withdraw");
         Transaction transaction = new Transfer(this.IBAN, this.balance, this.currency);
@@ -184,22 +181,22 @@ public abstract class BankAccount {
         this.balance = transaction.deposit(value);
     }
 
-    protected void paymentUtilies(String IBAN, double value) throws ProviderDBException, TransactionException {
+    protected void paymentUtilies(String IBAN, double value) throws ProviderException, TransactionException {
         Timestamp.timestamp("BankAccount,paymentUtilies");
         System.out.print(" a virat " + FormatDouble.format(value) + " " + this.currency + " din contul " + this.IBAN);
         this.transaction = ToProviders.getInstance(this.IBAN, this.balance, this.currency);
         this.balance = transaction.paymentUtilities(IBAN, value);
     }
 
-    //Functie de schimbare a valutei
     protected void currencyExchange(String wantedCurrency) {
         Timestamp.timestamp("BankAccount,currencyExchange");
         Pair<Double, String> doubleStringPair = CurrencyExchange.exchangeBankAccount(this.balance, this.currency, wantedCurrency);
         this.balance = doubleStringPair.getKey();
         this.currency = doubleStringPair.getValue();
+        BankService.getInstance().setBalance(this.balance, this.IBAN);
+        BankService.getInstance().setCurrency(this.currency, this.IBAN);
     }
 
-    //Functie ce va ajuta la update-ul fisierelor de intrare
     protected abstract String bankAccountReaderUpdate();
 
     @Override

@@ -26,7 +26,6 @@ public class Card {
         this.issueDate = issueDate;
     }
 
-    //Getteri & Setteri
     public String getCardNumber() {
         return cardNumber;
     }
@@ -54,7 +53,6 @@ public class Card {
         this.issueDate = issueDate;
     }
 
-    //Functie ce va ajuta la update-ul fisierelor de intrare
     protected String cardReaderUpdate() {
         Timestamp.timestamp("Card,cardReaderUpdate");
         return this.cardNumber + "," + this.PIN + "," + this.issueDate;

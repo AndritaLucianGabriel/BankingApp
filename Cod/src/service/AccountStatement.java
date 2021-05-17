@@ -7,14 +7,12 @@ import java.time.LocalDate;
 
 public interface AccountStatement {
 
-    //Functii de filtrare al tranzactiilor
     default void balanceCheck(double value, String currency) {
         Timestamp.timestamp("AccountStatement,balanceCheck");
         System.out.println("Contul are " + FormatDouble.format(value) + " " + currency);
     }
 
-    default String myTypeOfDateSinceThereIsNoWayToDoItProperly(String date) //18-09-2021 -> 2021-09-18
-    {
+    default String myTypeOfDateSinceThereIsNoWayToDoItProperly(String date) {
         Timestamp.timestamp("AccountStatement,myTypeOfDateSinceThereIsNoWayToDoItProperly");
         String[] local = date.split("-");
         return local[2] + "-" + local[1] + "-" + local[0];
@@ -93,7 +91,7 @@ public interface AccountStatement {
         LocalDate parsedStartDate = LocalDate.parse(myTypeOfDateSinceThereIsNoWayToDoItProperly(startDate));
         LocalDate parsedStopDate = LocalDate.parse(myTypeOfDateSinceThereIsNoWayToDoItProperly(stopDate));
         switch (sign) {
-            case ("><"): { //parsedDate > startDate && parsedDate < stopDate
+            case ("><"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedStartDate) > 0 && x.getTimestamp().compareTo(parsedStopDate) < 0) {
                         text.append(showTransaction(x));
@@ -101,7 +99,7 @@ public interface AccountStatement {
                 }
                 break;
             }
-            case ("><="): { //parsedDate > startDate && parsedDate <= stopDate
+            case ("><="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedStartDate) > 0 && x.getTimestamp().compareTo(parsedStopDate) <= 0) {
                         text.append(showTransaction(x));
@@ -109,7 +107,7 @@ public interface AccountStatement {
                 }
                 break;
             }
-            case (">=<"): { //parsedDate >= startDate && parsedDate < stopDate
+            case (">=<"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedStartDate) >= 0 && x.getTimestamp().compareTo(parsedStopDate) < 0) {
                         text.append(showTransaction(x));
@@ -118,7 +116,7 @@ public interface AccountStatement {
                 break;
             }
 
-            case (">=<="): { //parsedDate >= startDate && parsedDate <= stopDate
+            case (">=<="): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedStartDate) >= 0 && x.getTimestamp().compareTo(parsedStopDate) <= 0) {
                         text.append(showTransaction(x));
@@ -127,7 +125,7 @@ public interface AccountStatement {
                 break;
             }
 
-            case ("<>"): { //parsedDate < startDate && parsedDate > stopDate -> sa nu se afle in interval
+            case ("<>"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (x.getTimestamp().compareTo(parsedStartDate) < 0 && x.getTimestamp().compareTo(parsedStopDate) > 0) {
                         text.append(showTransaction(x));
@@ -188,7 +186,7 @@ public interface AccountStatement {
                 break;
             }
 
-            case ("<>"): { //diferit
+            case ("<>"): {
                 for (Transaction x : ReaderFiles.getInstance().readerAccountStatement(IBAN)) {
                     if (Math.abs(x.getValue()) != value) {
                         text.append(showTransaction(x));

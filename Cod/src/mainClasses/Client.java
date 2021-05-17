@@ -31,7 +31,6 @@ public class Client {
         this.cnp = cnp;
     }
 
-    //getteri
     public String getFirstName() {
         return this.firstName;
     }
@@ -48,7 +47,6 @@ public class Client {
         return this.cnp;
     }
 
-    //setteri
     public void setFirstName(String firstName) throws ClientException {
         ClientValidation.validateFirstName(firstName);
         this.firstName = firstName;
@@ -69,7 +67,6 @@ public class Client {
         this.cnp = cnp;
     }
 
-    //Functie ce va ajuta la update-ul fisierelor de intrare
     protected String clientReaderUpdate() {
         Timestamp.timestamp("Client,clientReaderUpdate");
         return this.firstName + "," + this.lastName + "," + this.age + "," + this.cnp;
@@ -95,7 +92,6 @@ public class Client {
 
     @Override
     public String toString() {
-        //verificare nume si chestii din service
         StringBuilder c;
         c = new StringBuilder();
         c.append("\t").append(this.firstName).append(" ").append(this.lastName).append(" in varsta de ").append(this.age).append(" ani, CNP: ").append(this.cnp);

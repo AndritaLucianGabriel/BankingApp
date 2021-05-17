@@ -1,5 +1,6 @@
 package operations;
 
+import service.dbResources.service.BankService;
 import service.exceptions.TransactionException;
 import service.Timestamp;
 import service.files.WriterFiles;
@@ -18,6 +19,8 @@ public class Transfer extends Transaction {
         Timestamp.timestamp("Transfer,withdraw");
         this.tradeValue = -value;
         WriterFiles.getInstance().writerAccountStatement(this);
+        BankService.getInstance().create(this);
+        BankService.getInstance().setBalance(this.value - value, this.getIBAN());
         return this.value -= value;
     }
 
@@ -25,6 +28,8 @@ public class Transfer extends Transaction {
         Timestamp.timestamp("Transfer,withdraw");
         this.tradeValue = value;
         WriterFiles.getInstance().writerAccountStatement(this);
+        BankService.getInstance().create(this);
+        BankService.getInstance().setBalance(this.value + value, this.getIBAN());
         return this.value += value;
     }
 

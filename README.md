@@ -1,20 +1,20 @@
 # BankingApp
 ## **Operations Package**
-#### *1. ProviderDB*
+#### *1. Provider*
  The class stores information about the registered providers at the bank.
-   1. providerDBReaderUpdate()
+   1. providerReaderUpdate()
        > Method that is used to update the reader file for the providers.
 #### *2. ToProviders*
  Derived singleton class from *Transaction* that oversees the transfer of funds to one of the providers.
-   1. addProvider(ProviderDB providerDB)
+   1. addProvider(Provider rovider)
        > Method allows the addition of a new provider.
-   2. addProvider(List<ProviderDB> providerDBList)
+   2. addProvider(List<Provider> ProviderList)
        > Method allows the addition of a new list of providers.
-   3. removeProvider(ProviderDB providerDB)
+   3. removeProvider(Provider provider)
        > Method allows the removal of a privder.
    4. removeProvider(String IBAN)
        > Method allows the removal of a privder based on the bank account's IBAN.
-   5. toProviderReaderUpdate()
+   5. toProvidersReaderUpdate()
        > Method that is used to update the reader file for the providers.
    6. anotherToString()
        > Method that is used to update the reader file for the providers.
@@ -34,6 +34,147 @@
        > Method that withdraws an amount from the account and updates its balance.
    2. deposit(double value)
        > Method that deposits an amount to the account and updates its balance.
+## **Repository Packge**
+#### *1. BankAccountRepository*
+ The methods of this class will be used in all the CRUD operations of the project keeping the DB up-to-date.
+   1. getConnection()
+       > Method that provides the connection's information to the MySQL DB.
+   2. create(BankAccount bankAccount)
+       > Method that creates a new entry in the DB for a bank account.
+   3. create(BankAccount bankAccount, String cnp)
+       > Method that creates a new entry in the DB for a bank account while assigning it to a client (via FK).
+   4. read()
+       > Method that retrieves all the information about the bank accounts in the DB.
+   5. read(String IBAN)
+       > Method that retrieves one bank account (via PK) in the DB.
+   6. readByFK(String cnp)
+       > Method that retrieves all the bank accounts of a given client (via FK) in the DB.
+   7. update(BankAccount bankAccount)
+       > Method that updates the information of a given bank account in the DB.
+   8. update(String IBAN, String cnp)
+       > Method that assigns the given account (via PK) to a new client (via FK) in the DB.
+   9. setBalance(double balance, String IBAN)
+       > Method that updates the balance of a given bank account (via PK).
+   10. setCurrency(String currency, String IBAN)
+       > Method that updates the currency of a given bank account (via PK).
+   11. delete()
+       > Method that deletes all the information about the bank accounts in the DB.
+   12. delete(String IBAN)
+       > Method that deletes a given bank account (via PK) in the DB.
+   13. deleteByFK(String FK)
+       > Method that deletes all the bank accounts of given client (via FK).
+#### *2. BankRepository*
+ The methods of this class will be used in all the CRUD operations of the project keeping the DB up-to-date.
+   1. getConnection()
+       > Method that provides the connection's information to the MySQL DB.
+   2. create(Bank bank)
+       > Method that creates a new entry in the DB for a bank.
+   3. read()
+       > Method that retrieves all the information about all the banks stored in the DB.
+   4. read(int id)
+       > Method that retrieves one bank (via PK) in the DB.
+   5. update(Bank bank)
+       > Method that updates the information of a given bank in the DB.
+   6. delete()
+       > Method that deletes all the information about the banks in the DB.
+   7. delete(int id)
+       > Method that deletes a given bank (via PK) in the DB.
+   8. delete(String name)
+       > Method that deletes all the given brach of a bank in the DB.
+#### *3. CardRepository*
+ The methods of this class will be used in all the CRUD operations of the project keeping the DB up-to-date.
+   1. getConnection()
+       > Method that provides the connection's information to the MySQL DB.
+   2. create(Card card)
+       > Method that creates a new entry in the DB for a card.
+   3. create(Card card, String IBAN)
+       > Method that creates a new entry in the DB for a card while assigning it to a bank account (via FK).
+   4. read()
+       > Method that retrieves all the information about all the card stored in the DB.
+   5. read(String cardNumber)
+       > Method that retrieves one card (via PK) in the DB.
+   6. readByFK(String IBAN)
+       > Method that retrieves all the cards of a given bank account (via FK) in the DB.
+   7. update(Card card)
+       > Method that updates the information of a given card in the DB.
+   8. update(String cardNumber, String IBAN)
+       > Method that assigns the given card (via PK) to a new bank account (via FK) in the DB.
+   9. delete()
+       > Method that deletes all the information about the cards in the DB.
+   10. delete(String cardNumber)
+       > Method that deletes a given card in the DB.
+#### *4. ClientRepository*
+ The methods of this class will be used in all the CRUD operations of the project keeping the DB up-to-date.
+   1. getConnection()
+       > Method that provides the connection's information to the MySQL DB.
+   2. verifyIsThere(Client client)
+       > Method checks the existence of a given client in the DB.
+   3. hasProducts(String cnp) 
+       > Method checks if a given client has bank accounts or loans in the DB.
+   4. create(Client client)
+       > Method that creates a new entry in the DB for a client.
+   5. create(Client client, int bankID)
+       > Method that creates a new entry in the DB for a client while assigning it to a bank (via FK).
+   6. read()
+       > Method that retrieves all the information about all the clients stored in the DB.
+   7. read(String cnp)
+       > Method that retrieves one client (via PK) in the DB.
+   8. readByFK(int bankID)
+       > Method that retrieves all the clients of a given bank (via FK) in the DB.
+   9. update(Client client)
+       > Method that updates the information of a given client in the DB.
+   10. update(String CNP, int bankID)
+       > Method that assigns the given client (via PK) to a new bank (via FK) in the DB.
+   11. delete()
+       > Method that deletes all the information about the clients in the DB.
+   12. delete(String cnp)
+       > Method that deletes a given client in the DB.
+   13. deleteCheckBankAccount(String cnp)
+       > Method that deletes the client from the DB if it has no bank accounts, or deletes only it's loans.
+   14. deleteCheckLoan(String cnp)
+       > Method that deletes the client from the DB if it has no loans, or deletes only it's bank accounts.
+#### *5. LoanRepository*
+ The methods of this class will be used in all the CRUD operations of the project keeping the DB up-to-date.
+   1. getConnection()
+       > Method that provides the connection's information to the MySQL DB.
+   2. create(Loan loan, String cnp)
+       > Method that creates a new entry in the DB for a loan while assigning it to a client (via FK).
+   3. read()
+       > Method that retrieves all the information about all the loans stored in the DB.
+   4. read(String cnp, String date)
+       > Method that retrieves one loan (via PK) in the DB.
+   5. readByFK(String cnp)
+       > Method that retrieves all the loans of a given client (via FK) in the DB.
+   6. updateByFK(Loan loan, String FK)
+       > Method that assigns the given loan to a new client (via FK) in the DB.
+   7. delete()
+       > Method that deletes all the information about the loans in the DB.
+   8. delete(String cnp, String date)
+       > Method that deletes a given loans (via PK) in the DB.
+   9. deleteByFK(String cnp)
+       > Method that deletes all loans of given client in the DB.
+#### *6. ProviderRepository*
+ The methods of this class will be used in all the CRUD operations of the project keeping the DB up-to-date.
+   1. getConnection()
+       > Method that provides the connection's information to the MySQL DB.
+   2. create(Provider provider)
+       > Method that creates a new entry in the DB for a provider.
+   3. read()
+       > Method that retrieves all the information about all the providers stored in the DB.
+   4. read(String IBAN)
+       > Method that retrieves one provider (via PK) in the DB.
+   5. update(Provider provider)
+       > Method that updates the information of a given provider in the DB.
+   6. delete()
+       > Method that deletes all the information about the providers in the DB.
+   7. delete(String IBAN)
+       > Method that deletes a given provider in the DB.
+#### *7. TransactionRepository*
+ The methods of this class will be used in all the CRUD operations of the project keeping the DB up-to-date.
+   1. getConnection()
+       > Method that provides the connection's information to the MySQL DB.
+   2. create(Transaction transaction)
+       > Method that creates a new entry in the DB for a transaction.
 ## **Service Packge**
 #### *1. AccountStatement*
  Interface that will provide functionalities to select specific transactions.
@@ -82,6 +223,24 @@
  Interface that will provide a timestamp of each function and store it in Service/Files/Resources/Logs
    1. timestamp(String text)
        > Method that will create the timestamp and store it in Logs.csv file.
+## **DBResources SubPackage**
+#### *1. CreateTables.sql*
+ In this file there is the syntax needed for the actual creation of the DB.
+### **Service SubSubPackage**
+#### *1. BankAccountService*
+ Service class that has the same methods as the repository class and will have all the methods protected and can only be used via BankService.
+#### *2. BankService*
+ Main singleton service class for all the DB related operations and will contain all the methods from the equivalent repostory class and the special ones regarding loans and bank accounts.
+#### *3. CardService*
+ Service class that has the same methods as the repository class and will have all the methods protected and can only be used via BankService.
+#### *4. ClientService*
+ Service class that has the same methods as the repository class and will have all the methods protected and can only be used via BankService.
+#### *5. LoanService*
+ Service class that has the same methods as the repository class and will have all the methods protected and can only be used via BankService.
+#### *6. ProviderService*
+ Service class that has the same methods as the repository class and will have all the methods protected and can only be used via BankService.
+#### *7. TransactionService*
+ Service class that has the same methods as the repository class and will have all the methods protected and can only be used via BankService.
 ## **Exceptions SubPackage**
 #### *1. BankAccountException*
  Exception class for the BankAccount class.
@@ -103,9 +262,9 @@
  Exception class for the Loan class.
    1. LoanException(String text)
        > Method that will throw a custom exception based on given text.
-#### *6. ProviderDBException*
- Exception class for the ProviderDB class.
-   1. ProviderDBException(String text)
+#### *6. ProviderException*
+ Exception class for the Provider class.
+   1. ProviderException(String text)
        > Method that will throw a custom exception based on given text.
 #### *7. TransactionException*
  Exception class for the Transaction class.
@@ -124,7 +283,7 @@
        > Method that will read all the clients from a reader file.
    5. readerLoan(List<Client> clientList)
        > Method that will read the loans' information from a reader file based on a list of clients.
-   6. readerProviderDB()
+   6. readerProvider()
        > Method that will read all the providers from a reader file.
    7. readerAccountStatement(String IBAN)
        > Method that will read all the transactions from a reader file in order to process it and return a sorted list of transaction based on their values.
@@ -153,8 +312,10 @@
  Service class that checks all the clients' information to match the specific template and reduce the chance to insert faulty data. 
 #### *5. LoanValidation*
  Service class that checks all the loans' information to match the specific template and reduce the chance to insert faulty data. 
-#### *6. ToProvidersValidation*
+#### *6. ProviderValidation*
  Service class that checks all the providers' information to match the specific template and reduce the chance to insert faulty data. 
+#### *7. TransactionValidation*
+ Service class that checks all the transactions' information to match the specific template and reduce the chance to insert faulty data. 
 ## **MainClasses**
 #### *1. Bank*
  The class stores details like the bank's name and location and uses two maps to store the information regarding its clients, their bank accounts and loans.
@@ -218,11 +379,11 @@
        > Method that allows a client to pay more than one of their monthly installments using one of their bank accounts. The method recalculates the remaining loan and creates a new monthly installment and reduces the period of the loan.
    30. payLoan(BankAccount bankAccount, Loan loan)
        > Method that allows a client to pay exactly one of their monthly installments using one of their bank accounts. The method recalculates the remaining loan and creates a new monthly installment and reduces the period of the loan.
-   31. addProvider(ProviderDB providerDB)
+   31. addProvider(Provider provider)
        > Method that adds a new provider in the bank's database.
-   32. addProvider(List<ProviderDB> providerDBList)
+   32. addProvider(List<Provider> providerList)
        > Method that adds a list of new providers in the bank's database.
-   33. removeProvider(ProviderDB providerDB)
+   33. removeProvider(Provider provider)
        > Method that removes a provider from the bank's database.
    34. removeProvider(String IBAN)
        > Method that removes a provider from the bank's database based on their IBAN.
@@ -270,9 +431,9 @@
  The class stores information the clients' loans at the bank.
    1. valueMonthlyRate()
        > Method that calculates the monthly installment.
-   2. payMonthlyRate(double value)
+   2. payMonthlyRate(double value, String cnp)
        > Method that allows the client to pay more than their monthly installment, recalculating the new monthly installment and reducing the period of time by 1 month.
-   3. payMonthlyRate()
+   3. payMonthlyRate(String cnp)
        > Method that allows the client to pay exactly their monthly installment.
    4. loanReaderUpdate()
        > Method that is used to update the reader file for the loans.

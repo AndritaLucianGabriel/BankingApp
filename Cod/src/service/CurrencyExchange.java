@@ -1,10 +1,10 @@
 package service;
 
 import javafx.util.Pair;
+import service.dbResources.service.BankService;
 
 import java.util.Objects;
 
-//RIP tentativa de API
 public interface CurrencyExchange {
     String[] currency = {"Lei", "Dolari", "Euro"};
     //Rates @ 25-03-2021 14:41
@@ -23,7 +23,6 @@ public interface CurrencyExchange {
         return local;
     }
 
-    //baza pentru transfer intre conturi cu currency diferit
     static Pair<Double, String> exchangeBankAccount(double value, String baseCurrency, String wantedCurrency) {
         Timestamp.timestamp("CurrencyExchange,exchangeBankAccount");
         Integer[] local = searchByCurrency(baseCurrency, wantedCurrency);

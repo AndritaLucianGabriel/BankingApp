@@ -2,7 +2,7 @@ package mainClasses;
 
 import service.CurrencyExchange;
 import service.exceptions.BankAccountException;
-import service.exceptions.ProviderDBException;
+import service.exceptions.ProviderException;
 import service.exceptions.TransactionException;
 import service.Timestamp;
 import service.FormatDouble;
@@ -11,7 +11,6 @@ import service.validations.BankAccountValidation;
 import java.util.List;
 import java.util.Objects;
 
-//orice fel de retragere de bani din cont, se va pierde 10% din dobanda oferita si se va taxa contul cu 1 euro
 public class SavingsAccount extends BankAccount {
     protected double annualInterestRate;
 
@@ -48,7 +47,6 @@ public class SavingsAccount extends BankAccount {
         this.annualInterestRate = 0;
     }
 
-    //Getteri & Setteri
     public double getAnnualInterestRate() {
         return annualInterestRate;
     }
@@ -58,7 +56,6 @@ public class SavingsAccount extends BankAccount {
         this.annualInterestRate = annualInterestRate;
     }
 
-    //Functie care efectueaza penalizarea
     protected void penalty() {
         Timestamp.timestamp("SavingsAccount,penalty");
         System.out.print("\tPenalizare: \n ~Interest: " + FormatDouble.format(this.annualInterestRate) + " -> ");
@@ -68,7 +65,6 @@ public class SavingsAccount extends BankAccount {
         System.out.println(FormatDouble.format(super.balance) + " " + super.currency);
     }
 
-    //Functi ce va face update-ul fisierelor de intrare
     protected String bankAccountReaderUpdate() {
         Timestamp.timestamp("SavingsAccount,bankAccountReaderUpdate");
         return this.IBAN + "," + this.openingDate + "," + this.closingDate + "," + FormatDouble.format(this.balance) + "," + this.currency + "," + FormatDouble.format(this.annualInterestRate);
@@ -82,7 +78,7 @@ public class SavingsAccount extends BankAccount {
     }
 
     @Override
-    protected void paymentUtilies(String IBAN, double value) throws ProviderDBException, TransactionException {
+    protected void paymentUtilies(String IBAN, double value) throws ProviderException, TransactionException {
         Timestamp.timestamp("SavingsAccount,penalty");
         super.paymentUtilies(IBAN, value);
         this.penalty();
